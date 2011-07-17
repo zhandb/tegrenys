@@ -1,9 +1,9 @@
 #ifndef TGBaseDataParser_h__
 #define TGBaseDataParser_h__
 
-#include "..\TGRefCounter.h"
+#include "..\TGSystem\TGRefCounter.h"
 #include <stdint.h>
-#include "..\TGBuffer.h"
+#include "..\TGSystem\TGBuffer.h"
 #include <map>
 
 TG_REFC_PTR(TGBaseDataParser);

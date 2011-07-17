@@ -2,8 +2,8 @@
 #define TGTextLineParser_h__
 
 #include <QObject>
-#include "..\TGRefCounter.h"
-#include "..\TGBuffer.h"
+#include "..\TGSystem\TGRefCounter.h"
+#include "..\TGSystem\TGBuffer.h"
 #include "TGBaseDataParser.h"
 
 struct TGTextRequestLine 

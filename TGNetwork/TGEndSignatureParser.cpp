@@ -1,6 +1,6 @@
 //---------------------------------------------------------------------
 #include "TGEndSignatureParser.h"
-#include "..\TGBufferPool.h"
+#include "..\TGSystem\TGBufferPool.h"
 //---------------------------------------------------------------------
 TGEndSignatureParser::TGEndSignatureParser(QByteArray signature)
 {	

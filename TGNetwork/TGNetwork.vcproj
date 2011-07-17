@@ -387,26 +387,6 @@
 				</File>
 			</Filter>
 		</Filter>
-		<Filter
-			Name="TGBuffers"
-			>
-			<File
-				RelativePath="..\TGBuffer.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\TGBuffer.h"
-				>
-			</File>
-			<File
-				RelativePath="..\TGBufferPool.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\TGBufferPool.h"
-				>
-			</File>
-		</Filter>
 	</Files>
 	<Globals>
 		<Global

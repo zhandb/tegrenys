@@ -8,8 +8,8 @@
 #include "windows.h"
 #include <stdint.h>
 #include "qdatetime.h"
-#include "..\TGBuffer.h"
-#include "..\TGBufferPool.h"
+#include "..\TGSystem\TGBuffer.h"
+#include "..\TGSystem\TGBufferPool.h"
 
 //------------------------------------------------------
 typedef std::list<PTGBuffer> TGSocketBuffersList;
