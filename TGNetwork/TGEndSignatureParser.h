@@ -32,9 +32,14 @@ private:
 	uint32_t SignatureCounter;
 	
 protected:
-	void ParseRequest(PTGBuffer buffer);
-	virtual void ProcessRequest(PTGTextLineRequest request);
+	//void ParseRequest(PTGBuffer buffer);
+	virtual void ProcessRequest();
 	virtual void OnDataReceived(TGDataFragment data_fragment);
+	//Ишем окончание сигнатуры (или полную сигнатуру в текущем фрагменте
+	//если найдено - возращаем количество байт, включая сигнатуру, иначе -1
+	int SearchForSignature(TGDataFragment data_fragment);
+	//Удаляем количество байт, равное длине сигнатуры
+	void RemoveSignature();
 };
 
 TG_REFC_PTR(TGEndSignatureParser);

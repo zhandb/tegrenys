@@ -3,7 +3,7 @@
 //---------------------------------------------------------------------
 TGBoundaryParser::TGBoundaryParser() : TGEndSignatureParser("--WINBONDBOUDARY\r\n")
 {
-	ParsersMap[content_type_id] = new TGContentTypeParser();
+	ContentTypeParser = new TGContentTypeParser();
 }
 //---------------------------------------------------------------------
 TGBoundaryParser::~TGBoundaryParser()
@@ -11,7 +11,15 @@ TGBoundaryParser::~TGBoundaryParser()
 
 }
 //---------------------------------------------------------------------
-void TGBoundaryParser::ProcessRequest(PTGTextLineRequest request)
+void TGBoundaryParser::ProcessRequest()
 {
-	CurrentParserID = content_type_id;
+	ParserDataList;
+	
+	//—юда приходит список фрагментов, содержащий contenttype и сами данные, 
+	//всегда один целостный пакет. 
+
+	for (TGDataFragmentList::iterator data = ParserDataList.begin(); data != ParserDataList.end(); ++data)
+	{
+		ContentTypeParser->ReceiveData(*data);
+	}
 }

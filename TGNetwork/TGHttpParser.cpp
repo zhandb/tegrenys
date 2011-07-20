@@ -4,7 +4,7 @@
 //---------------------------------------------------------------------
 TGHttpParser::TGHttpParser() : TGEndSignatureParser("\r\n\r\n")
 {
-	ParsersMap[boundary_id] = new TGBoundaryParser();
+	BoundaryParser = new TGBoundaryParser();
 }
 //---------------------------------------------------------------------
 TGHttpParser::~TGHttpParser()
@@ -12,7 +12,15 @@ TGHttpParser::~TGHttpParser()
 
 }
 //---------------------------------------------------------------------
-void TGHttpParser::ProcessRequest(PTGTextLineRequest request)
+void TGHttpParser::ProcessRequest()
 {
-	CurrentParserID = boundary_id;
+	Bypass = true;
+}
+//---------------------------------------------------------------------
+void TGHttpParser::OnDataReceived(TGDataFragment data_fragment)
+{
+	if (Bypass)
+		BoundaryParser->ReceiveData(data_fragment);
+	else
+		TGEndSignatureParser::OnDataReceived(data_fragment);
 }

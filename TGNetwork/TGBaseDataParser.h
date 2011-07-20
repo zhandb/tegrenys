@@ -36,8 +36,10 @@ public:
 protected:
 	virtual void OnDataReceived(TGDataFragment data_fragment);
 protected:
-	TGParsersMap ParsersMap;
-	uint32_t CurrentParserID;
+	//TGParsersMap ParsersMap;
+	//uint32_t CurrentParserID;
 	TGDataFragmentList ParserDataList;
+	//передаем данные далее без анализа
+	bool Bypass;
 };
 #endif // TGBaseDataParser_h__

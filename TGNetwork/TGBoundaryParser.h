@@ -12,7 +12,11 @@ public:
 	~TGBoundaryParser();
 
 protected:
-	virtual void ProcessRequest(PTGTextLineRequest request);
+	virtual void ProcessRequest();
+private:
+	PTGEndSignatureParser ContentTypeParser;
 };
+
+TG_REFC_PTR(TGBoundaryParser)
 
 #endif // TGBoundaryParser_h__

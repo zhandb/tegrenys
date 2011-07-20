@@ -11,6 +11,10 @@ public:
 	~TGContentTypeParser();
 
 protected:
-	virtual void ProcessRequest(PTGTextLineRequest request);
+	virtual void ProcessRequest();
+	virtual void OnDataReceived(TGDataFragment data_fragment);
 };
+
+TG_REFC_PTR(TGContentTypeParser)
+
 #endif // TGContentTypeParser_h__

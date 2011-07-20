@@ -10,7 +10,21 @@ TGContentTypeParser::~TGContentTypeParser()
 
 }
 //---------------------------------------------------------------------
-void TGContentTypeParser::ProcessRequest(PTGTextLineRequest request)
-{
 
+void TGContentTypeParser::ProcessRequest()
+{
+	ParserDataList;
+	Bypass = true;
+}
+//---------------------------------------------------------------------
+void TGContentTypeParser::OnDataReceived(TGDataFragment data_fragment)
+{
+	if (!Bypass)
+	{
+		TGEndSignatureParser::OnDataReceived(data_fragment);
+	}
+	else
+	{
+		Bypass = false;
+	}
 }
