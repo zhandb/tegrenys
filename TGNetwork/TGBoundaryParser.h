@@ -8,7 +8,7 @@ static uint32_t content_type_id = FOURCC("CNTN");
 class TGBoundaryParser : public TGEndSignatureParser
 {
 public:
-	TGBoundaryParser();
+	TGBoundaryParser(QObject* receiver);
 	~TGBoundaryParser();
 
 protected:
@@ -20,3 +20,4 @@ private:
 TG_REFC_PTR(TGBoundaryParser)
 
 #endif // TGBoundaryParser_h__
+

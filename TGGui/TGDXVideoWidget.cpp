@@ -34,7 +34,7 @@ TGDXVideoWidget::TGDXVideoWidget(QWidget* parent) : TGBaseVideoWidget(parent)
 	//video = PP->GetTexture(video_texture_id);
 
 	
-	startTimer(10);
+	startTimer(40);
 }
 
 TGDXVideoWidget::~TGDXVideoWidget()

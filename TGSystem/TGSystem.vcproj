@@ -4,6 +4,7 @@
 	Version="8,00"
 	Name="TGSystem"
 	ProjectGUID="{03CA8068-7537-4321-AA2D-F3A04B67D37F}"
+	RootNamespace="TGSystem"
 	Keyword="Qt4VSv1.0"
 	>
 	<Platforms>
@@ -37,7 +38,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories=".\GeneratedFiles;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);.\"
+				AdditionalIncludeDirectories=".\GeneratedFiles;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);.\;&quot;$(QTDIR)\include\QtCore&quot;"
 				PreprocessorDefinitions=",UNICODE,QT_LARGEFILE_SUPPORT,QT_THREAD_SUPPORT,QT_NO_DEBUG,NDEBUG,TGSYSTEM_LIB"
 				RuntimeLibrary="2"
 				TreatWChar_tAsBuiltInType="false"

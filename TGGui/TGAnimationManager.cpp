@@ -1,6 +1,6 @@
 #include "TGAnimationManager.h"
 #include "TGSqliteQuery.h"
-#include <stdint.h>
+//#include <stdint.h>
 //---------------------------------------------------------------------
 TGAnimationManager::TGAnimationManager()
 {

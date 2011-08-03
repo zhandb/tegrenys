@@ -24,7 +24,7 @@ TG_REFC_PTR(TGTextLineRequest);
 class TGEndSignatureParser : public TGBaseDataParser
 {
 public:
-	TGEndSignatureParser(QByteArray signature);
+	TGEndSignatureParser(QObject* receiver, QByteArray signature);
 	~TGEndSignatureParser();
 	void SetSignature(QByteArray signature);
 private:
@@ -34,7 +34,7 @@ private:
 protected:
 	//void ParseRequest(PTGBuffer buffer);
 	virtual void ProcessRequest();
-	virtual void OnDataReceived(TGDataFragment data_fragment);
+	virtual void OnDataReceived(TGDataFragmentList& data_fragments);
 	//»шем окончание сигнатуры (или полную сигнатуру в текущем фрагменте
 	//если найдено - возращаем количество байт, включа€ сигнатуру, иначе -1
 	int SearchForSignature(TGDataFragment data_fragment);

@@ -161,9 +161,9 @@ void TGSocket::Poll()
 				{
 					if (!s) break;
 
-					char c[100];
+					/*char c[100];
 					sprintf_s(c, 100, "Read %i\r\n", s);
-					OutputDebugStringA(c);
+					OutputDebugStringA(c);*/
 					buffer->Allocate(s);
 
 					emit DataReceived(buffer);

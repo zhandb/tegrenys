@@ -4,6 +4,7 @@
 	Version="8,00"
 	Name="TGNetwork"
 	ProjectGUID="{F5841008-1B2E-47C9-B119-ECE231BC8351}"
+	RootNamespace="TGNetwork"
 	Keyword="Qt4VSv1.0"
 	>
 	<Platforms>
@@ -54,9 +55,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="qtmain.lib QtCore4.lib"
+				AdditionalDependencies="qtmain.lib QtCore4.lib ws2_32.lib tgsystem.lib "
 				OutputFile="$(OutDir)\$(ProjectName).dll"
-				AdditionalLibraryDirectories="$(QTDIR)\lib"
+				AdditionalLibraryDirectories="$(QTDIR)\lib; $(OutDir)\"
 				GenerateDebugInformation="false"
 				SubSystem="2"
 			/>
@@ -126,7 +127,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="qtmaind.lib QtCored4.lib ws2_32.lib tgsystem.lib"
+				AdditionalDependencies="qtmaind.lib QtCored4.lib ws2_32.lib tgsystem.lib "
 				OutputFile="$(OutDir)\$(ProjectName).dll"
 				AdditionalLibraryDirectories="$(QTDIR)\lib; $(OutDir)\"
 				GenerateDebugInformation="true"

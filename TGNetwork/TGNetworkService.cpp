@@ -1,5 +1,6 @@
 #include "TGNetworkService.h"
 #include "TGHttpParser.h"
+#include "..\TGCodec\tgcodec.h"
 //---------------------------------------------------------------------
 TGNetworkService::TGNetworkService() : QThread()
 {
@@ -9,8 +10,10 @@ TGNetworkService::TGNetworkService() : QThread()
 	IOCompletionPortHandle = NULL;
 
 	Socket = new TGSocket();
-	TLP = new TGHttpParser();
+	TLP = new TGHttpParser(NULL);
 
+	//TGCodec codec;
+	
 	connect(Socket, SIGNAL(SocketConnected()), this, SLOT(OnSocketConnected()));
 	connect(Socket, SIGNAL(SocketDisconnected()), this, SLOT(OnSocketDisconnected()));
 	connect(Socket, SIGNAL(DataReceived(PTGBuffer)), this, SLOT(OnDataReceived(PTGBuffer)));
@@ -96,7 +99,7 @@ void TGNetworkService::OnDataReceived(PTGBuffer data)
 {
 	//file.write(data->GetConstData(), data->GetDataSize());
 
-	TLP->ReceiveData(TGDataFragment(0, data, data->GetDataSize()));
+	TLP->ReceiveData(TGDataFragmentList(0, data, data->GetDataSize()));
 }
 //---------------------------------------------------------------------
 void TGNetworkService::OnSocketDisconnected()

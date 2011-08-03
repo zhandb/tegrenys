@@ -6,7 +6,7 @@
 #include <winsock2.h>
 
 #include "windows.h"
-#include <stdint.h>
+//#include <stdint.h>
 #include "qdatetime.h"
 #include "..\TGSystem\TGBuffer.h"
 #include "..\TGSystem\TGBufferPool.h"

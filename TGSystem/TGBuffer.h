@@ -2,7 +2,7 @@
 #define TGBuffer_h__
 //---------------------------------------------------------------------
 #include "TGRefCounter.h"
-#include <stdint.h>
+//#include <stdint.h>
 #include <QByteArray>
 #include <QMetaType>
 //---------------------------------------------------------------------

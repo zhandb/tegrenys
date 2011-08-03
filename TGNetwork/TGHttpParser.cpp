@@ -2,9 +2,10 @@
 #include "TGHttpParser.h"
 #include "TGBoundaryParser.h"
 //---------------------------------------------------------------------
-TGHttpParser::TGHttpParser() : TGEndSignatureParser("\r\n\r\n")
+TGHttpParser::TGHttpParser(QObject* receiver) : TGEndSignatureParser(receiver, "\r\n\r\n")
 {
-	BoundaryParser = new TGBoundaryParser();
+	BoundaryParser = new TGBoundaryParser(receiver);
+	Bypass = false;
 }
 //---------------------------------------------------------------------
 TGHttpParser::~TGHttpParser()
@@ -14,13 +15,15 @@ TGHttpParser::~TGHttpParser()
 //---------------------------------------------------------------------
 void TGHttpParser::ProcessRequest()
 {
+	//ѕервым пакетом приходит заголовок Http, его можно обработать здесь
+	//дальнейшие данные передаем в BoundaryParser
 	Bypass = true;
 }
 //---------------------------------------------------------------------
-void TGHttpParser::OnDataReceived(TGDataFragment data_fragment)
+void TGHttpParser::OnDataReceived(TGDataFragmentList& data_fragments)
 {
 	if (Bypass)
-		BoundaryParser->ReceiveData(data_fragment);
+		BoundaryParser->ReceiveData(data_fragments);
 	else
-		TGEndSignatureParser::OnDataReceived(data_fragment);
+		TGEndSignatureParser::OnDataReceived(data_fragments);
 }

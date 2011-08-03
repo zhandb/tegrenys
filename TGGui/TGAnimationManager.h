@@ -3,7 +3,7 @@
 
 #include "TGRefCounter.h"
 #include "TGBaseTextureManager.h"
-#include <stdint.h>
+//#include <stdint.h>
 
 struct TGAnimationPhase
 {

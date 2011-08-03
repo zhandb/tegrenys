@@ -109,7 +109,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories=".\GeneratedFiles;&quot;$(QTDIR)\include&quot;;&quot;.\GeneratedFiles\$(ConfigurationName)&quot;;&quot;$(QTDIR)\include\qtmain&quot;;&quot;$(QTDIR)\include\QtCore&quot;;.\;ffmpeg\include\libswscale;ffmpeg\include\libavutil;ffmpeg\include\libavformat;ffmpeg\include\libavdevice;ffmpeg\include\libavcodec;ffmpeg\include"
+				AdditionalIncludeDirectories=".\GeneratedFiles;&quot;$(QTDIR)\include&quot;;&quot;.\GeneratedFiles\$(ConfigurationName)&quot;;&quot;$(QTDIR)\include\qtmain&quot;;&quot;$(QTDIR)\include\QtCore&quot;;.\;ffmpeg\include\libswscale;ffmpeg\include\libavutil;ffmpeg\include\libavformat;ffmpeg\include\libavdevice;ffmpeg\include\libavcodec;ffmpeg\include;&quot;c:\Program Files\Intel\ComposerXE-2011\ipp\include\&quot;;jpeg\core\umc\include\;jpeg\core\vm\include\;jpeg\core\vm_plus\include\"
 				PreprocessorDefinitions="UNICODE,QT_LARGEFILE_SUPPORT,QT_THREAD_SUPPORT,QT_CORE_LIB,TGCODEC_LIB"
 				RuntimeLibrary="3"
 				TreatWChar_tAsBuiltInType="false"
@@ -126,9 +126,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="qtmaind.lib QtCored4.lib swscale.lib  avutil.lib avformat.lib avfilter.lib avdevice.lib avcodec.lib"
+				AdditionalDependencies="qtmaind.lib QtCored4.lib swscale.lib avutil.lib avformat.lib avfilter.lib avdevice.lib avcodec.lib vm.lib vm_plus.lib color_space_converter.lib umc.lib jpeg.lib"
 				OutputFile="$(OutDir)\$(ProjectName).dll"
-				AdditionalLibraryDirectories="$(QTDIR)\lib; ffmpeg\lib\"
+				AdditionalLibraryDirectories="&quot;$(QTDIR)\lib&quot;;ffmpeg\lib\;&quot;c:\Program Files\Intel\ComposerXE-2011\ipp\include\&quot;;&quot;c:\Program Files\Intel\ComposerXE-2011\ipp\lib\ia32\&quot;"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="$(IntDir)\$(TargetName).pdb"
 				SubSystem="2"
@@ -212,6 +212,10 @@
 			Filter="moc;h;cpp"
 			UniqueIdentifier="{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}"
 			SourceControlFiles="false"
+			>
+		</Filter>
+		<Filter
+			Name="Jpeg"
 			>
 		</Filter>
 	</Files>

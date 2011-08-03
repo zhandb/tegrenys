@@ -2,7 +2,7 @@
 #include "TGEndSignatureParser.h"
 #include "..\TGSystem\TGBufferPool.h"
 //---------------------------------------------------------------------
-TGEndSignatureParser::TGEndSignatureParser(QByteArray signature)
+TGEndSignatureParser::TGEndSignatureParser(QObject* receiver, QByteArray signature) : TGBaseDataParser(receiver)
 {	
 	SignatureCounter = 0;
 	SetSignature(signature);
@@ -13,43 +13,50 @@ TGEndSignatureParser::~TGEndSignatureParser()
 
 }
 //---------------------------------------------------------------------
-void TGEndSignatureParser::OnDataReceived(TGDataFragment data_fragment)
+void TGEndSignatureParser::OnDataReceived(TGDataFragmentList& data_fragments)
 {
-	int signature_bytes_count = SearchForSignature(data_fragment);
+	TGDataFragmentList::iterator data = data_fragments.begin();
 
-	
-	//TODO: Что если сигнатура встречается несколько раз?
-
-	//Если сигнатура в данном фрагменте не завершена
-	if (signature_bytes_count == -1)
+	while (data != data_fragments.end())
 	{
-		//Сохраним весь фрагмент
-		ParserDataList.push_back(TGDataFragment(data_fragment.StartOffset, data_fragment.Data, data_fragment.Size));
-	}
-	else
-	{
-		//иначе сохраним часть фрагмента, завершающуюся сигнатурой
-		ParserDataList.push_back(TGDataFragment(data_fragment.StartOffset, data_fragment.Data, signature_bytes_count));
+		int signature_bytes_count = SearchForSignature(*data);
 
-		/*PTGBuffer buffer = new TGBuffer();
-		for (TGDataFragmentList::iterator k = ParserDataList.begin(); k != ParserDataList.end(); ++k)
+		//TODO: Что если сигнатура встречается несколько раз?
+		//TODO: Что если данных много, а сигнатуры нет?
+
+		//Если сигнатура в данном фрагменте не завершена или отсутствует
+		if (signature_bytes_count == -1)
 		{
-			buffer->Append(k->StartOffset, k->Data, k->Size);
-		}*/
-		
-		//Уберем сигнатуру из дальнейшей обработки
-		RemoveSignature();
-		//Отработаем данные и избавимся от них
-		ProcessRequest();
-		ParserDataList.clear();
-
-		//Передадим рекурсивно остаток фрагмента на дальнейшую обработку
-
-		int bytes_left = data_fragment.Size - signature_bytes_count;
-		if (bytes_left > 0)
+			//Сохраним весь фрагмент
+			ParserDataList.push_back(*data);
+			data_fragments.pop_front();
+			data = data_fragments.begin();
+		}
+		else
 		{
-			const char* c = data_fragment.Data->GetConstData() + data_fragment.StartOffset + signature_bytes_count;
-			ReceiveData(TGDataFragment(data_fragment.StartOffset + signature_bytes_count, data_fragment.Data, bytes_left));
+			//иначе сохраним часть фрагмента, завершающуюся сигнатурой
+			ParserDataList.push_back(TGDataFragment(data->StartOffset, data->Data, signature_bytes_count));
+
+			//Уберем сигнатуру из дальнейшей обработки
+			RemoveSignature();
+			//Отработаем данные и избавимся от них
+			ProcessRequest();
+			ParserDataList.clear();
+
+			//Передадим рекурсивно остаток фрагмента на дальнейшую обработку
+
+			int bytes_left = data->Size - signature_bytes_count;
+			if (bytes_left > 0)
+			{
+				const char* c = data->Data->GetConstData() + data->StartOffset + signature_bytes_count;
+				data->StartOffset += signature_bytes_count;
+				data->Size = bytes_left;
+
+				ReceiveData(data_fragments);
+			}
+
+			data_fragments.pop_front();
+			data = data_fragments.begin();
 		}
 	}
 }

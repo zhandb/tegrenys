@@ -21,6 +21,7 @@ public:
 	TGLibAvcodec();
 	~TGLibAvcodec();
 	void OpenFile(QString filename);
+	void OpenStream(QByteArray stream);
 	void ReadFrame();
 private:
 	AVStream* VideoStream;

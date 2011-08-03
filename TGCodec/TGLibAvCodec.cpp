@@ -1,6 +1,7 @@
 //---------------------------------------------------------------------
 #include "TGLibAvcodec.h"
 #include <windows.h>
+#include <QFile>
 //---------------------------------------------------------------------
 TGLibAvcodec::TGLibAvcodec()
 {
@@ -112,4 +113,40 @@ void TGLibAvcodec::ReadFrame()
 
 		delete [] frame_buffer;
 	}
+}
+//---------------------------------------------------------------------
+void TGLibAvcodec::OpenStream(QByteArray stream)
+{
+	ByteIOContext bio;
+	QByteArray ba;
+
+	QFile file("c:\\3faces.jpg");
+	file.open(QIODevice::ReadOnly);
+	ba = file.readAll();
+	
+	int e1 = init_put_byte(&bio, (uchar*)ba.constData(), ba.size(), 1, this, NULL, NULL, NULL);
+
+	AVInputFormat* fmt = NULL;
+
+	av_probe_input_buffer(&bio, &fmt, "", 0, 0, ba.size());
+	uchar b[4096 + AVPROBE_PADDING_SIZE];
+	memset(b, 0, sizeof(b));
+	memcpy(b, ba.constData(), 4096);
+	AVProbeData probe_data;
+	probe_data.filename = "555";
+	probe_data.buf_size =  4096; // av_open_input_file tries this many times with progressively larger buffers each time, but this must be enough
+	probe_data.buf = (uchar*)malloc(4096);
+	memcpy(probe_data.buf, ba.constData(), 4096);
+
+	int score;
+	AVInputFormat *ret = av_probe_input_format(&probe_data, 1);
+	// cleanup
+	//free(probe_data.buf);
+	//probe_data.buf = NULL;
+	//return ret;
+
+	//av_open_input_stream(&Context, &bio, "555", NULL, NULL);
+
+
+
 }

@@ -2,7 +2,7 @@
 #define TGBaseDataParser_h__
 
 #include "..\TGSystem\TGRefCounter.h"
-#include <stdint.h>
+//#include <stdint.h>
 #include "..\TGSystem\TGBuffer.h"
 #include <map>
 
@@ -24,22 +24,26 @@ struct TGDataFragment
 	}
 };
 
-typedef std::list<TGDataFragment> TGDataFragmentList;
+struct TGDataFragmentList : public std::list<TGDataFragment> 
+{
+	TGDataFragmentList(){};
+
+	TGDataFragmentList(uint32_t start_offset, PTGBuffer data, uint32_t size)
+	{
+		push_back(TGDataFragment(start_offset, data, size));
+	}
+};
 
 class TGBaseDataParser : public TGReferenceCounter
 {
 public:
-	TGBaseDataParser();
+	TGBaseDataParser(QObject* receiver);
 	~TGBaseDataParser();
-	void PromoteData();
-	void ReceiveData(TGDataFragment data_fragment);
+	void ReceiveData(TGDataFragmentList data_fragments);
 protected:
-	virtual void OnDataReceived(TGDataFragment data_fragment);
+	virtual void OnDataReceived(TGDataFragmentList& data_fragments);
 protected:
-	//TGParsersMap ParsersMap;
-	//uint32_t CurrentParserID;
 	TGDataFragmentList ParserDataList;
-	//передаем данные далее без анализа
-	bool Bypass;
+	QObject* Receiver;
 };
 #endif // TGBaseDataParser_h__
