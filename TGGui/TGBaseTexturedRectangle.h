@@ -9,10 +9,9 @@ class TGBaseTexturedRectangle : public TGBaseRectangle
 public:
 	TGBaseTexturedRectangle(UID texture_id);
 	~TGBaseTexturedRectangle();
-	void SetImage(QImage image);
 	virtual int Add(TGBasePrimitivePainter* painter);
 private:
-	TGBaseTexture* Texture;
+	PTGBaseTexture Texture;
 	UID TextureID;
 };
 

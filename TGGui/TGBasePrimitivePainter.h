@@ -48,7 +48,7 @@ public:
 	void ReleasePrimitiveIndex();
 
 	TGBaseTexture* GetTexture(UID texture_id);
-	UID AddTexture(TGBaseTextureDescriptor descr);
+	PTGBaseTexture AddTexture(PTGBaseTextureDescriptor descr);
 
 	//void RegisterFont(SNBaseFontID font_id, SNFont font);
 

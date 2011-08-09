@@ -128,7 +128,7 @@ TGBaseTexture* TGBasePrimitivePainter::GetTexture(UID texture_id)
 	return TextureManager->GetBaseTexture(texture_id);
 }
 //---------------------------------------------------------------------
-UID TGBasePrimitivePainter::AddTexture(TGBaseTextureDescriptor descr)
+PTGBaseTexture TGBasePrimitivePainter::AddTexture(PTGBaseTextureDescriptor descr)
 {
 	return TextureManager->AddTexture(descr);
 }

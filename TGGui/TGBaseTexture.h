@@ -5,27 +5,69 @@
 #include "TGRefCounter.h"
 
 class TGBaseTexture;
+TG_REFC_PTR(TGBaseTexture)
 
-struct TGBaseTextureDescriptor
+class TGBaseTextureDescriptor : public TGReferenceCounter
 {
-	TGBaseTexture* parent;
-	QString file_name;
+public:
+	enum TGTextureTypes{File, SubTexture, Video};
+	float TX;
+	float TY;
 	QSize texture_size;
+	TGTextureTypes TextureType;
+	TGBaseTextureDescriptor()
+	{
+		TX = 1.0;
+		TY = 1.0;
+	}
+};
+
+TG_REFC_PTR(TGBaseTextureDescriptor)
+
+class TGFileTextureDescriptor : public TGBaseTextureDescriptor
+{
+public:
+	TGFileTextureDescriptor()
+	{
+		TextureType = File;
+	}
+
+public:
+	QString file_name;
+};
+
+
+class TGSubTextureDescriptor : public TGBaseTextureDescriptor
+{
+public:
+	TGSubTextureDescriptor()
+	{
+		TextureType = SubTexture;
+	}
+
+public:
+	PTGBaseTexture parent;
 	QRect sub_texture_rect;
 };
+
+class TGVideoTextureDescriptor : public TGBaseTextureDescriptor
+{
+public:
+	TGVideoTextureDescriptor()
+	{
+		TextureType = Video;
+	}
+};	
 
 class TGBaseTexture : public TGReferenceCounter
 {
 public:
-	TGBaseTexture(TGBaseTextureDescriptor& descr);
+	TGBaseTexture(PTGBaseTextureDescriptor& descr);
 	~TGBaseTexture();
 public:
-	float TX;
-	float TY;
 	
-	TGBaseTextureDescriptor Descr;
+	PTGBaseTextureDescriptor Descr;
 };
 
-TG_REFC_PTR(TGBaseTexture)
 
 #endif // TGBaseTexture_h__

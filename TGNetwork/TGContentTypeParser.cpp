@@ -5,6 +5,8 @@ TGContentTypeParser::TGContentTypeParser(QObject* receiver) : TGEndSignaturePars
 {
 	count = 0;
 	Bypass = false;
+
+	connect(this, SIGNAL(DataReady(TGDataFragmentList&)), receiver, SLOT(OnDataReceived(TGDataFragmentList&)));
 }
 //---------------------------------------------------------------------
 TGContentTypeParser::~TGContentTypeParser()
@@ -22,6 +24,11 @@ void TGContentTypeParser::ProcessRequest()
 void TGContentTypeParser::OnDataReceived(TGDataFragmentList& data_fragments)
 {
 	//ѕервым пакетом приходит ContentType, вторым данные JPEG  так далее
+
+	if (data_fragments.empty())
+		return;
+
+	const char* c = data_fragments.front().Data->GetConstData() + data_fragments.front().StartOffset;
 
 	if (!Bypass)
 	{
@@ -41,5 +48,7 @@ void TGContentTypeParser::OnDataReceived(TGDataFragmentList& data_fragments)
 			file.write(i->Data->GetConstData() + i->StartOffset, i->Size);
 		}
 		file.close();*/
+
+		emit DataReady(data_fragments);
 	}
 }

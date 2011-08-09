@@ -14,7 +14,7 @@ public:
 protected:
 	virtual void InitTexture(TGBaseTexture* texture);
 	virtual void ReleaseTexture(TGBaseTexture* texture);
-	virtual TGBaseTexture* CreateTexture(TGBaseTextureDescriptor& descr);
+	virtual TGBaseTexture* CreateTexture(PTGBaseTextureDescriptor& descr);
 	virtual void SetTextureImage(TGBaseTexture* texture, QImage* image);
 	virtual void SetTextureImage(TGBaseTexture* texture, const uchar* data, const int pitch);
 

@@ -97,14 +97,18 @@ void TGDXPrimitivePainter::Render()
 
 					if (texture)
 					{
-						if (texture->Texture)
+						if (texture->Descr->TextureType == TGBaseTextureDescriptor::File ||
+							texture->Descr->TextureType == TGBaseTextureDescriptor::Video)
 						{
 							next_texture = texture->Texture;
 						}
 						else
 						{
-							if (texture->Descr.parent)
-								next_texture = ((TGDXTexture*)texture->Descr.parent)->Texture;
+							if (texture->Descr->TextureType == TGBaseTextureDescriptor::SubTexture)
+							{
+								TGSubTextureDescriptor* descr = (TGSubTextureDescriptor*)&*texture->Descr;
+								next_texture = ((TGDXTexture*)&*descr->parent)->Texture;
+							}
 						}
 
 						if (next_texture != current_texture)
@@ -169,31 +173,36 @@ void TGDXPrimitivePainter::AddTexturedRectangle(TGPolygonF points, TGBaseTexture
 				InitTexture(dx_texture, dx_texture->Image.size());
 			}*/
 
-			QRect texture_rect = QRect(QPoint(0, 0), texture->Descr.texture_size);
-			QRect sub_texture_rect = texture->Descr.sub_texture_rect;
-			if (texture->Descr.parent)
+			QRect texture_rect = QRect(QPoint(0, 0), texture->Descr->texture_size);
+
+			if (texture->Descr->TextureType == TGBaseTextureDescriptor::SubTexture)
 			{
-				texture = texture->Descr.parent;
-				texture_rect = QRect(QPoint(0, 0), texture->Descr.texture_size);
+				TGSubTextureDescriptor* descr = (TGSubTextureDescriptor*)&*texture->Descr;
+
+				QRect sub_texture_rect = descr->sub_texture_rect;
+				texture = descr->parent;
+				texture_rect = QRect(QPoint(0, 0), descr->texture_size);
+
+				TGDXTexture* dx_texture = (TGDXTexture*)texture;
+
+				float TLeft = dx_texture->Descr->TX * sub_texture_rect.left() / texture_rect.width();
+				float TTop = dx_texture->Descr->TY * sub_texture_rect.top() / texture_rect.height();
+
+				float TRight = dx_texture->Descr->TX * sub_texture_rect.right() / texture_rect.width();
+				float TBottom = dx_texture->Descr->TY * sub_texture_rect.bottom() / texture_rect.height();
+
+				/*AddVertex(polygon[0], QColor(255, 255, 255, 255), 0, 0);
+				AddVertex(polygon[1], QColor(255, 255, 255), dx_texture->TX, 0);
+				AddVertex(polygon[3], QColor(255, 255, 255), 0, dx_texture->TY);
+				AddVertex(polygon[2], QColor(255, 255, 255), dx_texture->TX, dx_texture->TY);*/
+
+				//AddVertex(points[0], QColor(255, 255, 255), TLeft, TBottom);
+				//AddVertex(points[1], QColor(255, 255, 255), TRight, TBottom);
+				//AddVertex(points[2], QColor(255, 255, 255, 255), TLeft, TTop);
+				//AddVertex(points[3], QColor(255, 255, 255), TRight, TTop);
 			}
-
-			TGDXTexture* dx_texture = (TGDXTexture*)texture;
-
-			float TLeft = dx_texture->TX * sub_texture_rect.left() / texture_rect.width();
-			float TTop = dx_texture->TY * sub_texture_rect.top() / texture_rect.height();
-
-			float TRight = dx_texture->TX * sub_texture_rect.right() / texture_rect.width();
-			float TBottom = dx_texture->TY * sub_texture_rect.bottom() / texture_rect.height();
-
-			/*AddVertex(polygon[0], QColor(255, 255, 255, 255), 0, 0);
-			AddVertex(polygon[1], QColor(255, 255, 255), dx_texture->TX, 0);
-			AddVertex(polygon[3], QColor(255, 255, 255), 0, dx_texture->TY);
-			AddVertex(polygon[2], QColor(255, 255, 255), dx_texture->TX, dx_texture->TY);*/
-
-			//AddVertex(points[0], QColor(255, 255, 255), TLeft, TBottom);
-			//AddVertex(points[1], QColor(255, 255, 255), TRight, TBottom);
-			//AddVertex(points[2], QColor(255, 255, 255, 255), TLeft, TTop);
-			//AddVertex(points[3], QColor(255, 255, 255), TRight, TTop);
+			
+			
 	}
 
 	EndPrimitive();
@@ -215,7 +224,7 @@ void TGDXPrimitivePainter::AddPolygon(TGPolygonF points, bool solid, TGBaseTextu
 
 TGBaseTexture* TGDXPrimitivePainter::CreateBaseTexture()
 {
-	TGBaseTextureDescriptor descr;
+	PTGBaseTextureDescriptor descr = new TGBaseTextureDescriptor();
 	return new TGDXTexture(descr);
 }
 //---------------------------------------------------------------------

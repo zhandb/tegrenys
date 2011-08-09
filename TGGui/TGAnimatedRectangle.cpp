@@ -39,6 +39,7 @@ int TGAnimatedRectangle::Add(TGBasePrimitivePainter* painter)
 				Texture = ph.Image;
 			}
 		}
+
 	}
 
 	if (LastAnimationTime <= painter->GetTime())
@@ -69,19 +70,24 @@ int TGAnimatedRectangle::Add(TGBasePrimitivePainter* painter)
 
 	if (texture)
 	{
-		QRect texture_rect = QRect(QPoint(0, 0), Texture->Descr.texture_size);
-		QRect sub_texture_rect = Texture->Descr.sub_texture_rect;
-		if (Texture->Descr.parent)
+		QRect texture_rect = QRect(QPoint(0, 0), Texture->Descr->texture_size);
+
+		if (Texture->Descr->TextureType == TGBaseTextureDescriptor::SubTexture)
 		{
-			texture = Texture->Descr.parent;
-			texture_rect = QRect(QPoint(0, 0), texture->Descr.texture_size);
+			TGSubTextureDescriptor* descr = (TGSubTextureDescriptor*)&*Texture->Descr;
+			QRect sub_texture_rect = descr->sub_texture_rect;
+			if (descr->parent)
+			{
+				texture = descr->parent;
+				texture_rect = QRect(QPoint(0, 0), texture->Descr->texture_size);
+			}
+
+			TLeft = Texture->Descr->TX * sub_texture_rect.left() / texture_rect.width();
+			TTop = Texture->Descr->TY * sub_texture_rect.top() / texture_rect.height();
+
+			TRight = Texture->Descr->TX * sub_texture_rect.right() / texture_rect.width();
+			TBottom = Texture->Descr->TY * sub_texture_rect.bottom() / texture_rect.height();
 		}
-
-		TLeft = texture->TX * sub_texture_rect.left() / texture_rect.width();
-		TTop = texture->TY * sub_texture_rect.top() / texture_rect.height();
-
-		TRight = texture->TX * sub_texture_rect.right() / texture_rect.width();
-		TBottom = texture->TY * sub_texture_rect.bottom() / texture_rect.height();
 	}
 
 

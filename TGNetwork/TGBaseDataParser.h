@@ -32,6 +32,26 @@ struct TGDataFragmentList : public std::list<TGDataFragment>
 	{
 		push_back(TGDataFragment(start_offset, data, size));
 	}
+
+	PTGBuffer GatherData()
+	{
+		uint32_t size = 0;
+		for (TGDataFragmentList::iterator i = begin(); i != end(); ++i)
+			size += i->Size;
+
+		PTGBuffer res = new TGBuffer();
+		res->Allocate(size);
+
+		uint32_t offset = 0;
+		char* p = (char*)res->GetConstData();
+
+		for (TGDataFragmentList::iterator i = begin(); i != end(); ++i)
+		{
+			memcpy(p + offset, i->Data->GetConstData() + i->StartOffset, i->Size);
+			offset += i->Size;
+		}
+		return res;
+	}
 };
 
 class TGBaseDataParser : public TGReferenceCounter

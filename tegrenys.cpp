@@ -30,7 +30,7 @@ Tegrenys::Tegrenys(QWidget *parent, Qt::WFlags flags)
 
 	int r = 0;
 
-	NS = new TGNetworkService();
+	NS = new TGNetworkService((QObject*)GB->video_rect);
 	//Sleep(INFINITE);
 
 	

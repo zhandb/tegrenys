@@ -1,7 +1,7 @@
 #include "TGDXTexture.h"
 
 //---------------------------------------------------------------------
-TGDXTexture::TGDXTexture(TGBaseTextureDescriptor& descr) : TGBaseTexture(descr)
+TGDXTexture::TGDXTexture(PTGBaseTextureDescriptor& descr) : TGBaseTexture(descr)
 {
 	Texture = NULL;
 	Device = NULL;

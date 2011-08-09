@@ -129,9 +129,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="qtmaind.lib QtCored4.lib winmm.lib Pdh.lib Ws2_32.lib ippac_l.lib ippcc_l.lib ippcv_l.lib ippdc_l.lib ippi_l.lib ippj_l.lib ippcore_l.lib ippvc_l.lib ipps_l.lib"
+				AdditionalDependencies="tgsystem.lib qtmaind.lib QtCored4.lib winmm.lib Pdh.lib Ws2_32.lib ippac_l.lib ippcc_l.lib ippcv_l.lib ippdc_l.lib ippi_l.lib ippj_l.lib ippcore_l.lib ippvc_l.lib ipps_l.lib"
 				OutputFile="$(OutDir)\$(ProjectName).dll"
-				AdditionalLibraryDirectories="&quot;$(QTDIR)\lib&quot;;&quot;$(IPPROOT)\lib\ia32&quot;"
+				AdditionalLibraryDirectories="&quot;$(QTDIR)\lib&quot;;&quot;$(IPPROOT)\lib\ia32&quot;; $(OutDir)\"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 			/>
@@ -170,7 +170,19 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath=".\TGDataFragmentsStream.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\TGDataFragmentsStream.h"
+				>
+			</File>
+			<File
 				RelativePath=".\tgippcodec.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\TGMJPEGDecoder.cpp"
 				>
 			</File>
 		</Filter>
@@ -186,6 +198,32 @@
 			<File
 				RelativePath=".\tgippcodec_global.h"
 				>
+			</File>
+			<File
+				RelativePath=".\TGMJPEGDecoder.h"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)..."
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;   -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_THREAD_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DTGIPPCODEC_LIB -D_WIN32_WINNT=0x0501 -D_WINDLL -D_UNICODE -DUNICODE  -I&quot;.\GeneratedFiles\.&quot; -I&quot;$(QTDIR)\include\.&quot; -I&quot;.\GeneratedFiles\$(ConfigurationName)\.&quot; -I&quot;$(QTDIR)\include\qtmain\.&quot; -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;.\.&quot; -I&quot;.\ippsrc\vm\include\.&quot; -I&quot;$(IPPROOT)\include\.&quot; -I&quot;.\ippsrc\vm_plus\include\.&quot; -I&quot;.\ippsrc\umc\include\.&quot; -I&quot;.\ippsrc\umc_io\include\.&quot; -I&quot;.\ippsrc\jpeg\include\.&quot; -I&quot;.\ippsrc\color_space_converter\include\.&quot; &quot;.\TGMJPEGDecoder.h&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
+						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
+						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing $(InputFileName)..."
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;   -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_THREAD_SUPPORT -DQT_CORE_LIB -DTGIPPCODEC_LIB -D_WIN32_WINNT=0x0501 -D_WINDLL -D_UNICODE -DUNICODE  -I&quot;.\GeneratedFiles\.&quot; -I&quot;$(QTDIR)\include\.&quot; -I&quot;.\GeneratedFiles\$(ConfigurationName)\.&quot; -I&quot;$(QTDIR)\include\qtmain\.&quot; -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;.\.&quot; -I&quot;.\ippsrc\vm\include\.&quot; -I&quot;$(IPPROOT)\include\.&quot; -I&quot;.\ippsrc\vm_plus\include\.&quot; -I&quot;.\ippsrc\umc\include\.&quot; -I&quot;.\ippsrc\umc_io\include\.&quot; -I&quot;.\ippsrc\jpeg\include\.&quot; -I&quot;.\ippsrc\color_space_converter\include\.&quot; &quot;.\TGMJPEGDecoder.h&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
+						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
+						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
+					/>
+				</FileConfiguration>
 			</File>
 		</Filter>
 		<Filter
@@ -207,6 +245,42 @@
 			UniqueIdentifier="{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}"
 			SourceControlFiles="false"
 			>
+			<Filter
+				Name="Release"
+				Filter="cpp;moc"
+				SourceControlFiles="false"
+				>
+				<File
+					RelativePath=".\GeneratedFiles\Release\moc_TGMJPEGDecoder.cpp"
+					>
+					<FileConfiguration
+						Name="Debug|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+				</File>
+			</Filter>
+			<Filter
+				Name="Debug"
+				Filter="cpp;moc"
+				SourceControlFiles="false"
+				>
+				<File
+					RelativePath=".\GeneratedFiles\Debug\moc_TGMJPEGDecoder.cpp"
+					>
+					<FileConfiguration
+						Name="Release|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="IPP Source"

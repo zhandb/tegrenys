@@ -5,6 +5,12 @@ TGBuffer::TGBuffer()
 {
 	qRegisterMetaType<PTGBuffer>("PTGBuffer");
 }
+//---------------------------------------------------------------------------
+
+TGBuffer::TGBuffer(QByteArray& buffer)
+{
+	Buffer = buffer;
+}
 //---------------------------------------------------------------------
 TGBuffer::~TGBuffer()
 {

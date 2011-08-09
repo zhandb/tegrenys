@@ -20,41 +20,70 @@ void TGDXTextureManager::InitTexture(TGBaseTexture* texture)
 		ReleaseTexture(texture);
 		if (Device)
 		{
-			if (texture->Descr.file_name.length())
+			switch (texture->Descr->TextureType)
 			{
-				QImage image(texture->Descr.file_name);
-				if (image.format() != QImage::Format_ARGB32)
-					image = image.convertToFormat(QImage::Format_ARGB32);
+			case TGBaseTextureDescriptor::File:
+				{
+					TGFileTextureDescriptor* descr = (TGFileTextureDescriptor*)&*texture->Descr;
 
-				UINT tmp_w = image.width();
-				UINT tmp_h = image.height();
-				D3DFORMAT format = D3DFMT_A8R8G8B8;
-				D3DXCheckTextureRequirements(Device, &tmp_w, &tmp_h, NULL, D3DUSAGE_DYNAMIC, &format, D3DPOOL_DEFAULT);
+					QImage image(descr->file_name);
+					if (image.format() != QImage::Format_ARGB32)
+						image = image.convertToFormat(QImage::Format_ARGB32);
 
-				dx_texture->TX = double(image.width()) / double(tmp_w);
-				dx_texture->TY = double(image.height()) / double(tmp_h);
+					UINT tmp_w = image.width();
+					UINT tmp_h = image.height();
+					D3DFORMAT format = D3DFMT_A8R8G8B8;
+					D3DXCheckTextureRequirements(Device, &tmp_w, &tmp_h, NULL, D3DUSAGE_DYNAMIC, &format, D3DPOOL_DEFAULT);
 
-				D3DXCreateTexture(Device,
-					tmp_w, tmp_h,
-					0, D3DUSAGE_DYNAMIC, D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT,
-					&dx_texture->Texture);
+					descr->TX = double(image.width()) / double(tmp_w);
+					descr->TY = double(image.height()) / double(tmp_h);
 
-				SetTextureImage(dx_texture, &image);
-			}
-			else
-			{
-				UINT tmp_w = texture->Descr.texture_size.width();
-				UINT tmp_h = texture->Descr.texture_size.height();
-				D3DFORMAT format = D3DFMT_A8R8G8B8;
-				D3DXCheckTextureRequirements(Device, &tmp_w, &tmp_h, NULL, D3DUSAGE_DYNAMIC, &format, D3DPOOL_DEFAULT);
+					D3DXCreateTexture(Device,
+						tmp_w, tmp_h,
+						0, D3DUSAGE_DYNAMIC, D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT,
+						&dx_texture->Texture);
 
-				dx_texture->TX = double(texture->Descr.texture_size.width()) / double(tmp_w);
-				dx_texture->TY = double(texture->Descr.texture_size.height()) / double(tmp_h);
+					SetTextureImage(dx_texture, &image);
+				}
+				break;
 
-				D3DXCreateTexture(Device,
-					tmp_w, tmp_h,
-					0, D3DUSAGE_DYNAMIC, D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT,
-					&dx_texture->Texture);
+			case TGBaseTextureDescriptor::SubTexture:
+				{
+					/*TGSubTextureDescriptor* descr = (TGSubTextureDescriptor*)&*texture->Descr;
+
+					UINT tmp_w = descr->texture_size.width();
+					UINT tmp_h = descr->texture_size.height();
+					D3DFORMAT format = D3DFMT_A8R8G8B8;
+					D3DXCheckTextureRequirements(Device, &tmp_w, &tmp_h, NULL, D3DUSAGE_DYNAMIC, &format, D3DPOOL_DEFAULT);
+
+					descr->TX = double(descr->texture_size.width()) / double(tmp_w);
+					descr->TY = double(descr->texture_size.height()) / double(tmp_h);
+
+					D3DXCreateTexture(Device,
+						tmp_w, tmp_h,
+						0, D3DUSAGE_DYNAMIC, D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT,
+						&dx_texture->Texture);*/
+				}
+				break;
+
+			case TGBaseTextureDescriptor::Video:
+				{
+					TGVideoTextureDescriptor* descr = (TGVideoTextureDescriptor*)&*texture->Descr;
+
+					UINT tmp_w = descr->texture_size.width();
+					UINT tmp_h = descr->texture_size.height();
+					D3DFORMAT format = D3DFMT_A8R8G8B8;
+					D3DXCheckTextureRequirements(Device, &tmp_w, &tmp_h, NULL, D3DUSAGE_DYNAMIC, &format, D3DPOOL_DEFAULT);
+
+					descr->TX = double(descr->texture_size.width()) / double(tmp_w);
+					descr->TY = double(descr->texture_size.height()) / double(tmp_h);
+
+					D3DXCreateTexture(Device,
+						tmp_w, tmp_h,
+						0, D3DUSAGE_DYNAMIC, D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT,
+						&dx_texture->Texture);
+				}
+				break;
 			}
 
 			dx_texture->Device = Device;
@@ -81,7 +110,7 @@ void TGDXTextureManager::ReleaseTexture(TGBaseTexture* texture)
 	}
 }
 //---------------------------------------------------------------------
-TGBaseTexture* TGDXTextureManager::CreateTexture(TGBaseTextureDescriptor& descr)
+TGBaseTexture* TGDXTextureManager::CreateTexture(PTGBaseTextureDescriptor& descr)
 {
 	return new TGDXTexture(descr);
 }
@@ -129,7 +158,7 @@ void TGDXTextureManager::SetTextureImage(TGBaseTexture* texture, const uchar* da
 
 			unsigned int image_pitch = pitch;
 
-			for (int i = 0; i < texture->Descr.texture_size.height(); i++)
+			for (int i = 0; i < texture->Descr->texture_size.height(); i++)
 			{
 				memcpy(Dest, Src, image_pitch < LR.Pitch ? image_pitch : LR.Pitch);
 				Dest += LR.Pitch;

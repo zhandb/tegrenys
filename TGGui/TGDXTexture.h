@@ -6,7 +6,7 @@
 struct TGDXTexture : public TGBaseTexture
 {
 public:
-	TGDXTexture(TGBaseTextureDescriptor& descr);
+	TGDXTexture(PTGBaseTextureDescriptor& descr);
 
 	~TGDXTexture();
 

@@ -4,8 +4,8 @@
 //---------------------------------------------------------------------
 TGBaseTexturedRectangle::TGBaseTexturedRectangle(UID texture_id) : TGBaseRectangle(true)
 {
-	TextureID = texture_id;
 	Texture = NULL;
+	TextureID = texture_id;
 }
 //---------------------------------------------------------------------
 TGBaseTexturedRectangle::~TGBaseTexturedRectangle()
@@ -13,11 +13,6 @@ TGBaseTexturedRectangle::~TGBaseTexturedRectangle()
 
 }
 //---------------------------------------------------------------------
-void TGBaseTexturedRectangle::SetImage(QImage image)
-{
-	/*if (Image.format() != QImage::Format_ARGB32)
-		Image = Image.convertToFormat(QImage::Format_ARGB32);*/
-}
 
 int TGBaseTexturedRectangle::Add(TGBasePrimitivePainter* painter)
 {
@@ -29,24 +24,30 @@ int TGBaseTexturedRectangle::Add(TGBasePrimitivePainter* painter)
 	float TLeft = 0;
 	float TTop = 0;
 
-	float TRight = 0;
-	float TBottom = 0;
+	float TRight = 1.0;
+	float TBottom = 1.0;
 
 	if (Texture)
 	{
-		QRect texture_rect = QRect(QPoint(0, 0), Texture->Descr.texture_size);
-		QRect sub_texture_rect = Texture->Descr.sub_texture_rect;
-		if (Texture->Descr.parent)
+		QRect texture_rect = QRect(QPoint(0, 0), Texture->Descr->texture_size);
+		
+		if (Texture->Descr->TextureType == TGBaseTextureDescriptor::SubTexture)
 		{
-			Texture = Texture->Descr.parent;
-			texture_rect = QRect(QPoint(0, 0), Texture->Descr.texture_size);
+			TGSubTextureDescriptor* descr = (TGSubTextureDescriptor*)&*Texture->Descr;
+			QRect sub_texture_rect = descr->sub_texture_rect;
+			if (descr->parent)
+			{
+				Texture = descr->parent;
+				texture_rect = QRect(QPoint(0, 0), descr->texture_size);
+			}
+
+			TLeft = Texture->Descr->TX * sub_texture_rect.left() / texture_rect.width();
+			TTop = Texture->Descr->TY * sub_texture_rect.top() / texture_rect.height();
+
+			TRight = Texture->Descr->TX * sub_texture_rect.right() / texture_rect.width();
+			TBottom = Texture->Descr->TY * sub_texture_rect.bottom() / texture_rect.height();
+
 		}
-
-		TLeft = Texture->TX * sub_texture_rect.left() / texture_rect.width();
-		TTop = Texture->TY * sub_texture_rect.top() / texture_rect.height();
-
-		TRight = Texture->TX * sub_texture_rect.right() / texture_rect.width();
-		TBottom = Texture->TY * sub_texture_rect.bottom() / texture_rect.height();
 	}
 
 

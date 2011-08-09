@@ -18,5 +18,7 @@ void TGBoundaryParser::ProcessRequest()
 	//—юда приходит список фрагментов, содержащий contenttype и сами данные, 
 	//всегда один целостный пакет. 
 
+	
+
 	ContentTypeParser->ReceiveData(ParserDataList);
 }

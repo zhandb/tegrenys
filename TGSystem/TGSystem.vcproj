@@ -229,6 +229,10 @@
 				RelativePath=".\tgsystem.h"
 				>
 			</File>
+			<File
+				RelativePath=".\TGVideoStructs.h"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Form Files"

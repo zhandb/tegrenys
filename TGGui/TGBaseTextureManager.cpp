@@ -49,16 +49,18 @@ void TGBaseTextureManager::LoadTextures()
 	{
 		QString file_name = data[1].toString();
 		unsigned int ID = data[0].toInt();
-		TGBaseTextureDescriptor descr;
-		descr.parent = NULL;
-		descr.file_name = file_name;
-		descr.sub_texture_rect = QRect();
-		descr.texture_size.setWidth(data[2].toInt());
-		descr.texture_size.setHeight(data[3].toInt());
-		descr.sub_texture_rect = QRect(QPoint(0, 0), descr.texture_size);
+
+		TGFileTextureDescriptor* descr = new TGFileTextureDescriptor();
+		descr->file_name = file_name;
+		descr->texture_size.setWidth(data[2].toInt());
+		descr->texture_size.setHeight(data[3].toInt());
+		//descr.sub_texture_rect = QRect(QPoint(0, 0), descr.texture_size);
 
 		ASSERT(!TexturesMap.contains(ID));
-		TexturesMap[ID] = CreateTexture(descr);
+		
+		PTGBaseTextureDescriptor d = descr;
+
+		TexturesMap[ID] = CreateTexture(d);
 	}	
 
 	TGSqliteQuery sub_textures_query;
@@ -73,25 +75,29 @@ void TGBaseTextureManager::LoadTextures()
 		UID ID = data[0].toInt();
 		UID parent_id = data[1].toInt();
 
-		TGBaseTextureDescriptor descr;
-
 		TGBaseTextureMap::iterator parent_tex = TexturesMap.find(parent_id);
+		
 		ASSERT(parent_tex != TexturesMap.end());
-		descr.parent = TexturesMap[parent_id];
 
-		descr.sub_texture_rect = QRect();
-		descr.sub_texture_rect.setLeft(data[2].toInt());
-		descr.sub_texture_rect.setTop(data[3].toInt());
+		TGSubTextureDescriptor* descr = new TGSubTextureDescriptor();
 
-		descr.sub_texture_rect.setWidth(data[4].toInt());
-		descr.sub_texture_rect.setHeight(data[5].toInt());
+		descr->parent = TexturesMap[parent_id];
+
+		descr->sub_texture_rect = QRect();
+		descr->sub_texture_rect.setLeft(data[2].toInt());
+		descr->sub_texture_rect.setTop(data[3].toInt());
+
+		descr->sub_texture_rect.setWidth(data[4].toInt());
+		descr->sub_texture_rect.setHeight(data[5].toInt());
 
 		ASSERT(!SubTexturesMap.contains(ID));
-		SubTexturesMap[ID] = CreateTexture(descr);
+		
+		PTGBaseTextureDescriptor d = descr;
+		SubTexturesMap[ID] = CreateTexture(d);
 	}	
 }
 //---------------------------------------------------------------------
-TGBaseTexture* TGBaseTextureManager::CreateTexture(TGBaseTextureDescriptor& descr)
+TGBaseTexture* TGBaseTextureManager::CreateTexture(PTGBaseTextureDescriptor& descr)
 {
 	return new TGBaseTexture(descr);
 }
@@ -109,15 +115,17 @@ void TGBaseTextureManager::Init()
 	LoadTextures();
 }
 //---------------------------------------------------------------------
-UID TGBaseTextureManager::AddTexture(TGBaseTextureDescriptor texture_desc)
+PTGBaseTexture TGBaseTextureManager::AddTexture(PTGBaseTextureDescriptor texture_desc)
 {
 	unsigned int ID = rand();
-	texture_desc.sub_texture_rect = QRect(QPoint(0, 0), texture_desc.texture_size);
+
+	//texture_desc.sub_texture_rect = QRect(QPoint(0, 0), texture_desc.texture_size);
+	
 	ASSERT(!TexturesMap.contains(ID));
-	TGBaseTexture* new_texture = CreateTexture(texture_desc);
+	PTGBaseTexture new_texture = CreateTexture(texture_desc);
 	TexturesMap[ID] = new_texture;
 	InvalidateTexture(new_texture);
-	return ID;
+	return new_texture;
 }
 //---------------------------------------------------------------------
 

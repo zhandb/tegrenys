@@ -1,7 +1,7 @@
 #include "TGBaseTexture.h"
 
 //---------------------------------------------------------------------
-TGBaseTexture::TGBaseTexture(TGBaseTextureDescriptor& descr)
+TGBaseTexture::TGBaseTexture(PTGBaseTextureDescriptor& descr)
 {	
 	Descr = descr;
 }

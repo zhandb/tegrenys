@@ -4,8 +4,9 @@
 #include "TGEndSignatureParser.h"
 
 
-class TGContentTypeParser : public TGEndSignatureParser
+class TGContentTypeParser : public QObject, public TGEndSignatureParser
 {
+	Q_OBJECT
 public:
 	TGContentTypeParser(QObject* receiver);
 	~TGContentTypeParser();
@@ -16,6 +17,8 @@ protected:
 private:
 	int count;
 	bool Bypass;
+signals:
+	void DataReady(TGDataFragmentList& data);
 };
 
 TG_REFC_PTR(TGContentTypeParser)

@@ -15,6 +15,7 @@ class TGBuffer : public TGReferenceCounter
 public:
 	TGBuffer();
 	~TGBuffer();
+	TGBuffer(QByteArray& buffer);
 	TGBuffer(const TGBuffer& buffer){};
 	void Allocate(uint32_t size);
 	const char* GetConstData();

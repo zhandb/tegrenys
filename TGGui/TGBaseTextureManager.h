@@ -14,12 +14,13 @@ public:
 	~TGBaseTextureManager();
 	void Init();
 	TGBaseTexture* GetBaseTexture(UID texture_id);
-	UID AddTexture(TGBaseTextureDescriptor texture_desc);
+	PTGBaseTexture AddTexture(PTGBaseTextureDescriptor texture_desc);
 private:
 	TGBaseTextureMap TexturesMap;
 	TGBaseTextureMap SubTexturesMap;
+	TGBaseTextureMap VideoTexturesMap;
 private:
-	virtual TGBaseTexture* CreateTexture(TGBaseTextureDescriptor& descr) = 0;
+	virtual TGBaseTexture* CreateTexture(PTGBaseTextureDescriptor& descr) = 0;
 	virtual void SetTextureImage(TGBaseTexture* texture, QImage* image) = 0;
 	void LoadTextures();
 public:

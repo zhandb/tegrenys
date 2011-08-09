@@ -1,8 +1,9 @@
 #include "TGNetworkService.h"
 #include "TGHttpParser.h"
 #include "..\TGCodec\tgcodec.h"
+#include "..\TGIPPCodec\TGMJPEGDecoder.h"
 //---------------------------------------------------------------------
-TGNetworkService::TGNetworkService() : QThread()
+TGNetworkService::TGNetworkService(QObject* receiver) : QThread()
 {
 	WSADATA wsa_data;
 	WSAStartup(MAKEWORD(2,2), &wsa_data);
@@ -10,14 +11,32 @@ TGNetworkService::TGNetworkService() : QThread()
 	IOCompletionPortHandle = NULL;
 
 	Socket = new TGSocket();
-	TLP = new TGHttpParser(NULL);
+
+	TLP = new TGHttpParser(&MJD);
 
 	//TGCodec codec;
-	
+
+	/*TGMJPEGDecoder MJD;
+	QFile j("e:\\data-backup\\transit.jpg");
+	j.open(QIODevice::ReadOnly);
+	QByteArray a = j.readAll();
+
+	PTGBuffer in = new TGBuffer(a);
+	PTGBuffer out  = new TGBuffer();
+	out->Allocate(1000000);
+	MJD.Decode(in, out);*/
+
+	//MJD.Decode(in, out)
+
 	connect(Socket, SIGNAL(SocketConnected()), this, SLOT(OnSocketConnected()));
 	connect(Socket, SIGNAL(SocketDisconnected()), this, SLOT(OnSocketDisconnected()));
 	connect(Socket, SIGNAL(DataReceived(PTGBuffer)), this, SLOT(OnDataReceived(PTGBuffer)));
 	connect(this, SIGNAL(Write(PTGBuffer)), Socket, SLOT(Write(PTGBuffer)));
+
+	connect(&MJD, SIGNAL(LockTexture(TGTextureLockStruct)), receiver, SLOT(OnLockTexture(TGTextureLockStruct)));
+	connect(&MJD, SIGNAL(UnlockTexture()), receiver, SLOT(OnUnlockTexture()));
+	connect(receiver, SIGNAL(TextureLocked(TGTextureLockStruct)), &MJD, SLOT(OnTextureLocked(TGTextureLockStruct)));
+
 
 	//connect(Socket, SIGNAL(DataReceived(PTGBuffer)), TLP, SLOT(OnDataReceived(PTGBuffer)));
 
