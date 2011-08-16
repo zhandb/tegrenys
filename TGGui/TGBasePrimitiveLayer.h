@@ -6,7 +6,8 @@
 
 #include "TGRefCounter.h"
 #include "TGBasePrimitive.h"
-#include "TGDataObject.h"
+//#include "TGDataObject.h"
+#include "TGSystemTypes.h"
 
 struct TG3DPoint
 {
@@ -43,9 +44,12 @@ public:
 
 	void BuildPrimitives(TGBasePrimitivePainter* painter);
 	int GetPrimitivesCount();
-	TGPrimitivesList Primitives; //should be protected
 	UID GetUID();
+
+	void AddPrimitive(PTGBasePrimitive primitive);
+
 protected:
+	TGPrimitivesList Primitives; //should be protected
 	TGBasePrimitiveLayerParams Params;
 	int PrimitivesCount;
 	UID LayerUID;

@@ -2,12 +2,12 @@
 #define TGBaseTexturedRectangle_h__
 
 #include "TGBaseRectangle.h"
-#include "TGDataObject.h"
+#include "TGSystemTypes.h"
 
 class TGBaseTexturedRectangle : public TGBaseRectangle
 {
 public:
-	TGBaseTexturedRectangle(UID texture_id);
+	TGBaseTexturedRectangle(PTGBasePrimitiveLayer owner, UID texture_id);
 	~TGBaseTexturedRectangle();
 	virtual int Add(TGBasePrimitivePainter* painter);
 private:

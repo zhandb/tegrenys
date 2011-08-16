@@ -2,11 +2,13 @@
 #include "TGVideoRectangle.h"
 #include "TGBasePrimitivePainter.h"
 #include "TGDXTexture.h"
+#include "TGGuiBuilder.h"
 //---------------------------------------------------------------------
-TGVideoRectangle::TGVideoRectangle() : TGBaseRectangle(true)
+TGVideoRectangle::TGVideoRectangle(PTGBasePrimitiveLayer owner) : TGBaseRectangle(owner, true)
 {
 	Texture = NULL;
 	IsTextureLocked = false;
+	TGGuiBuilder::RegisterPrimitive(888, this);
 }
 //---------------------------------------------------------------------
 TGVideoRectangle::~TGVideoRectangle()
@@ -113,4 +115,10 @@ void TGVideoRectangle::OnUnlockTexture()
 		TGDXTexture* dx_texture = (TGDXTexture*)&*Texture;
 		dx_texture->Texture->UnlockRect(0);
 	}
+}
+//---------------------------------------------------------------------------
+
+void TGVideoRectangle::DelRef()
+{
+	TGReferenceCounter::DelRef();
 }

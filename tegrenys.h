@@ -10,7 +10,7 @@
 #include "TGGui/TGGuiBuilder.h"
 #include "TGNetwork/TGNetworkService.h"
 
-static TGSqlite* main_database;
+//static TGSqlite* main_database;
 
 class Tegrenys
 {
@@ -25,8 +25,10 @@ private:
 
 	//Ui::TegrenysClass ui;
 
-	PTGGuiBuider GB;
+	PTGGuiBuilder GB;
 	PTGNetworkService NS;
+	PTGModule  System;
+	PTGBasePrimitive VideoRect;
 
 };
 

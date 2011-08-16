@@ -13,6 +13,7 @@ enum TGPrimitiveTypes{TGPrimitiveType_LineStrip, TGPrimitiveType_TriangleList, T
 class TGBasePrimitive;
 
 TG_REFC_PTR(TGBasePrimitive);
+TG_REFC_PTR(TGBasePrimitiveLayer);
 
 typedef QList<PTGBasePrimitive> TGPrimitivesList;
 
@@ -158,7 +159,7 @@ public:
 	enum TGBasePrimitiveAlignment{Align_None = 0, HAlign_Left = 1, HAlign_Right = 2, HAlign_HCenter = 4, VAlign_Top = 8, VAlign_Bottom = 16, VAlign_VCenter = 32};
 
 public:
-	TGBasePrimitive();
+	TGBasePrimitive(PTGBasePrimitiveLayer owner);
 	virtual void SetPos(TGPointF pos);
 
 	void SetVisible(bool visible, bool apply_to_children = true);

@@ -6,13 +6,15 @@ TGSqlite* TGSqlite::main_database;
 TGSqlite::TGSqlite()
 {
 	db = NULL;
-	main_database = this;
+//	sqlite3_initialize();
+	//main_database = this;
 }
 //-----------------------------------------------------------------------------
 
 TGSqlite::~TGSqlite()
 {
 	CloseDatabase();
+	//sqlite3_free(db);
 }
 //-----------------------------------------------------------------------------
 

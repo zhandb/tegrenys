@@ -1,8 +1,11 @@
 #ifndef TGBaseTextureManager_h__
 #define TGBaseTextureManager_h__
 
-#include "TGDataObject.h"
+//#include "TGDataObject.h"
 #include "TGBaseTexture.h"
+#include "TGSystemTypes.h"
+
+#include <QMap>
 //#include "TGSqlite.h"
 
 typedef QMap<UID, PTGBaseTexture> TGBaseTextureMap;

@@ -9,24 +9,30 @@
 #include "TGBaseTexturedRectangle.h"
 #include "TGAnimatedRectangle.h"
 #include "TGVideoRectangle.h"
+#include "tgsystem.h"
 
 //-----------------------------------------------------------------------------
 
-TGGuiBuider::TGGuiBuider()
+TGGuiBuilder::TGGuiBuilder(UID module_uid, PTGModule system, QObject *parent) : TGModule(module_uid, system)
 {
-	gui_database = new TGSqlite();
-	gui_database->OpenDatabase("e:\\data-backup\\tegrenys_1\\test.db");
-	Build(gui_database);
+	StaticGuiBuilder = this;
+
+	sqlite3* db = NULL;
+	sqlite3_open_v2("", &db, SQLITE_OPEN_READWRITE /*| SQLITE_OPEN_CREATE*/, NULL);
+	sqlite3_close(db);
+
+	TGSqlite::main_database = ((TGSystem*)&*system)->GetDataBase();
+
+	Build(((TGSystem*)&*system)->GetDataBase());
 }
 //-----------------------------------------------------------------------------
 
-TGGuiBuider::~TGGuiBuider()
+TGGuiBuilder::~TGGuiBuilder()
 {
-	delete gui_database;
 }
 //-----------------------------------------------------------------------------
 
-void TGGuiBuider::Build(TGSqlite* database)
+void TGGuiBuilder::Build(TGSqlite* database)
 {
 	/*SELECT  Controls.ID, Controls.ControlClass FROM Root
 		JOIN Controls ON Root.RootControl = Controls.ID AND Controls.ParentControl = 0*/
@@ -35,7 +41,7 @@ void TGGuiBuider::Build(TGSqlite* database)
 }
 //-----------------------------------------------------------------------------
 
-void TGGuiBuider::CreateWidgets(TGSqlite* database, QWidget* parent, int parent_id)
+void TGGuiBuilder::CreateWidgets(TGSqlite* database, QWidget* parent, int parent_id)
 {
 	TGSqliteQuery root_control_query;
 	TGDataRecord schema;
@@ -55,7 +61,7 @@ void TGGuiBuider::CreateWidgets(TGSqlite* database, QWidget* parent, int parent_
 }
 //-----------------------------------------------------------------------------
 
-QWidget* TGGuiBuider::CreateWidget(QWidget* parent, QString class_name)
+QWidget* TGGuiBuilder::CreateWidget(QWidget* parent, QString class_name)
 {
 	QWidget* widget = NULL;
 
@@ -105,27 +111,21 @@ QWidget* TGGuiBuider::CreateWidget(QWidget* parent, QString class_name)
 
 		emit AddLayerToCurrentViewport(PrimitiveLayer);
 
-		TGVideoRectangle* p2 = new TGVideoRectangle();
+		TGVideoRectangle* p2 = new TGVideoRectangle(PrimitiveLayer);
+		PTGBasePrimitive pp2 = p2;
 		p2->SetSize(QSizeF(3, 2));
 		p2->SetPos(TGPointF(-200, -0.5, -0.1));
-		PrimitiveLayer->Primitives.push_back(p2);
-
-		video_rect = p2;
-
-		TGBaseTexturedRectangle* p = new TGBaseTexturedRectangle(1);
+		
+		TGBaseTexturedRectangle* p = new TGBaseTexturedRectangle(PrimitiveLayer, 1);
 		p->SetColor(QColor("red"));
 		p->SetSize(QSizeF(1, 1));
 		p->SetPos(TGPointF(-1, -0.5, 0.0));
-		PrimitiveLayer->Primitives.push_back(p);
-
-		TGAnimatedRectangle* p1 = new TGAnimatedRectangle();
+		
+		TGAnimatedRectangle* p1 = new TGAnimatedRectangle(PrimitiveLayer);
 		p1->SetColor(QColor("red"));
 		p1->SetSize(QSizeF(0.3, 0.3));
 		p1->SetPos(TGPointF(-1, -0.5, -0.1));
-		PrimitiveLayer->Primitives.push_back(p1);
-
 		
-
 		/*emit SetCurrentViewport(222);
 
 		PrimitiveLayer = new TGDXPrimitiveLayer(222);
@@ -163,3 +163,24 @@ QWidget* TGGuiBuider::CreateWidget(QWidget* parent, QString class_name)
 	}
 	return widget;
 }
+//---------------------------------------------------------------------------
+
+void TGGuiBuilder::RegisterPrimitive(UID primitive_uid, PTGBasePrimitive primitive)
+{
+	StaticGuiBuilder->PrimitivesMap[primitive_uid] = primitive;
+}
+//---------------------------------------------------------------------------
+
+PTGBasePrimitive TGGuiBuilder::GetPrimitive(UID primitive_uid)
+{
+	PTGBasePrimitive res = NULL;
+
+	TGPrimitivesMap::iterator primitive = PrimitivesMap.find(primitive_uid);
+	if (primitive != PrimitivesMap.end())
+		res = primitive->second;
+
+	return res;
+}
+//---------------------------------------------------------------------------
+PTGGuiBuilder TGGuiBuilder::StaticGuiBuilder;
+//---------------------------------------------------------------------------

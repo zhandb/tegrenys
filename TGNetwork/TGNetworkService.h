@@ -9,31 +9,29 @@
 #include <QFile>
 #include "TGEndSignatureParser.h"
 #include "..\TGIPPCodec\TGMJPEGDecoder.h"
+#include "..\TGSystem\TGSystemTypes.h"
 //---------------------------------------------------------------------
 class TGMJPEGDecoder;
 //---------------------------------------------------------------------
 
-class TGNETWORK_EXPORT TGNetworkService :  public QThread, public TGReferenceCounter
+class TGNETWORK_EXPORT TGNetworkService :  public TGModule
 {
 	Q_OBJECT
 public:
-	TGNetworkService(QObject* receiver);
+	TGNetworkService(UID module_uid, PTGModule system);
 	~TGNetworkService();
-protected:
-	virtual void run();	
+
 private:
-	HANDLE IOCompletionPortHandle;
-	bool Running;
 	PTGSocket Socket;
 	PTGEndSignatureParser TLP;
-	QFile file;
-	int filecount;
 	TGMJPEGDecoder MJD;
 
 public slots:
+	void OnCreateSocket();
 	void OnSocketConnected();
 	void OnDataReceived(PTGBuffer data);
 	void OnSocketDisconnected();
+	void timerEvent(QTimerEvent* event);
 signals:
 	void Write(PTGBuffer data);
 };

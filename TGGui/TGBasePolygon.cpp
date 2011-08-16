@@ -1,7 +1,7 @@
 #include "TGBasePolygon.h"
 #include "TGBasePrimitivePainter.h"
 //---------------------------------------------------------------------
-TGBasePolygon::TGBasePolygon(TGPolygonF polygon, bool is_solid /*= false*/)
+TGBasePolygon::TGBasePolygon(PTGBasePrimitiveLayer owner, TGPolygonF polygon, bool is_solid /*= false*/) : TGBasePrimitive(owner)
 {
 	Polygon = polygon;
 	IsSolid = is_solid;

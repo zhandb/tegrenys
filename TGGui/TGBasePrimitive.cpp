@@ -2,8 +2,11 @@
 #include "TGBasePrimitivePainter.h"
 #include <d3dx9math.h>
 //---------------------------------------------------------------------
-TGBasePrimitive::TGBasePrimitive()
+TGBasePrimitive::TGBasePrimitive(PTGBasePrimitiveLayer owner)
 {
+	if (owner)
+		owner->AddPrimitive(this);
+
 	Parent = NULL;
 	Flags = None;
 

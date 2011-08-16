@@ -11,10 +11,14 @@
 #include "TGBaseTextureManager.h"
 //#include "TGCodec\tgcodec.h"
 #include "TGNetwork\TGNetworkService.h"
+#include "tgsystem.h"
+#include "TGIP9100\tgip9100.h"
 
 Tegrenys::Tegrenys(QWidget *parent, Qt::WFlags flags)
 {
+	System = new TGSystem();
 
+	//TGSystem::SystemDataBase = (TGSqlite*)111;
 	//ui.setupUi(this);
 	//tree = new QTreeView();
 	//setCentralWidget(tree);
@@ -25,15 +29,25 @@ Tegrenys::Tegrenys(QWidget *parent, Qt::WFlags flags)
 	TGDataRecord schema;
 	q.Exec(&sq, "SELECT * FROM mytable", &schema);*/
 
-	GB = new TGGuiBuider();
+	int id = QMetaType::type("QObject");
+//	TGSystem* s = TGSystem::GetSystem();
+
+	GB = new TGGuiBuilder(222, System);
 	//GB->Build(main_database);
 
 	int r = 0;
 
-	NS = new TGNetworkService((QObject*)GB->video_rect);
+	VideoRect = GB->GetPrimitive(888);
+
+	QObject* obj = dynamic_cast<QObject*>(&*VideoRect);
+
+	NS = new TGNetworkService(1111, System);
 	//Sleep(INFINITE);
 
-	
+	PTGModule ip_server = new TGIP9100(4444, System);
+	ip_server->Init();
+
+
 	/*QVector<QVariant> data;
 
 	data << "111" << "222" << "444";
@@ -86,5 +100,5 @@ Tegrenys::Tegrenys(QWidget *parent, Qt::WFlags flags)
 
 Tegrenys::~Tegrenys()
 {
-	delete main_database;
+	System->DeInit();
 }

@@ -7,7 +7,9 @@
 #include "TGBaseViewport.h"
 #include "tggui_global.h"
 #include "TGVideoRectangle.h"
+#include "tgsystem.h"
 
+typedef TGMap<UID, PTGBasePrimitive> TGPrimitivesMap;
 
 class TGWidgetHandler : public TGReferenceCounter
 {
@@ -26,30 +28,34 @@ private:
 };
 
 TG_REFC_PTR(TGWidgetHandler)
+TG_REFC_PTR(TGGuiBuilder);
 
 typedef QList<PTGWidgetHandler> TGWidgetList;
 
-class TGGUI_EXPORT TGGuiBuider : public QObject, public TGReferenceCounter
+class TGGUI_EXPORT TGGuiBuilder : public TGModule
 {
 	Q_OBJECT
 public:
-	TGGuiBuider();
-	~TGGuiBuider();
+	TGGuiBuilder(UID module_uid, PTGModule system, QObject *parent = 0);
+	~TGGuiBuilder();
 	void Build(TGSqlite* database);
 	void CreateWidgets(TGSqlite* database, QWidget* parent, int parent_id);
 	QWidget* CreateWidget(QWidget* parent, QString class_name);
+	static void RegisterPrimitive(UID primitive_uid, PTGBasePrimitive primitive);
+
+	PTGBasePrimitive GetPrimitive(UID primitive_uid);
 public:
-	TGVideoRectangle* video_rect;
+	//TGVideoRectangle* video_rect;
 private:
 	TGWidgetList WidgetList;
-	TGSqlite* gui_database;
-	
+	TGPrimitivesMap PrimitivesMap;
+	static PTGGuiBuilder StaticGuiBuilder;
 signals:
 	void AddViewPort(UID uid, PTGBaseViewport vp);
 	void SetCurrentViewport(UID uid);
 	void AddLayerToCurrentViewport(PTGBasePrimitiveLayer layer);
 };
 
-TG_REFC_PTR(TGGuiBuider);
+
 
 #endif // TGGuiBuider_h__

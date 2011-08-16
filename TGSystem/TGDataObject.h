@@ -6,8 +6,6 @@
 #include <QVariant>
 #include <QAbstractItemModel>
 
-typedef unsigned int UID;
-
 struct TGDataRecord;
 
 typedef QList<TGDataRecord*> TGDataRecords;

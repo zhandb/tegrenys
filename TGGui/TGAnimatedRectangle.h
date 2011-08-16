@@ -7,7 +7,7 @@
 class TGAnimatedRectangle : public TGBaseRectangle
 {
 public:
-	TGAnimatedRectangle();
+	TGAnimatedRectangle(PTGBasePrimitiveLayer owner);
 	~TGAnimatedRectangle();
 	virtual int Add(TGBasePrimitivePainter* painter);
 protected:

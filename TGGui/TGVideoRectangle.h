@@ -4,14 +4,16 @@
 #include "TGBaseRectangle.h"
 #include "TGDataObject.h"
 #include "TGVideoStructs.h"
+#include "TGSystemTypes.h"
 
 class TGVideoRectangle : public QObject, public TGBaseRectangle
 {
 	Q_OBJECT
 public:
-	TGVideoRectangle();
+	TGVideoRectangle(PTGBasePrimitiveLayer owner);
 	~TGVideoRectangle();
 	virtual int Add(TGBasePrimitivePainter* painter);
+	virtual void DelRef();
 private:
 	PTGBaseTexture Texture;
 	bool IsTextureLocked;

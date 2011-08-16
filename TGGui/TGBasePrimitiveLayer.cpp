@@ -64,3 +64,9 @@ void TGBasePrimitiveLayer::MouseEvent(QMouseEvent* event, TG3DRay& pick_vector)
 		(*primitive)->MouseEvent(event, pick_vector);
 	}
 }
+//---------------------------------------------------------------------------
+
+void TGBasePrimitiveLayer::AddPrimitive(PTGBasePrimitive primitive)
+{
+	Primitives.push_back(primitive);
+}

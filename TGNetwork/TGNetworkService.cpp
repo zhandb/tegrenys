@@ -3,95 +3,49 @@
 #include "..\TGCodec\tgcodec.h"
 #include "..\TGIPPCodec\TGMJPEGDecoder.h"
 //---------------------------------------------------------------------
-TGNetworkService::TGNetworkService(QObject* receiver) : QThread()
+TGNetworkService::TGNetworkService(UID module_uid, PTGModule system) : TGModule(module_uid, system)
 {
 	WSADATA wsa_data;
 	WSAStartup(MAKEWORD(2,2), &wsa_data);
 
-	IOCompletionPortHandle = NULL;
+	startTimer(1);
 
-	Socket = new TGSocket();
+	//Socket = new TGSocket();
 
-	TLP = new TGHttpParser(&MJD);
+	//TLP = new TGHttpParser(&MJD);
 
-	//TGCodec codec;
+	////TGCodec codec;
 
-	/*TGMJPEGDecoder MJD;
-	QFile j("e:\\data-backup\\transit.jpg");
-	j.open(QIODevice::ReadOnly);
-	QByteArray a = j.readAll();
+	///*TGMJPEGDecoder MJD;
+	//QFile j("e:\\data-backup\\transit.jpg");
+	//j.open(QIODevice::ReadOnly);
+	//QByteArray a = j.readAll();
 
-	PTGBuffer in = new TGBuffer(a);
-	PTGBuffer out  = new TGBuffer();
-	out->Allocate(1000000);
-	MJD.Decode(in, out);*/
+	//PTGBuffer in = new TGBuffer(a);
+	//PTGBuffer out  = new TGBuffer();
+	//out->Allocate(1000000);
+	//MJD.Decode(in, out);*/
 
-	//MJD.Decode(in, out)
+	////MJD.Decode(in, out)
 
-	connect(Socket, SIGNAL(SocketConnected()), this, SLOT(OnSocketConnected()));
-	connect(Socket, SIGNAL(SocketDisconnected()), this, SLOT(OnSocketDisconnected()));
-	connect(Socket, SIGNAL(DataReceived(PTGBuffer)), this, SLOT(OnDataReceived(PTGBuffer)));
-	connect(this, SIGNAL(Write(PTGBuffer)), Socket, SLOT(Write(PTGBuffer)));
+	//connect(Socket, SIGNAL(SocketConnected()), this, SLOT(OnSocketConnected()));
+	//connect(Socket, SIGNAL(SocketDisconnected()), this, SLOT(OnSocketDisconnected()));
+	//connect(Socket, SIGNAL(DataReceived(PTGBuffer)), this, SLOT(OnDataReceived(PTGBuffer)));
+	//connect(this, SIGNAL(Write(PTGBuffer)), Socket, SLOT(Write(PTGBuffer)));
 
-	connect(&MJD, SIGNAL(LockTexture(TGTextureLockStruct)), receiver, SLOT(OnLockTexture(TGTextureLockStruct)));
-	connect(&MJD, SIGNAL(UnlockTexture()), receiver, SLOT(OnUnlockTexture()));
-	connect(receiver, SIGNAL(TextureLocked(TGTextureLockStruct)), &MJD, SLOT(OnTextureLocked(TGTextureLockStruct)));
+	//connect(&MJD, SIGNAL(LockTexture(TGTextureLockStruct)), receiver, SLOT(OnLockTexture(TGTextureLockStruct)));
+	//connect(&MJD, SIGNAL(UnlockTexture()), receiver, SLOT(OnUnlockTexture()));
+	//connect(receiver, SIGNAL(TextureLocked(TGTextureLockStruct)), &MJD, SLOT(OnTextureLocked(TGTextureLockStruct)));
 
 
-	//connect(Socket, SIGNAL(DataReceived(PTGBuffer)), TLP, SLOT(OnDataReceived(PTGBuffer)));
+	////connect(Socket, SIGNAL(DataReceived(PTGBuffer)), TLP, SLOT(OnDataReceived(PTGBuffer)));
 
-	filecount = 1;
-	
-	Socket->Connect("192.168.0.33", 80, 0);
+	//Socket->Connect("192.168.0.33", 80, 0);
 
-	Running = true;
-	start();	
 }
 //---------------------------------------------------------------------
 TGNetworkService::~TGNetworkService()
 {
-	Running = false;
-	wait();
-	CloseHandle(IOCompletionPortHandle);
-	IOCompletionPortHandle = INVALID_HANDLE_VALUE;
-}
-//---------------------------------------------------------------------
-void TGNetworkService::run()
-{
-	//IOCompletionPortHandle = ::CreateIoCompletionPort(INVALID_HANDLE_VALUE, NULL, NULL, 1);
-	////SN_ASSERT(IOCompletionPortHandle);
-
-	//DWORD bytes = 0;
-	//ULONG_PTR key = NULL;
-	//LPOVERLAPPED overlapped;
-
-	//while (Running)
-	//{
-	//	BOOL res = GetQueuedCompletionStatus(IOCompletionPortHandle, &bytes, &key, &overlapped, 200);
-	//	int last_error = 0;
-	//	if (!res)
-	//		last_error = GetLastError();
-
-	//	if (res || last_error != ERROR_OPERATION_ABORTED)
-	//	{
-	//		int r = 0;
-	//		//SNCSLocker locker(CS);
-
-	//		//SNIntToSocketMap::iterator i = SocketMap.find(key);
-	//		//if (i != SocketMap.end())
-	//		//{
-	//		//	PSNCommandDescriptor cmd = i->second;
-	//		//	SN_ASSERT(cmd);
-	//		//	cmd->ProcessCommand(DataTypes::Socket::ProcessOverlappedResult(NULL, NULL, bytes, overlapped, last_error));
-	//		//}
-	//	}
-	//}
-	while (Running)
-	{
-		Socket->Poll();
-		Sleep(1);
-	}
-	
 }
 //---------------------------------------------------------------------
 void TGNetworkService::OnSocketConnected()
@@ -124,5 +78,17 @@ void TGNetworkService::OnDataReceived(PTGBuffer data)
 void TGNetworkService::OnSocketDisconnected()
 {
 	//file.close();
+}
+//---------------------------------------------------------------------------
+
+void TGNetworkService::timerEvent(QTimerEvent* event)
+{
+	//Socket->Poll();
+}
+//---------------------------------------------------------------------------
+
+void TGNetworkService::OnCreateSocket()
+{
+	
 }
 //---------------------------------------------------------------------
