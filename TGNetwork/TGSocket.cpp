@@ -1,6 +1,6 @@
 #include "TGSocket.h"
 //---------------------------------------------------------------------
-TGSocket::TGSocket()
+TGSocket::TGSocket(UID module_uid, PTGModule system) : TGModule(module_uid, system)
 {
 	SocketHandle = INVALID_SOCKET;
 

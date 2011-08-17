@@ -14,7 +14,16 @@ TGIP9100::~TGIP9100()
 
 void TGIP9100::Init()
 {
-	NetworkService = system->GetModule(1111);
+	NetworkService = System->GetModule(1111);
 	connect(this, SIGNAL(CreateSocket()), NetworkService, SLOT(OnCreateSocket()));
+	connect(NetworkService, SIGNAL(SocketCreated(UID)), this, SLOT(OnSocketCreated(UID)));
 	emit CreateSocket();
 }
+//---------------------------------------------------------------------------
+
+void TGIP9100::OnSocketCreated(UID socket_uid)
+{
+	PTGModule socket = System->GetModule(socket_uid);
+	int r = 0;
+}
+//---------------------------------------------------------------------------

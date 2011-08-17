@@ -34,6 +34,7 @@ public slots:
 	void timerEvent(QTimerEvent* event);
 signals:
 	void Write(PTGBuffer data);
+	void SocketCreated(UID socket_uid);
 };
 //---------------------------------------------------------------------
 TG_REFC_PTR(TGNetworkService);

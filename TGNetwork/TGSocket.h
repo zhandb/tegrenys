@@ -10,16 +10,17 @@
 #include "qdatetime.h"
 #include "..\TGSystem\TGBuffer.h"
 #include "..\TGSystem\TGBufferPool.h"
+#include "..\TGSystem\TGSystemTypes.h"
 
 //------------------------------------------------------
 typedef std::list<PTGBuffer> TGSocketBuffersList;
 //------------------------------------------------------
 
-class TGNETWORK_EXPORT TGSocket : public QObject, public TGReferenceCounter
+class TGNETWORK_EXPORT TGSocket : public TGModule
 {
 	Q_OBJECT
 public:
-	TGSocket();
+	TGSocket(UID module_uid, PTGModule system);
 	~TGSocket();
 	void Poll();
 private:

@@ -89,6 +89,8 @@ void TGNetworkService::timerEvent(QTimerEvent* event)
 
 void TGNetworkService::OnCreateSocket()
 {
-	
+	UID socket_uid = qrand();
+	ModuleMap[socket_uid] = new TGSocket(socket_uid, System);
+	emit SocketCreated(socket_uid);
 }
 //---------------------------------------------------------------------
