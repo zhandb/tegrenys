@@ -84,6 +84,10 @@ void TGNetworkService::OnSocketDisconnected()
 void TGNetworkService::timerEvent(QTimerEvent* event)
 {
 	//Socket->Poll();
+	for (TGModuleMap::iterator socket = ModuleMap.begin(); socket != ModuleMap.end(); ++socket)
+	{
+		((TGSocket*)&*socket->second)->Poll();
+	}
 }
 //---------------------------------------------------------------------------
 

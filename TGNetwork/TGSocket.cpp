@@ -91,7 +91,7 @@ void TGSocket::DoConnect()
 	}
 }
 //---------------------------------------------------------------------
-void TGSocket::Connect(QString host, uint32_t remote_port, uint32_t localport)
+void TGSocket::OnSocketConnect(TGString host, uint32_t remote_port, uint32_t localport)
 {
 	Host = host;
 	Port = remote_port;

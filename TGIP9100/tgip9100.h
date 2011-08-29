@@ -16,8 +16,10 @@ private:
 	PTGModule NetworkService;
 signals:
 	void CreateSocket();
+	void SocketConnect(TGString host, uint32_t remote_port, uint32_t localport);
 private slots:
 	void OnSocketCreated(UID socket_uid);
+	void OnSocketConnected();
 };
 
 #endif // TGIP9100_H

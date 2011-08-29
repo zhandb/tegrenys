@@ -42,7 +42,7 @@ private:
 	PTGBufferPool Pool;
 	TGSocketBuffersList Buffers;
 public slots:
-	void Connect(QString host, uint32_t remote_port, uint32_t localport);
+	void OnSocketConnect(TGString host, uint32_t remote_port, uint32_t localport);
 	void Write(PTGBuffer data);
 signals:
 	void SocketConnected();

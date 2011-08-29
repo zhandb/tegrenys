@@ -24,6 +24,16 @@ void TGIP9100::Init()
 void TGIP9100::OnSocketCreated(UID socket_uid)
 {
 	PTGModule socket = System->GetModule(socket_uid);
-	int r = 0;
+
+	connect(this, SIGNAL(SocketConnect(TGString, uint32_t, uint32_t)), socket, SLOT(OnSocketConnect(TGString, uint32_t, uint32_t)));
+	connect(socket, SIGNAL(SocketConnected()), this, SLOT(OnSocketConnected()));
+
+	emit SocketConnect("192.168.0.33", 80, 0);
+}
+//---------------------------------------------------------------------------
+
+void TGIP9100::OnSocketConnected()
+{
+
 }
 //---------------------------------------------------------------------------
