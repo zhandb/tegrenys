@@ -1,6 +1,5 @@
 #include "TGNetworkService.h"
 #include "TGHttpParser.h"
-#include "..\TGCodec\tgcodec.h"
 #include "..\TGIPPCodec\TGMJPEGDecoder.h"
 //---------------------------------------------------------------------
 TGNetworkService::TGNetworkService(UID module_uid, PTGModule system) : TGModule(module_uid, system)
