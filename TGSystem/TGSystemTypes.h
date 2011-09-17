@@ -4,11 +4,12 @@
 #include <QString>
 #include <QObject>
 #include <QTimer>
+#include <Quuid>
 #include "TGRefCounter.h"
 //-----------------------------------------------------------
 #define TGMap std::map 
 //-----------------------------------------------------------
-typedef unsigned int UID;
+typedef QUuid UID;
 typedef QString TGString;
 typedef QTimer TGTimer;
 //-----------------------------------------------------------

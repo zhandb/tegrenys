@@ -25,8 +25,8 @@ void TGAnimationManager::LoadAnimations(PTGBaseTextureManager texture_manager)
 	while (animations_query.Read(&data))
 	{
 		TGAnimationPhase phase;
-		UID image = data[1].toInt();
-		UID animation_id = data[3].toInt(); 
+		UID image = data[1].toString();
+		UID animation_id = data[3].toString(); 
 
 		phase.Delay = data[2].toInt();
 		phase.Image = texture_manager->GetBaseTexture(image);
@@ -50,8 +50,8 @@ void TGAnimationManager::LoadStates()
 	while (state_query.Read(&data))
 	{
 		TGObjectState state;
-		UID id = data[0].toInt();
-		UID animation_id = data[1].toInt(); 
+		UID id = data[0].toString();
+		UID animation_id = data[1].toString(); 
 		state.MousePushed = data[2].toInt();
 		state.MouseHover = data[3].toInt();
 		state.Animation = Animations[animation_id];

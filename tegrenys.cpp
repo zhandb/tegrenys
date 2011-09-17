@@ -32,19 +32,19 @@ Tegrenys::Tegrenys(QWidget *parent, Qt::WFlags flags)
 	int id = QMetaType::type("QObject");
 //	TGSystem* s = TGSystem::GetSystem();
 
-	GB = new TGGuiBuilder(222, System);
+	GB = new TGGuiBuilder("{8A747671-5239-4aa6-99CB-D222947E0EE7}", System);
 	//GB->Build(main_database);
 
 	int r = 0;
 
-	VideoRect = GB->GetPrimitive(888);
+	VideoRect = GB->GetPrimitive("{19345C9B-57FF-4a63-879C-AFDBB92DAD6D}");
 
 	QObject* obj = dynamic_cast<QObject*>(&*VideoRect);
 
-	NS = new TGNetworkService(1111, System);
+	NS = new TGNetworkService("{EC8A5B5E-F4B4-405e-AFF7-BD722B33DBAE}", System);
 	//Sleep(INFINITE);
 
-	PTGModule ip_server = new TGIP9100(4444, System);
+	PTGModule ip_server = new TGIP9100("{0F6BECA6-08CE-41c7-A81D-4DBA0BDC00C5}", System);
 	ip_server->Init();
 
 

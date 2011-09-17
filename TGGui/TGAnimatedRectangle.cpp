@@ -5,7 +5,7 @@
 TGAnimatedRectangle::TGAnimatedRectangle(PTGBasePrimitiveLayer owner) : TGBaseRectangle(owner, true)
 {
 	StateChanged = true;
-	StateID = 1000;
+	StateID = "{A637AE79-AB9C-4fa9-878D-CC56BB3B469C}";
 	LastAnimationTime = 0;
 	PhaseLifeTime = 0;
 }

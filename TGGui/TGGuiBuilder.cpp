@@ -81,14 +81,14 @@ QWidget* TGGuiBuilder::CreateWidget(QWidget* parent, QString class_name)
 		widget->show();
 
 		PTGBaseViewport vp = new TGDXViewport(QRect(0, 0, 1280, 1024), QColor("darkblue"));
-		emit AddViewPort(111, vp);
+		emit AddViewPort("{3192C1FA-6FA6-44f0-8DB4-DCE1B67F6E25}", vp);
 
 		/*PTGBaseViewport vp2 = new TGDXViewport(QRect(400, 100, 500, 600), QColor("green"));
 		emit AddViewPort(222, vp2);*/
 
-		emit SetCurrentViewport(111);
+		emit SetCurrentViewport("{3192C1FA-6FA6-44f0-8DB4-DCE1B67F6E25}");
 
-		PTGBasePrimitiveLayer PrimitiveLayer = new TGDXPrimitiveLayer(111);
+		PTGBasePrimitiveLayer PrimitiveLayer = new TGDXPrimitiveLayer("{3192C1FA-6FA6-44f0-8DB4-DCE1B67F6E25}");
 
 		TGBasePrimitiveLayerParams params;
 		params.BaseViewPort = QSize(1, 1);
@@ -111,12 +111,12 @@ QWidget* TGGuiBuilder::CreateWidget(QWidget* parent, QString class_name)
 
 		emit AddLayerToCurrentViewport(PrimitiveLayer);
 
-		TGVideoRectangle* p2 = new TGVideoRectangle(PrimitiveLayer);
+		/*TGVideoRectangle* p2 = new TGVideoRectangle(PrimitiveLayer);
 		PTGBasePrimitive pp2 = p2;
 		p2->SetSize(QSizeF(3, 2));
-		p2->SetPos(TGPointF(-200, -0.5, -0.1));
+		p2->SetPos(TGPointF(-200, -0.5, -0.1));*/
 		
-		TGBaseTexturedRectangle* p = new TGBaseTexturedRectangle(PrimitiveLayer, 1);
+		TGBaseTexturedRectangle* p = new TGBaseTexturedRectangle(PrimitiveLayer, "{8BC0D4A6-4BBA-431c-83CA-3357D87CF21A}");
 		p->SetColor(QColor("red"));
 		p->SetSize(QSizeF(1, 1));
 		p->SetPos(TGPointF(-1, -0.5, 0.0));

@@ -48,7 +48,7 @@ void TGBaseTextureManager::LoadTextures()
 	while (textures_query.Read(&data))
 	{
 		QString file_name = data[1].toString();
-		unsigned int ID = data[0].toInt();
+		UID ID = data[0].toString();
 
 		TGFileTextureDescriptor* descr = new TGFileTextureDescriptor();
 		descr->file_name = file_name;
@@ -72,8 +72,8 @@ void TGBaseTextureManager::LoadTextures()
 
 	while (sub_textures_query.Read(&data))
 	{
-		UID ID = data[0].toInt();
-		UID parent_id = data[1].toInt();
+		UID ID = data[0].toString();
+		UID parent_id = data[1].toString();
 
 		TGBaseTextureMap::iterator parent_tex = TexturesMap.find(parent_id);
 		
@@ -117,13 +117,13 @@ void TGBaseTextureManager::Init()
 //---------------------------------------------------------------------
 PTGBaseTexture TGBaseTextureManager::AddTexture(PTGBaseTextureDescriptor texture_desc)
 {
-	unsigned int ID = rand();
+	UID id = QUuid::createUuid();
 
 	//texture_desc.sub_texture_rect = QRect(QPoint(0, 0), texture_desc.texture_size);
 	
-	ASSERT(!TexturesMap.contains(ID));
+	ASSERT(!TexturesMap.contains(id));
 	PTGBaseTexture new_texture = CreateTexture(texture_desc);
-	TexturesMap[ID] = new_texture;
+	TexturesMap[id] = new_texture;
 	InvalidateTexture(new_texture);
 	return new_texture;
 }
