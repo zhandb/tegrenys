@@ -28,6 +28,16 @@ public:
 	void DeInit();
 	void RegisterModule(UID module_uid, PTGModule module);
 	PTGModule GetModule(UID module_id);
+	void CreateModule(UID type_id, UID module_id);
+protected:
+	virtual PTGModule CreateModuleProc(UID type_id, UID module_id){return NULL;};
+	virtual void ModuleCreatedProc(UID type_id, UID module_id, PTGModule module){};
+signals: 
+	void CreateModuleSignal(PTGModule caller, UID type_id, UID module_id);
+	void ModuleCreatedSignal(PTGModule caller, UID type_id, UID module_id, PTGModule result);
+public slots:
+	virtual void OnCreateModuleSlot(PTGModule caller, UID type_id, UID module_id);
+	virtual void OnModuleCreatedSlot(PTGModule caller, UID type_id, UID module_id, PTGModule result);
 protected:
 	PTGModule System;
 	TGModuleMap ModuleMap;

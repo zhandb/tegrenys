@@ -14,6 +14,9 @@ TGIP9100::~TGIP9100()
 
 void TGIP9100::Init()
 {
+	CreateModule(UID("{04AD711B-4536-4b78-B7DC-95D85809A1FA}"), UID("{0D7FA52D-32AB-4239-A7D5-33FE28D103A9}"));
+	CreateModule(UID("{0DDC8946-E848-4eb9-BF16-82A16805217D}"), UID("{53DC0858-76C1-4a2d-840F-655F78EC2030}"));
+
 	/*NetworkService = System->GetModule(1111);
 	connect(this, SIGNAL(CreateSocket()), NetworkService, SLOT(OnCreateSocket()));
 	connect(NetworkService, SIGNAL(SocketCreated(UID)), this, SLOT(OnSocketCreated(UID)));
@@ -46,5 +49,11 @@ void TGIP9100::OnSocketConnected()
 	buffer->Allocate(strlen(reqtemplate));
 	memcpy((void*)buffer->GetConstData(), reqtemplate, strlen(reqtemplate));
 	emit Write(buffer);
+}
+//---------------------------------------------------------------------------
+
+void TGIP9100::ModuleCreatedProc(UID type_id, UID module_id, PTGModule module)
+{
+	int r = 0;
 }
 //---------------------------------------------------------------------------

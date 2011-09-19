@@ -7,6 +7,7 @@
 #include "..\TGNetwork\TGBaseDataParser.h"
 #include "membuffin.h"
 #include "..\TGSystem\TGVideoStructs.h"
+#include "..\TGSystem\TGSystemTypes.h"
 //------------------------------------------------------------------------
 
 class CJPEGDecoder;
@@ -26,11 +27,11 @@ struct TGFrameInfo
 };
 
 
-class TGIPPCODEC_EXPORT TGMJPEGDecoder : public QObject
+class TGIPPCODEC_EXPORT TGMJPEGDecoder : public TGModule
 {
 	Q_OBJECT
 public:
-	TGMJPEGDecoder();
+	TGMJPEGDecoder(UID module_uid, PTGModule system);
 	~TGMJPEGDecoder();
 	void Decode(PTGBuffer in_buffer, PTGBuffer out_buffer);
 private:

@@ -9,6 +9,9 @@ TGNetworkService::TGNetworkService(UID module_uid, PTGModule system) : TGModule(
 
 	startTimer(1);
 
+	TGSystem* sys = (TGSystem*)&*system;
+	sys->RegisterFactoryModuleType(TGSOCKET_TYPE_UID, this);
+
 	//Socket = new TGSocket();
 
 	//TLP = new TGHttpParser(&MJD);
@@ -84,5 +87,15 @@ void TGNetworkService::OnCreateSocket()
 	UID socket_uid = QUuid::createUuid();
 	ModuleMap[socket_uid] = new TGSocket(socket_uid, System);
 	emit SocketCreated(socket_uid);
+}
+//---------------------------------------------------------------------------
+
+PTGModule TGNetworkService::CreateModuleProc(UID type_id, UID module_id)
+{
+	if (type_id == TGSOCKET_TYPE_UID)
+		return new TGSocket(module_id, System);
+
+	if (type_id == TGHTTP_PARSER_TYPE_UID)
+		return new TGHttpParser();
 }
 //---------------------------------------------------------------------

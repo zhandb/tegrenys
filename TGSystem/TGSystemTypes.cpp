@@ -50,3 +50,34 @@ void TGModule::Init()
 
 }
 //---------------------------------------------------------------------------
+
+void TGModule::CreateModule(UID type_id, UID module_id)
+{
+	TGSystem* sys = (TGSystem*)&*System;
+	sys->ConnectToModuleFactory(this, type_id, module_id);
+	emit CreateModuleSignal(this, type_id, module_id);
+}
+//---------------------------------------------------------------------------
+
+void TGModule::OnCreateModuleSlot(PTGModule caller, UID type_id, UID module_id)
+{
+	disconnect(caller, SIGNAL(CreateModuleSignal(PTGModule, UID, UID)), this, SLOT(OnCreateModuleSlot(PTGModule, UID, UID)));
+	PTGModule module = CreateModuleProc(type_id, module_id);
+	if (module)
+	{
+		connect(this, SIGNAL(ModuleCreatedSignal(PTGModule, UID, UID, PTGModule)), caller, SLOT(OnModuleCreatedSlot(PTGModule, UID, UID, PTGModule)));
+		emit ModuleCreatedSignal(caller, type_id, module_id, module);
+		disconnect(this, SIGNAL(ModuleCreatedSignal(PTGModule, UID, UID, PTGModule)), caller, SLOT(OnModuleCreatedSlot(PTGModule, UID, UID, PTGModule)));
+	}
+	
+}
+//---------------------------------------------------------------------------
+
+void TGModule::OnModuleCreatedSlot(PTGModule caller, UID type_id, UID module_id, PTGModule result)
+{
+	if (caller == this)
+	{
+		ModuleCreatedProc(type_id, module_id, result);
+	}
+}
+//---------------------------------------------------------------------------

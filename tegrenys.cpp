@@ -13,6 +13,7 @@
 #include "TGNetwork\TGNetworkService.h"
 #include "tgsystem.h"
 #include "TGIP9100\tgip9100.h"
+#include "TGIPPCodec\TGCodecManager.h"
 
 Tegrenys::Tegrenys(QWidget *parent, Qt::WFlags flags)
 {
@@ -42,6 +43,7 @@ Tegrenys::Tegrenys(QWidget *parent, Qt::WFlags flags)
 	QObject* obj = dynamic_cast<QObject*>(&*VideoRect);
 
 	NS = new TGNetworkService("{EC8A5B5E-F4B4-405e-AFF7-BD722B33DBAE}", System);
+	new TGCodecManager("{6095F41E-EC10-4974-BD62-2DB00F8E59FF}", System);
 	//Sleep(INFINITE);
 
 	PTGModule ip_server = new TGIP9100("{0F6BECA6-08CE-41c7-A81D-4DBA0BDC00C5}", System);
