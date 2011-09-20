@@ -1,0 +1,18 @@
+#ifndef TGHttpTagParser_h__
+#define TGHttpTagParser_h__
+//-------------------------------------------------------------------
+#include "..\TGSystem\TGSystemTypes.h"
+#include "TGBaseDataParser.h"
+//-------------------------------------------------------------------
+typedef TGMap<TGString, TGString> TGHttpTagMap;
+
+class TGHttpTagParser
+{	
+public:
+	TGHttpTagParser();
+	~TGHttpTagParser();
+	void ParseData(TGDataFragmentList& data_fragments);
+};
+//-------------------------------------------------------------------
+
+#endif // TGHttpTagParser_h__
