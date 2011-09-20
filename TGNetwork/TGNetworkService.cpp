@@ -59,12 +59,12 @@ void TGNetworkService::OnSocketConnected()
 	
 }
 //---------------------------------------------------------------------
-void TGNetworkService::OnDataReceived(PTGBuffer data)
-{
-	//file.write(data->GetConstData(), data->GetDataSize());
-
-	TLP->ReceiveData(TGDataFragmentList(0, data, data->GetDataSize()));
-}
+//void TGNetworkService::OnDataReceived(PTGBuffer data)
+//{
+//	//file.write(data->GetConstData(), data->GetDataSize());
+//
+//	TLP->ReceiveData(TGDataFragmentList(0, data, data->GetDataSize()));
+//}
 //---------------------------------------------------------------------
 void TGNetworkService::OnSocketDisconnected()
 {
@@ -82,20 +82,16 @@ void TGNetworkService::timerEvent(QTimerEvent* event)
 }
 //---------------------------------------------------------------------------
 
-void TGNetworkService::OnCreateSocket()
-{
-	UID socket_uid = QUuid::createUuid();
-	ModuleMap[socket_uid] = new TGSocket(socket_uid, System);
-	emit SocketCreated(socket_uid);
-}
-//---------------------------------------------------------------------------
-
 PTGModule TGNetworkService::CreateModuleProc(UID type_id, UID module_id)
 {
 	if (type_id == TGSOCKET_TYPE_UID)
-		return new TGSocket(module_id, System);
-
-	if (type_id == TGHTTP_PARSER_TYPE_UID)
-		return new TGHttpParser();
+	{
+		PTGModule socket = new TGSocket(module_id, System);
+		//TODO: как удалить сокет после использования?
+		ModuleMap[module_id] = socket;
+		return socket;
+	}
+	
+	return NULL;
 }
 //---------------------------------------------------------------------

@@ -3,13 +3,14 @@
 //---------------------------------------------------------------------
 #include "TGEndSignatureParser.h"
 #include "TGBoundaryParser.h"
+#include "tgnetwork_global.h"
 //---------------------------------------------------------------------
-static uint32_t boundary_id = FOURCC("BOUN");
+//static uint32_t boundary_id = FOURCC("BOUN");
 
-class TGHttpParser : public TGEndSignatureParser
+class TGNETWORK_EXPORT TGHttpParser : public TGEndSignatureParser
 {
 public:
-	TGHttpParser(QObject* receiver);
+	TGHttpParser(PTGModule receiver);
 	~TGHttpParser();
 protected:
 	virtual void ProcessRequest();
@@ -19,4 +20,7 @@ private:
 	bool Bypass;
 };
 //---------------------------------------------------------------------
+TG_REFC_PTR(TGHttpParser)
+//---------------------------------------------------------------------
+
 #endif // TGHttpParser_h__

@@ -1,7 +1,7 @@
 //---------------------------------------------------------------------
 #include "TGBaseDataParser.h"
 //---------------------------------------------------------------------
-TGBaseDataParser::TGBaseDataParser(QObject* receiver)
+TGBaseDataParser::TGBaseDataParser(PTGModule receiver)
 {
 	Receiver = receiver;
 }

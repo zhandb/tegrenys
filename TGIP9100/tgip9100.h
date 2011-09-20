@@ -4,6 +4,7 @@
 #include "tgip9100_global.h"
 #include "..\TGSystem\TGSystemTypes.h"
 #include "..\TGSystem\TGBuffer.h"
+#include "..\TGNetwork\TGHttpParser.h"
 
 class TGIP9100_EXPORT TGIP9100 : public TGModule
 {
@@ -14,7 +15,8 @@ public:
 	virtual void Init();
 
 private:
-	PTGModule NetworkService;
+	PTGModule Socket;
+	PTGHttpParser HttpParser;
 protected:
 	virtual void ModuleCreatedProc(UID type_id, UID module_id, PTGModule module);
 signals:
@@ -22,9 +24,9 @@ signals:
 	void SocketConnect(TGString host, uint32_t remote_port, uint32_t localport);
 	void Write(PTGBuffer data);
 
-private slots:
-	void OnSocketCreated(UID socket_uid);
+public slots:
 	void OnSocketConnected();
+	void OnDataReceived(PTGBuffer data);
 };
 
 #endif // TGIP9100_H

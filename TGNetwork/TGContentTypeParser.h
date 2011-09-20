@@ -8,7 +8,7 @@ class TGContentTypeParser : public QObject, public TGEndSignatureParser
 {
 	Q_OBJECT
 public:
-	TGContentTypeParser(QObject* receiver);
+	TGContentTypeParser(PTGModule receiver);
 	~TGContentTypeParser();
 
 protected:

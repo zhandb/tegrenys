@@ -5,15 +5,15 @@
 #include "..\TGSystem\TGRefCounter.h"
 #include "..\TGSystem\TGBuffer.h"
 #include "TGBaseDataParser.h"
-
+//---------------------------------------------------------------------
 struct TGTextRequestLine 
 {
 	const char* TagName;
 	const char* TagValue;
 };
-
+//---------------------------------------------------------------------
 typedef std::list<TGTextRequestLine> TGTextRequestLinesList;
-
+//---------------------------------------------------------------------
 struct TGTextLineRequest : public TGReferenceCounter
 {
 	PTGBuffer RequestBuffer;
@@ -24,7 +24,7 @@ TG_REFC_PTR(TGTextLineRequest);
 class TGEndSignatureParser : public TGBaseDataParser
 {
 public:
-	TGEndSignatureParser(QObject* receiver, QByteArray signature);
+	TGEndSignatureParser(PTGModule receiver, QByteArray signature);
 	~TGEndSignatureParser();
 	void SetSignature(QByteArray signature);
 private:
@@ -41,7 +41,8 @@ protected:
 	//”дал€ем количество байт, равное длине сигнатуры
 	void RemoveSignature();
 };
-
+//---------------------------------------------------------------------
 TG_REFC_PTR(TGEndSignatureParser);
+//---------------------------------------------------------------------
 
 #endif // TGTextLineParser_h__

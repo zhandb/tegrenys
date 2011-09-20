@@ -5,6 +5,8 @@
 //#include <stdint.h>
 #include "..\TGSystem\TGBuffer.h"
 #include <map>
+#include "..\TGSystem\TGSystemTypes.h"
+#include "tgnetwork_global.h"
 
 TG_REFC_PTR(TGBaseDataParser);
 
@@ -54,16 +56,16 @@ struct TGDataFragmentList : public std::list<TGDataFragment>
 	}
 };
 
-class TGBaseDataParser : public TGReferenceCounter
+class TGNETWORK_EXPORT TGBaseDataParser : public TGReferenceCounter
 {
 public:
-	TGBaseDataParser(QObject* receiver);
+	TGBaseDataParser(PTGModule receiver);
 	~TGBaseDataParser();
 	void ReceiveData(TGDataFragmentList data_fragments);
 protected:
 	virtual void OnDataReceived(TGDataFragmentList& data_fragments);
 protected:
 	TGDataFragmentList ParserDataList;
-	QObject* Receiver;
+	PTGModule Receiver;
 };
 #endif // TGBaseDataParser_h__

@@ -28,7 +28,7 @@ public:
 	void DeInit();
 	void RegisterModule(UID module_uid, PTGModule module);
 	PTGModule GetModule(UID module_id);
-	void CreateModule(UID type_id, UID module_id);
+	UID CreateModule(UID type_id);
 protected:
 	virtual PTGModule CreateModuleProc(UID type_id, UID module_id){return NULL;};
 	virtual void ModuleCreatedProc(UID type_id, UID module_id, PTGModule module){};

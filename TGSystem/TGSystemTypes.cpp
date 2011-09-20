@@ -51,11 +51,15 @@ void TGModule::Init()
 }
 //---------------------------------------------------------------------------
 
-void TGModule::CreateModule(UID type_id, UID module_id)
+UID TGModule::CreateModule(UID type_id)
 {
 	TGSystem* sys = (TGSystem*)&*System;
-	sys->ConnectToModuleFactory(this, type_id, module_id);
-	emit CreateModuleSignal(this, type_id, module_id);
+
+	UID module_uid = QUuid::createUuid();
+	sys->ConnectToModuleFactory(this, type_id, module_uid);
+	emit CreateModuleSignal(this, type_id, module_uid);
+
+	return module_uid;
 }
 //---------------------------------------------------------------------------
 

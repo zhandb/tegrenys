@@ -1,7 +1,7 @@
 #include "TGBoundaryParser.h"
 #include "TGContentTypeParser.h"
 //---------------------------------------------------------------------
-TGBoundaryParser::TGBoundaryParser(QObject* receiver) : TGEndSignatureParser(receiver, "--WINBONDBOUDARY\r\n")
+TGBoundaryParser::TGBoundaryParser(PTGModule receiver) : TGEndSignatureParser(receiver, "--WINBONDBOUDARY\r\n")
 {
 	ContentTypeParser = new TGContentTypeParser(receiver);
 }
@@ -17,8 +17,6 @@ void TGBoundaryParser::ProcessRequest()
 	
 	//—юда приходит список фрагментов, содержащий contenttype и сами данные, 
 	//всегда один целостный пакет. 
-
-	
 
 	ContentTypeParser->ReceiveData(ParserDataList);
 }

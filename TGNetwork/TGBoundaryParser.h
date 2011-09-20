@@ -3,12 +3,10 @@
 
 #include "TGEndSignatureParser.h"
 
-static uint32_t content_type_id = FOURCC("CNTN");
-
 class TGBoundaryParser : public TGEndSignatureParser
 {
 public:
-	TGBoundaryParser(QObject* receiver);
+	TGBoundaryParser(PTGModule receiver);
 	~TGBoundaryParser();
 
 protected:

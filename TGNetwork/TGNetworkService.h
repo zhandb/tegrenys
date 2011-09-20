@@ -27,14 +27,12 @@ public:
 
 private:
 	//PTGSocket Socket;
-	PTGEndSignatureParser TLP;
+	//PTGEndSignatureParser TLP;
 	//TGMJPEGDecoder MJD;
 protected:
 	virtual PTGModule CreateModuleProc(UID type_id, UID module_id);
 public slots:
-	void OnCreateSocket();
 	void OnSocketConnected();
-	void OnDataReceived(PTGBuffer data);
 	void OnSocketDisconnected();
 	void timerEvent(QTimerEvent* event);
 	//virtual void OnCreateModuleSlot(PTGModule caller, UID type_id, UID module_id);

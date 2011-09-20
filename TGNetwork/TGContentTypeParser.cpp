@@ -1,7 +1,7 @@
 #include "TGContentTypeParser.h"
 #include <QFile>
 //---------------------------------------------------------------------
-TGContentTypeParser::TGContentTypeParser(QObject* receiver) : TGEndSignatureParser(receiver, "\r\n\r\n")
+TGContentTypeParser::TGContentTypeParser(PTGModule receiver) : TGEndSignatureParser(receiver, "\r\n\r\n")
 {
 	count = 0;
 	Bypass = false;

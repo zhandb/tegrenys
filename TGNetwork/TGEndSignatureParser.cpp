@@ -2,7 +2,7 @@
 #include "TGEndSignatureParser.h"
 #include "..\TGSystem\TGBufferPool.h"
 //---------------------------------------------------------------------
-TGEndSignatureParser::TGEndSignatureParser(QObject* receiver, QByteArray signature) : TGBaseDataParser(receiver)
+TGEndSignatureParser::TGEndSignatureParser(PTGModule receiver, QByteArray signature) : TGBaseDataParser(receiver)
 {	
 	SignatureCounter = 0;
 	SetSignature(signature);
