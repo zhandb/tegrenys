@@ -50,31 +50,9 @@ TGNetworkService::~TGNetworkService()
 {
 }
 //---------------------------------------------------------------------
-void TGNetworkService::OnSocketConnected()
-{
-	/*file.setFileName(QString("c:\\test%1.html").arg(filecount));
-	filecount++;
-	file.open(QIODevice::WriteOnly);*/
-
-	
-}
-//---------------------------------------------------------------------
-//void TGNetworkService::OnDataReceived(PTGBuffer data)
-//{
-//	//file.write(data->GetConstData(), data->GetDataSize());
-//
-//	TLP->ReceiveData(TGDataFragmentList(0, data, data->GetDataSize()));
-//}
-//---------------------------------------------------------------------
-void TGNetworkService::OnSocketDisconnected()
-{
-	//file.close();
-}
-//---------------------------------------------------------------------------
 
 void TGNetworkService::timerEvent(QTimerEvent* event)
 {
-	//Socket->Poll();
 	for (TGModuleMap::iterator socket = ModuleMap.begin(); socket != ModuleMap.end(); ++socket)
 	{
 		((TGSocket*)&*socket->second)->Poll();

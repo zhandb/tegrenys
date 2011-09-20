@@ -25,21 +25,10 @@ public:
 	TGNetworkService(UID module_uid, PTGModule system);
 	~TGNetworkService();
 
-private:
-	//PTGSocket Socket;
-	//PTGEndSignatureParser TLP;
-	//TGMJPEGDecoder MJD;
 protected:
 	virtual PTGModule CreateModuleProc(UID type_id, UID module_id);
 public slots:
-	void OnSocketConnected();
-	void OnSocketDisconnected();
 	void timerEvent(QTimerEvent* event);
-	//virtual void OnCreateModuleSlot(PTGModule caller, UID type_id, UID module_id);
-	
-signals:
-	void Write(PTGBuffer data);
-	void SocketCreated(UID socket_uid);
 };
 //---------------------------------------------------------------------
 TG_REFC_PTR(TGNetworkService);
