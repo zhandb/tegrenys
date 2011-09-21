@@ -48,17 +48,20 @@ void TGHttpTagParser::ParseData(TGDataFragmentList& data_fragments, TGHttpTagMap
 				{
 					tmp[tmp_buffer_ptr] = 0;
 					tmp_buffer_ptr = 0;
+					
 					if (!tag_name.length())
-					{
 						tag_name = "HttpHeader";
-					}
-
+					
 					tag_map[tag_name] = tmp;
-					tag_name = "";
-					j++;
+					
+					j += 1;
 					continue;
 				}
 			}
+
+			tmp[tmp_buffer_ptr++] = data[j];
+			if (tmp_buffer_ptr == MAX_HTTP_TAG_LENGTH)
+				return;
 
 			tmp[tmp_buffer_ptr++] = data[j];
 		}
@@ -68,13 +71,10 @@ void TGHttpTagParser::ParseData(TGDataFragmentList& data_fragments, TGHttpTagMap
 	{
 		tmp[tmp_buffer_ptr] = 0;
 		tmp_buffer_ptr = 0;
-		if (!tag_name.length())
-		{
-			tag_name = "HttpHeader";
-		}
 
 		tag_map[tag_name] = tmp;
-		tag_name = "";
 	}
+
+	int r = 0;
 }
 //-------------------------------------------------------------------

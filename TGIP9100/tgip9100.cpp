@@ -47,7 +47,7 @@ void TGIP9100::ModuleCreatedProc(UID type_id, UID module_id, PTGModule module)
 		connect(this, SIGNAL(Write(PTGBuffer)), Socket, SLOT(Write(PTGBuffer)));
 		connect(Socket, SIGNAL(DataReceived(PTGBuffer)), this, SLOT(OnDataReceived(PTGBuffer)));
 
-		emit SocketConnect("ya.ru", 80, 0);
+		emit SocketConnect("192.168.0.33", 5000, 0);
 	}
 }
 //-------------------------------------------------------------------

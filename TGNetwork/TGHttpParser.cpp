@@ -20,6 +20,7 @@ void TGHttpParser::ProcessRequest()
 	//дальнейшие данные передаем в BoundaryParser
 
 	PTGBuffer res = ParserDataList.GatherData();
+
 	TGHttpTagParser tp;
 	TGHttpTagMap tm;
 	tp.ParseData(ParserDataList, tm);
