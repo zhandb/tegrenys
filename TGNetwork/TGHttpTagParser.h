@@ -11,7 +11,7 @@ class TGHttpTagParser
 public:
 	TGHttpTagParser();
 	~TGHttpTagParser();
-	void ParseData(TGDataFragmentList& data_fragments);
+	void ParseData(TGDataFragmentList& data_fragments, TGHttpTagMap& tag_map);
 };
 //-------------------------------------------------------------------
 

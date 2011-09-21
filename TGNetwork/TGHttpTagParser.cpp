@@ -13,7 +13,7 @@ TGHttpTagParser::~TGHttpTagParser()
 }
 //-------------------------------------------------------------------
 
-void TGHttpTagParser::ParseData(TGDataFragmentList& data_fragments)
+void TGHttpTagParser::ParseData(TGDataFragmentList& data_fragments, TGHttpTagMap& tag_map)
 {
 	enum TGHttpTagParserState{None, TagName, TagValue};
 
@@ -26,7 +26,7 @@ void TGHttpTagParser::ParseData(TGDataFragmentList& data_fragments)
 
 	TGString tag_name;
 	
-	const char* tmp = tmp_buffer->GetConstData();
+	char* tmp = (char*)tmp_buffer->GetConstData();
 
 	for (TGDataFragmentList::iterator i = data_fragments.begin(); i != data_fragments.end(); ++i)
 	{
@@ -40,36 +40,41 @@ void TGHttpTagParser::ParseData(TGDataFragmentList& data_fragments)
 					tmp[tmp_buffer_ptr] = 0;
 					tmp_buffer_ptr = 0;
 					tag_name = tmp;
+					j++;
+					continue;
 				}
 
 				if (data[j] == '\r' && data[j + 1] == '\n')
 				{
 					tmp[tmp_buffer_ptr] = 0;
 					tmp_buffer_ptr = 0;
-					tag_name = tmp;
-				}
-			}
-
-			if (state == TagName)
-			{
-				if (data[j] != ':')
-				{
-					tmp[tmp_buffer_ptr++] = data[j];
-				}
-				else
-				{
-					if (j < i->Size - 1 && data[j + 1] == ' ')
+					if (!tag_name.length())
 					{
-						j++;
-						state = TagValue;
-						tmp[tmp_buffer_ptr] = 0;
-						tmp_buffer_ptr = 0;
-						tag_name = tmp;
+						tag_name = "HttpHeader";
 					}
 
+					tag_map[tag_name] = tmp;
+					tag_name = "";
+					j++;
+					continue;
 				}
 			}
+
+			tmp[tmp_buffer_ptr++] = data[j];
 		}
+	}
+
+	if (tmp_buffer_ptr)
+	{
+		tmp[tmp_buffer_ptr] = 0;
+		tmp_buffer_ptr = 0;
+		if (!tag_name.length())
+		{
+			tag_name = "HttpHeader";
+		}
+
+		tag_map[tag_name] = tmp;
+		tag_name = "";
 	}
 }
 //-------------------------------------------------------------------

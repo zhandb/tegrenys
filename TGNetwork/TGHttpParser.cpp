@@ -1,6 +1,7 @@
 //---------------------------------------------------------------------
 #include "TGHttpParser.h"
 #include "TGBoundaryParser.h"
+#include "TGHttpTagParser.h"
 //---------------------------------------------------------------------
 TGHttpParser::TGHttpParser(PTGModule receiver) : TGEndSignatureParser(receiver, "\r\n\r\n")
 {
@@ -19,6 +20,9 @@ void TGHttpParser::ProcessRequest()
 	//дальнейшие данные передаем в BoundaryParser
 
 	PTGBuffer res = ParserDataList.GatherData();
+	TGHttpTagParser tp;
+	TGHttpTagMap tm;
+	tp.ParseData(ParserDataList, tm);
 	Bypass = true;
 }
 //---------------------------------------------------------------------
