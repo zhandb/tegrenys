@@ -4,6 +4,8 @@
 #include "..\TGSystem\TGSystemTypes.h"
 #include "TGBaseDataParser.h"
 //-------------------------------------------------------------------
+#define MAX_HTTP_TAG_LENGTH 1024
+//-------------------------------------------------------------------
 typedef TGMap<TGString, TGString> TGHttpTagMap;
 
 class TGHttpTagParser

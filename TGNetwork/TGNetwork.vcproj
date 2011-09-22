@@ -337,6 +337,40 @@
 					/>
 				</FileConfiguration>
 			</File>
+			<Filter
+				Name="Rtsp"
+				>
+				<File
+					RelativePath=".\TGRtspParser.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\TGRtspParser.h"
+					>
+					<FileConfiguration
+						Name="Release|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Moc&apos;ing $(InputFileName)..."
+							CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot; -D_WINDLL -DNDEBUG -DQT_CORE_LIB -DQT_LARGEFILE_SUPPORT -DQT_NO_DEBUG -DQT_THREAD_SUPPORT -DTGNETWORK_LIB -DUNICODE -I&quot;$(QTDIR)\include\.&quot; -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;$(QTDIR)\include\qtmain\.&quot; -I&quot;.\.&quot; -I&quot;.\GeneratedFiles\$(ConfigurationName)\.&quot; -I&quot;.\GeneratedFiles\.&quot;&#x0D;&#x0A;"
+							AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
+							Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Moc&apos;ing $(InputFileName)..."
+							CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot; -D_WINDLL -DQT_CORE_LIB -DQT_LARGEFILE_SUPPORT -DQT_THREAD_SUPPORT -DTGNETWORK_LIB -DUNICODE -I&quot;$(IPPROOT)\include\.&quot; -I&quot;$(QTDIR)\include\.&quot; -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;$(QTDIR)\include\qtmain\.&quot; -I&quot;.\.&quot; -I&quot;.\..\tgippcodec\ippsrc\jpeg\include\.&quot; -I&quot;.\..\tgippcodec\ippsrc\umc\include\.&quot; -I&quot;.\..\tgippcodec\ippsrc\vm\include\.&quot; -I&quot;.\GeneratedFiles\$(ConfigurationName)\.&quot; -I&quot;.\GeneratedFiles\.&quot;&#x0D;&#x0A;"
+							AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
+							Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
+						/>
+					</FileConfiguration>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Form Files"
@@ -387,6 +421,18 @@
 					</FileConfiguration>
 				</File>
 				<File
+					RelativePath=".\generatedfiles\release\moc_TGRtspParser.cpp"
+					>
+					<FileConfiguration
+						Name="Debug|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
 					RelativePath=".\GeneratedFiles\Release\moc_TGSocket.cpp"
 					>
 					<FileConfiguration
@@ -418,6 +464,18 @@
 				</File>
 				<File
 					RelativePath=".\GeneratedFiles\Debug\moc_TGNetworkService.cpp"
+					>
+					<FileConfiguration
+						Name="Release|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath=".\generatedfiles\debug\moc_TGRtspParser.cpp"
 					>
 					<FileConfiguration
 						Name="Release|Win32"
