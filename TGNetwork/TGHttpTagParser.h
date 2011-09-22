@@ -13,7 +13,10 @@ class TGHttpTagParser
 public:
 	TGHttpTagParser();
 	~TGHttpTagParser();
-	void ParseData(TGDataFragmentList& data_fragments, TGHttpTagMap& tag_map);
+	void ParseData(TGDataFragmentList& data_fragments);
+	TGString GetTag(const char* tag_name, TGString& default = TGString(""));
+private:
+	TGHttpTagMap TagMap;
 };
 //-------------------------------------------------------------------
 

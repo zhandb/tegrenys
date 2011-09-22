@@ -13,12 +13,10 @@ TGHttpTagParser::~TGHttpTagParser()
 }
 //-------------------------------------------------------------------
 
-void TGHttpTagParser::ParseData(TGDataFragmentList& data_fragments, TGHttpTagMap& tag_map)
+void TGHttpTagParser::ParseData(TGDataFragmentList& data_fragments)
 {
-	enum TGHttpTagParserState{None, TagName, TagValue};
+	TagMap.clear();
 
-	TGHttpTagParserState state = TagName;
-	
 	int tmp_buffer_ptr = 0;
 
 	PTGBuffer tmp_buffer = new TGBuffer();
@@ -52,9 +50,9 @@ void TGHttpTagParser::ParseData(TGDataFragmentList& data_fragments, TGHttpTagMap
 					if (!tag_name.length())
 						tag_name = "HttpHeader";
 					
-					tag_map[tag_name] = tmp;
+					TagMap[tag_name] = tmp;
 					
-					j += 1;
+					j++;
 					continue;
 				}
 			}
@@ -62,8 +60,6 @@ void TGHttpTagParser::ParseData(TGDataFragmentList& data_fragments, TGHttpTagMap
 			tmp[tmp_buffer_ptr++] = data[j];
 			if (tmp_buffer_ptr == MAX_HTTP_TAG_LENGTH)
 				return;
-
-			tmp[tmp_buffer_ptr++] = data[j];
 		}
 	}
 
@@ -72,9 +68,17 @@ void TGHttpTagParser::ParseData(TGDataFragmentList& data_fragments, TGHttpTagMap
 		tmp[tmp_buffer_ptr] = 0;
 		tmp_buffer_ptr = 0;
 
-		tag_map[tag_name] = tmp;
+		TagMap[tag_name] = tmp;
 	}
+}
+//---------------------------------------------------------------------------
 
-	int r = 0;
+TGString TGHttpTagParser::GetTag(const char* tag_name, TGString& default /*= TGString("")*/)
+{
+	TGHttpTagMap::iterator i = TagMap.find(tag_name);
+	if (i != TagMap.end())
+		return i->second;
+	else
+		return default;
 }
 //-------------------------------------------------------------------

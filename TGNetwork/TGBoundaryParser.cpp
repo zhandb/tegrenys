@@ -1,7 +1,7 @@
 #include "TGBoundaryParser.h"
 #include "TGContentTypeParser.h"
 //---------------------------------------------------------------------
-TGBoundaryParser::TGBoundaryParser(PTGModule receiver) : TGEndSignatureParser(receiver, "--WINBONDBOUDARY\r\n")
+TGBoundaryParser::TGBoundaryParser(PTGModule receiver) : TGEndSignatureParser(receiver, "")
 {
 	ContentTypeParser = new TGContentTypeParser(receiver);
 }
