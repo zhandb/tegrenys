@@ -126,7 +126,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="qtmaind.lib QtCored4.lib tgsystem.lib tgnetwork.lib"
+				AdditionalDependencies="qtmaind.lib QtCored4.lib "
 				OutputFile="$(OutDir)\$(ProjectName).dll"
 				AdditionalLibraryDirectories="$(QTDIR)\lib;$(OutDir)\"
 				GenerateDebugInformation="true"

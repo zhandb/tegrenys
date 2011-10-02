@@ -1,6 +1,9 @@
 #include "tgip9100.h"
 #include "..\TGSystem\tgsystem.h"
 
+#pragma comment(lib, "tgsystem.lib")
+#pragma comment(lib, "tgnetwork.lib")
+
 TGIP9100::TGIP9100(UID module_uid, PTGModule system) : TGModule(module_uid, system)
 {
 	HttpParser = new TGHttpParser(this);
@@ -37,8 +40,9 @@ void TGIP9100::OnSocketConnected()
 }
 //---------------------------------------------------------------------------
 
-void TGIP9100::ModuleCreatedProc(UID type_id, UID module_id, PTGModule module)
+void TGIP9100::ModuleCreated(UID type_id, UID module_id, PTGModule module)
 {
+	//Socket
 	if (type_id == UID("{04AD711B-4536-4b78-B7DC-95D85809A1FA}"))
 	{
 		Socket = module;
@@ -49,11 +53,27 @@ void TGIP9100::ModuleCreatedProc(UID type_id, UID module_id, PTGModule module)
 
 		emit SocketConnect("192.168.0.33", 80, 0);
 	}
+
+	//MJPEG Decoder
+	if (type_id == UID("{0DDC8946-E848-4eb9-BF16-82A16805217D}"))
+	{
+		connect(this, SIGNAL(SendJpegToDecoder(TGDataFragmentList&)), module, SLOT(OnDataReceived(TGDataFragmentList&)));
+
+		int r = 0;
+	}
 }
 //-------------------------------------------------------------------
 
 void TGIP9100::OnDataReceived(PTGBuffer data)
 {
 	HttpParser->ReceiveData(TGDataFragmentList(0, data, data->GetDataSize()));
+}
+//---------------------------------------------------------------------------
+
+void TGIP9100::OnContentReceived(TGString content_type, TGDataFragmentList& data)
+{
+	emit SendJpegToDecoder(data);
+	PTGBuffer b = data.GatherData();
+	int r = 0;
 }
 //---------------------------------------------------------------------------

@@ -54,6 +54,12 @@ struct TGDataFragmentList : public std::list<TGDataFragment>
 		}
 		return res;
 	}
+
+	TGString ToString()
+	{
+		PTGBuffer buf = GatherData();
+		return TGString::fromLatin1(buf->GetConstData(), buf->GetDataSize());
+	}
 };
 
 class TGNETWORK_EXPORT TGBaseDataParser : public TGReferenceCounter
@@ -61,7 +67,7 @@ class TGNETWORK_EXPORT TGBaseDataParser : public TGReferenceCounter
 public:
 	TGBaseDataParser(PTGModule receiver);
 	~TGBaseDataParser();
-	void ReceiveData(TGDataFragmentList data_fragments);
+	void ReceiveData(TGDataFragmentList& data_fragments);
 protected:
 	virtual void OnDataReceived(TGDataFragmentList& data_fragments);
 protected:

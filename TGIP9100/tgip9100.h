@@ -6,6 +6,7 @@
 #include "..\TGSystem\TGBuffer.h"
 #include "..\TGNetwork\TGHttpParser.h"
 
+
 class TGIP9100_EXPORT TGIP9100 : public TGModule
 {
 	Q_OBJECT
@@ -18,15 +19,17 @@ private:
 	PTGModule Socket;
 	PTGHttpParser HttpParser;
 protected:
-	virtual void ModuleCreatedProc(UID type_id, UID module_id, PTGModule module);
+	virtual void ModuleCreated(UID type_id, UID module_id, PTGModule module);
 signals:
 	void CreateSocket();
 	void SocketConnect(TGString host, uint32_t remote_port, uint32_t localport);
 	void Write(PTGBuffer data);
-
+	void SendJpegToDecoder(TGDataFragmentList& data);
 public slots:
 	void OnSocketConnected();
 	void OnDataReceived(PTGBuffer data);
+	void OnContentReceived(TGString content_type, TGDataFragmentList& data);
+
 };
 
 #endif // TGIP9100_H

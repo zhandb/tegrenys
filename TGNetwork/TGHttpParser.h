@@ -5,7 +5,6 @@
 #include "TGBoundaryParser.h"
 #include "tgnetwork_global.h"
 //---------------------------------------------------------------------
-//static uint32_t boundary_id = FOURCC("BOUN");
 
 class TGNETWORK_EXPORT TGHttpParser : public TGEndSignatureParser
 {
@@ -16,8 +15,9 @@ protected:
 	virtual void ProcessRequest();
 	virtual void OnDataReceived(TGDataFragmentList& data_fragments);
 private:
+	enum TGHttpParserState{ReadHeader, ReadMultipartContent};
+	TGHttpParserState ParserState;
 	PTGBoundaryParser BoundaryParser;
-	bool Bypass;
 };
 //---------------------------------------------------------------------
 TG_REFC_PTR(TGHttpParser)

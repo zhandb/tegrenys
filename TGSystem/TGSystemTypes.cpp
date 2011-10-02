@@ -81,7 +81,7 @@ void TGModule::OnModuleCreatedSlot(PTGModule caller, UID type_id, UID module_id,
 {
 	if (caller == this)
 	{
-		ModuleCreatedProc(type_id, module_id, result);
+		ModuleCreated(type_id, module_id, result);
 	}
 }
 //---------------------------------------------------------------------------

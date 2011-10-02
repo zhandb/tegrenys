@@ -31,7 +31,7 @@ public:
 	UID CreateModule(UID type_id);
 protected:
 	virtual PTGModule CreateModuleProc(UID type_id, UID module_id){return NULL;};
-	virtual void ModuleCreatedProc(UID type_id, UID module_id, PTGModule module){};
+	virtual void ModuleCreated(UID type_id, UID module_id, PTGModule module){};
 signals: 
 	void CreateModuleSignal(PTGModule caller, UID type_id, UID module_id);
 	void ModuleCreatedSignal(PTGModule caller, UID type_id, UID module_id, PTGModule result);

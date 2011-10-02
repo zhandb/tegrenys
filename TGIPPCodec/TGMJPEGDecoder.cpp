@@ -50,12 +50,12 @@ void TGMJPEGDecoder::Decode(PTGBuffer in_buffer, PTGBuffer out_buffer)
 {
 	//GetFrameInfo((Ipp8u*) in_buffer->GetConstData(), in_buffer->GetDataSize());
 
-	/*CMemBuffInput stream;
+	//CMemBuffInput stream;
 
-	stream.Open((Ipp8u*) in_buffer->GetConstData(), in_buffer->GetDataSize());
+	//stream.Open((Ipp8u*) in_buffer->GetConstData(), in_buffer->GetDataSize());
 
-	int bytes_read = 0;
-	DecodeField(&stream, &bytes_read);*/
+	//int bytes_read = 0;
+	//DecodeField(&stream, &bytes_read);
 }
 //---------------------------------------------------------------------------
 

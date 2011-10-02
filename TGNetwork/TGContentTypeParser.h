@@ -15,10 +15,10 @@ protected:
 	virtual void ProcessRequest();
 	virtual void OnDataReceived(TGDataFragmentList& data_fragments);
 private:
-	int count;
 	bool Bypass;
+	TGString CurrentContentType;
 signals:
-	void DataReady(TGDataFragmentList& data);
+	void ContentReady(TGString content_type, TGDataFragmentList& data);
 };
 
 TG_REFC_PTR(TGContentTypeParser)

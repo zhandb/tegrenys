@@ -59,6 +59,7 @@
 				AdditionalDependencies="qtmain.lib QtCore4.lib winmm.lib Pdh.lib Ws2_32.lib ippac_l.lib ippcc_l.lib ippcv_l.lib ippdc_l.lib ippi_l.lib ippj_l.lib ippcore_l.lib ippvc_l.lib ipps_l.lib"
 				OutputFile="$(OutDir)\$(ProjectName).dll"
 				AdditionalLibraryDirectories="$(QTDIR)\lib;&quot;$(IPPROOT)\lib\ia32&quot;"
+				IgnoreDefaultLibraryNames="libcmt.lib;msvcprt.lib"
 				GenerateDebugInformation="false"
 				SubSystem="2"
 			/>

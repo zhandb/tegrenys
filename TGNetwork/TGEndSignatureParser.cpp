@@ -55,7 +55,9 @@ void TGEndSignatureParser::OnDataReceived(TGDataFragmentList& data_fragments)
 				ReceiveData(data_fragments);
 			}
 
-			data_fragments.pop_front();
+			if (!data_fragments.empty())
+				data_fragments.pop_front();
+
 			data = data_fragments.begin();
 		}
 	}

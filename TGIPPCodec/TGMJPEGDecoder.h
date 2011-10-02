@@ -3,7 +3,7 @@
 //------------------------------------------------------------------------
 #include "tgippcodec_global.h"
 #include "..\TGSystem\TGBuffer.h"
-#include "jpegbase.h"
+#include "..\TGCodec\jpeg\jpegbase.h"
 #include "..\TGNetwork\TGBaseDataParser.h"
 #include "membuffin.h"
 #include "..\TGSystem\TGVideoStructs.h"
