@@ -58,6 +58,9 @@ void TGIP9100::ModuleCreated(UID type_id, UID module_id, PTGModule module)
 	if (type_id == UID("{0DDC8946-E848-4eb9-BF16-82A16805217D}"))
 	{
 		connect(this, SIGNAL(SendJpegToDecoder(TGDataFragmentList&)), module, SLOT(OnDataReceived(TGDataFragmentList&)));
+		connect(module, SIGNAL(LockDestinationBuffer(TGBufferLockStruct)), this, SLOT(OnLockDestinationBuffer(TGBufferLockStruct)));
+		connect(this, SIGNAL(DestinationBufferLocked(TGBufferLockStruct)), module, SLOT(OnDestinationBufferLocked(TGBufferLockStruct)));
+		connect(module, SIGNAL(UnlockDestinationBuffer()), this, SLOT(OnUnlockDestinationBuffer()));
 
 		int r = 0;
 	}
@@ -73,7 +76,22 @@ void TGIP9100::OnDataReceived(PTGBuffer data)
 void TGIP9100::OnContentReceived(TGString content_type, TGDataFragmentList& data)
 {
 	emit SendJpegToDecoder(data);
-	PTGBuffer b = data.GatherData();
-	int r = 0;
+}
+//---------------------------------------------------------------------------
+
+void TGIP9100::OnLockDestinationBuffer(TGBufferLockStruct ls)
+{
+	DestinationBuffer = new TGBuffer();
+	DestinationBuffer->Allocate(ls.Width * ls.Height * 4);
+
+	ls.Data = (UCHAR*)DestinationBuffer->GetConstData();
+	ls.Pitch = ls.Width * 4;
+	emit DestinationBufferLocked(ls);
+}
+//---------------------------------------------------------------------------
+
+void TGIP9100::OnUnlockDestinationBuffer()
+{
+
 }
 //---------------------------------------------------------------------------

@@ -92,7 +92,7 @@ int TGVideoRectangle::Add(TGBasePrimitivePainter* painter)
 }
 //---------------------------------------------------------------------------
 
-void TGVideoRectangle::OnLockTexture(TGTextureLockStruct lock_struct)
+void TGVideoRectangle::OnLockTexture(TGBufferLockStruct lock_struct)
 {
 	TGDXTexture* dx_texture = (TGDXTexture*)&*Texture;
 	D3DLOCKED_RECT LR;

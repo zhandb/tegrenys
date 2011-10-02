@@ -18,9 +18,9 @@ private:
 	PTGBaseTexture Texture;
 	bool IsTextureLocked;
 signals:
-	void TextureLocked(TGTextureLockStruct lock_struct);
+	void TextureLocked(TGBufferLockStruct lock_struct);
 public slots:
-	void OnLockTexture(TGTextureLockStruct lock_struct);
+	void OnLockTexture(TGBufferLockStruct lock_struct);
 	void OnUnlockTexture();
 };
 

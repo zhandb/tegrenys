@@ -5,6 +5,7 @@
 #include "..\TGSystem\TGSystemTypes.h"
 #include "..\TGSystem\TGBuffer.h"
 #include "..\TGNetwork\TGHttpParser.h"
+#include "..\TGSystem\TGVideoStructs.h"
 
 
 class TGIP9100_EXPORT TGIP9100 : public TGModule
@@ -18,6 +19,7 @@ public:
 private:
 	PTGModule Socket;
 	PTGHttpParser HttpParser;
+	PTGBuffer DestinationBuffer;
 protected:
 	virtual void ModuleCreated(UID type_id, UID module_id, PTGModule module);
 signals:
@@ -25,10 +27,14 @@ signals:
 	void SocketConnect(TGString host, uint32_t remote_port, uint32_t localport);
 	void Write(PTGBuffer data);
 	void SendJpegToDecoder(TGDataFragmentList& data);
+	void DestinationBufferLocked(TGBufferLockStruct ls);
+
 public slots:
 	void OnSocketConnected();
 	void OnDataReceived(PTGBuffer data);
 	void OnContentReceived(TGString content_type, TGDataFragmentList& data);
+	void OnLockDestinationBuffer(TGBufferLockStruct ls);
+	void OnUnlockDestinationBuffer();
 
 };
 

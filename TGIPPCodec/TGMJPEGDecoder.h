@@ -48,11 +48,11 @@ private:
 	JERRCODE GetFrameInfo(TGDataFragmentList& data, TGFrameInfo* frame_info);
 	void DecodeField(Ipp32s* size, TGFrameInfo* frame_info);
 signals:
-	void LockTexture(TGTextureLockStruct lock_struct);
-	void UnlockTexture();
+	void LockDestinationBuffer(TGBufferLockStruct lock_struct);
+	void UnlockDestinationBuffer();
 public slots:
 	void OnDataReceived(TGDataFragmentList& data);
-	void OnTextureLocked(TGTextureLockStruct ls);
+	void OnDestinationBufferLocked(TGBufferLockStruct ls);
 };
 //------------------------------------------------------------------------
 

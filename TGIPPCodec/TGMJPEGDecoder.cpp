@@ -130,20 +130,20 @@ void TGMJPEGDecoder::OnDataReceived(TGDataFragmentList& data)
 
 		GetFrameInfo(CurrentFrame, &frame_info);
 
-		TGTextureLockStruct ls;
+		TGBufferLockStruct ls;
 		ls.Width = frame_info.FrameWidth;
 		ls.Height = frame_info.FrameHeight;
 		ls.Data = NULL;
 		ls.Pitch = 0;
 
-		DecoderBusy = true;
+		//DecoderBusy = true;
 
-		emit LockTexture(ls);
+		emit LockDestinationBuffer(ls);
 	}
 }
 //---------------------------------------------------------------------------
 
-void TGMJPEGDecoder::OnTextureLocked(TGTextureLockStruct ls)
+void TGMJPEGDecoder::OnDestinationBufferLocked(TGBufferLockStruct ls)
 {
 	int size = 0;
 	Ipp32s   dstPlaneStep[4];
@@ -182,7 +182,7 @@ void TGMJPEGDecoder::OnTextureLocked(TGTextureLockStruct ls)
 
 	size = JpegDecoder->GetNumDecodedBytes();
 
-	emit UnlockTexture();
+	emit UnlockDestinationBuffer();
 
 	DecoderBusy = false;
 
