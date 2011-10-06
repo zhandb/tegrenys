@@ -2,8 +2,10 @@
 #include "TGBasePolygon.h"
 #include "TGBaseRectangle.h"
 #include "TGBaseTexturedRectangle.h"
+#include "TGDXViewPort.h"
+#include "TGDXPrimitiveLayer.h"
 
-TGDXVideoWidget::TGDXVideoWidget(QWidget* parent) : TGBaseVideoWidget(parent)
+TGDXVideoWidget::TGDXVideoWidget() : TGBaseVideoWidget()
 {
 	D3D = Direct3DCreate9(D3D_SDK_VERSION);
 	D3DDevice = NULL;
@@ -183,5 +185,19 @@ void TGDXVideoWidget::resizeEvent(QResizeEvent* event)
 {
 	ReInitRequired = true;
 	ReInitTimer.start();
+}
+//---------------------------------------------------------------------------
+
+void TGDXVideoWidget::AddViewport(UID uid, TGDataObject& config)
+{
+	PTGBaseViewport viewport = new TGDXViewport(config);
+	PP->AddViewport(uid, viewport);
+}
+//---------------------------------------------------------------------------
+
+void TGDXVideoWidget::AddLayer(UID viewport_uid, UID layer_uid, TGDataObject& config)
+{
+	PTGBasePrimitiveLayer layer = new TGDXPrimitiveLayer(config);
+	PP->AddLayer(viewport_uid, layer_uid, layer);
 }
 //---------------------------------------------------------------------

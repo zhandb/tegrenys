@@ -10,17 +10,22 @@
 #include "TGAnimatedRectangle.h"
 #include "TGVideoRectangle.h"
 #include "tgsystem.h"
+#include "TGGuiTypes.h"
+#include "TGVideoWidgetHandler.h"
 
 //-----------------------------------------------------------------------------
 
 TGGuiBuilder::TGGuiBuilder(UID module_uid, PTGModule system, QObject *parent) : TGModule(module_uid, system)
 {
-	StaticGuiBuilder = this;
+	//StaticGuiBuilder = this;
 
 	sqlite3* db = NULL;
 	sqlite3_open_v2("", &db, SQLITE_OPEN_READWRITE /*| SQLITE_OPEN_CREATE*/, NULL);
 	sqlite3_close(db);
 
+	TGSystem* sys = (TGSystem*)&*system;
+	sys->RegisterFactoryModuleType(TGVIDEOWIDGET_TYPE_UID, this);
+	
 	TGSqlite::main_database = ((TGSystem*)&*system)->GetDataBase();
 
 	Build(((TGSystem*)&*system)->GetDataBase());
@@ -29,6 +34,10 @@ TGGuiBuilder::TGGuiBuilder(UID module_uid, PTGModule system, QObject *parent) : 
 
 TGGuiBuilder::~TGGuiBuilder()
 {
+	for (TGWidgetMap::iterator iter = WidgetList.begin(); iter != WidgetList.end(); ++iter)
+	{
+		delete *iter;
+	}
 }
 //-----------------------------------------------------------------------------
 
@@ -41,27 +50,28 @@ void TGGuiBuilder::Build(TGSqlite* database)
 }
 //-----------------------------------------------------------------------------
 
-void TGGuiBuilder::CreateWidgets(TGSqlite* database, QWidget* parent, int parent_id)
+void TGGuiBuilder::CreateWidgets(TGSqlite* database, QWidget* parent, UID parent_id)
 {
 	TGSqliteQuery root_control_query;
 	TGDataRecord schema;
 	root_control_query.Exec(
 		database, 
-		QString("SELECT  ID, ControlClass FROM Controls WHERE ParentControl = %1").arg(parent_id), 
+		QString("SELECT  ID, ControlClass FROM Controls WHERE ParentControl = \"%1\"").arg(parent_id), 
 		&schema);
 
 	TGDataRecord data;
 	while (root_control_query.Read(&data))
 	{
+		//QString uid = data[0].toString();
 		QString class_name = data[1].toString();
-		QWidget* widget = CreateWidget(parent, class_name);
+		QWidget* widget = CreateWidget(data[0].toString(), parent, class_name);
 		if (widget)
-			CreateWidgets(database, widget, data[0].toInt());
+			CreateWidgets(database, widget, data[0].toString());
 	}
 }
 //-----------------------------------------------------------------------------
 
-QWidget* TGGuiBuilder::CreateWidget(QWidget* parent, QString class_name)
+QWidget* TGGuiBuilder::CreateWidget(UID uid, QWidget* parent, QString class_name)
 {
 	QWidget* widget = NULL;
 
@@ -73,22 +83,32 @@ QWidget* TGGuiBuilder::CreateWidget(QWidget* parent, QString class_name)
 
 	if (class_name == "TGBaseVideoWidget")
 	{
-		widget = new TGDXVideoWidget(parent);
-		connect(this, SIGNAL(AddViewPort(UID, PTGBaseViewport)), widget, SLOT(AddViewPort(UID, PTGBaseViewport)));
-		connect(this, SIGNAL(SetCurrentViewport(UID)), widget, SLOT(SetCurrentViewport(UID)));
-		connect(this, SIGNAL(AddLayerToCurrentViewport(PTGBasePrimitiveLayer)), widget, SLOT(AddLayerToCurrentViewport(PTGBasePrimitiveLayer)));
+		TGDXVideoWidget* dx_videowidget = new TGDXVideoWidget;
+		widget = dx_videowidget;
+
+		TGDataObject viewport_config;
+		viewport_config.SetAttribute("Rect", QRect(10, 20, 800, 600));
+		viewport_config.SetAttribute("Color", QColor("darkblue"));
+
+		dx_videowidget->AddViewport(UID("{A5DDBB01-F595-46ed-9D7E-8B95F04776E4}"), viewport_config);
+
+		TGDataObject layer_config;
+		dx_videowidget->AddLayer(UID("{A5DDBB01-F595-46ed-9D7E-8B95F04776E4}"), UID("{381BAAA0-10E6-40be-A463-3B42C71E55AC}"), layer_config);
+		//connect(this, SIGNAL(AddViewPort(UID, PTGBaseViewport)), widget, SLOT(AddViewPort(UID, PTGBaseViewport)));
+		//connect(this, SIGNAL(SetCurrentViewport(UID)), widget, SLOT(SetCurrentViewport(UID)));
+		//connect(this, SIGNAL(AddLayerToCurrentViewport(PTGBasePrimitiveLayer)), widget, SLOT(AddLayerToCurrentViewport(PTGBasePrimitiveLayer)));
 
 		widget->show();
 
-		PTGBaseViewport vp = new TGDXViewport(QRect(0, 0, 1280, 1024), QColor("darkblue"));
-		emit AddViewPort("{3192C1FA-6FA6-44f0-8DB4-DCE1B67F6E25}", vp);
+		/*PTGBaseViewport vp = new TGDXViewport(QRect(0, 0, 1280, 1024), QColor("darkblue"));
+		emit AddViewPort("{3192C1FA-6FA6-44f0-8DB4-DCE1B67F6E25}", vp);*/
 
 		/*PTGBaseViewport vp2 = new TGDXViewport(QRect(400, 100, 500, 600), QColor("green"));
 		emit AddViewPort(222, vp2);*/
 
-		emit SetCurrentViewport("{3192C1FA-6FA6-44f0-8DB4-DCE1B67F6E25}");
+		//emit SetCurrentViewport("{3192C1FA-6FA6-44f0-8DB4-DCE1B67F6E25}");
 
-		PTGBasePrimitiveLayer PrimitiveLayer = new TGDXPrimitiveLayer("{3192C1FA-6FA6-44f0-8DB4-DCE1B67F6E25}");
+		/*PTGBasePrimitiveLayer PrimitiveLayer = new TGDXPrimitiveLayer("{3192C1FA-6FA6-44f0-8DB4-DCE1B67F6E25}");
 
 		TGBasePrimitiveLayerParams params;
 		params.BaseViewPort = QSize(1, 1);
@@ -109,14 +129,14 @@ QWidget* TGGuiBuilder::CreateWidget(QWidget* parent, QString class_name)
 
 		PrimitiveLayer->SetupCamera(camera);
 
-		emit AddLayerToCurrentViewport(PrimitiveLayer);
+		emit AddLayerToCurrentViewport(PrimitiveLayer);*/
 
 		/*TGVideoRectangle* p2 = new TGVideoRectangle(PrimitiveLayer);
 		PTGBasePrimitive pp2 = p2;
 		p2->SetSize(QSizeF(3, 2));
 		p2->SetPos(TGPointF(-200, -0.5, -0.1));*/
 		
-		TGBaseTexturedRectangle* p = new TGBaseTexturedRectangle(PrimitiveLayer, "{8BC0D4A6-4BBA-431c-83CA-3357D87CF21A}");
+		/*TGBaseTexturedRectangle* p = new TGBaseTexturedRectangle(PrimitiveLayer, "{8BC0D4A6-4BBA-431c-83CA-3357D87CF21A}");
 		p->SetColor(QColor("red"));
 		p->SetSize(QSizeF(1, 1));
 		p->SetPos(TGPointF(-1, -0.5, 0.0));
@@ -124,7 +144,7 @@ QWidget* TGGuiBuilder::CreateWidget(QWidget* parent, QString class_name)
 		TGAnimatedRectangle* p1 = new TGAnimatedRectangle(PrimitiveLayer);
 		p1->SetColor(QColor("red"));
 		p1->SetSize(QSizeF(0.3, 0.3));
-		p1->SetPos(TGPointF(-1, -0.5, -0.1));
+		p1->SetPos(TGPointF(-1, -0.5, -0.1));*/
 		
 		/*emit SetCurrentViewport(222);
 
@@ -156,31 +176,32 @@ QWidget* TGGuiBuilder::CreateWidget(QWidget* parent, QString class_name)
 		PrimitiveLayer->Primitives.push_back(p);*/
 	}
 
-	if (widget)
+	/*if (widget)
 	{
 		PTGWidgetHandler wh = new TGWidgetHandler(widget);
 		WidgetList.push_back(wh);
-	}
+	}*/
+
+	WidgetList[uid] = widget;
 	return widget;
 }
 //---------------------------------------------------------------------------
+//
+//void TGGuiBuilder::RegisterPrimitive(UID primitive_uid, PTGBasePrimitive primitive)
+//{
+//	StaticGuiBuilder->PrimitivesMap[primitive_uid] = primitive;
+//}
+////---------------------------------------------------------------------------
+//
+//PTGBasePrimitive TGGuiBuilder::GetPrimitive(UID primitive_uid)
+//{
+//	PTGBasePrimitive res = NULL;
+//
+//	TGPrimitivesMap::iterator primitive = PrimitivesMap.find(primitive_uid);
+//	if (primitive != PrimitivesMap.end())
+//		res = primitive->second;
+//
+//	return res;
+//}
+////---------------------------------------------------------------------------
 
-void TGGuiBuilder::RegisterPrimitive(UID primitive_uid, PTGBasePrimitive primitive)
-{
-	StaticGuiBuilder->PrimitivesMap[primitive_uid] = primitive;
-}
-//---------------------------------------------------------------------------
-
-PTGBasePrimitive TGGuiBuilder::GetPrimitive(UID primitive_uid)
-{
-	PTGBasePrimitive res = NULL;
-
-	TGPrimitivesMap::iterator primitive = PrimitivesMap.find(primitive_uid);
-	if (primitive != PrimitivesMap.end())
-		res = primitive->second;
-
-	return res;
-}
-//---------------------------------------------------------------------------
-PTGGuiBuilder TGGuiBuilder::StaticGuiBuilder;
-//---------------------------------------------------------------------------

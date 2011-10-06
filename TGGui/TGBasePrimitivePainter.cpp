@@ -1,5 +1,6 @@
 #include "TGBasePrimitivePainter.h"
 #include "TGDataObject.h"
+#include "TGBaseTexturedRectangle.h"
 
 //---------------------------------------------------------------------
 TGBasePrimitivePainter::TGBasePrimitivePainter()
@@ -17,14 +18,15 @@ TGBasePrimitivePainter::~TGBasePrimitivePainter()
 {
 	ReleasePrimitiveIndex();
 	//ReleaseChildPrimitives();
-	CurrentViewport = NULL;
+	//CurrentViewport = NULL;
 }
 //---------------------------------------------------------------------
 bool TGBasePrimitivePainter::MouseEvent(QMouseEvent* event)
 {
 	for (TGBaseViewportsMap::iterator viewport = Viewports.begin(); viewport != Viewports.end(); ++viewport)
 	{
-		(*viewport)->MouseEvent(event);
+		TGBaseViewport* vp = (TGBaseViewport*)&*viewport->second;
+		vp->MouseEvent(event);
 	}
 
 	return true;
@@ -34,7 +36,9 @@ void TGBasePrimitivePainter::BuildPrimitives()
 {
 	for (TGBaseViewportsMap::iterator viewport = Viewports.begin(); viewport != Viewports.end(); ++viewport)
 	{
-		for (TGPrimitiveLayersList::iterator layer = (*viewport)->PrimitiveLayers.begin(); layer != (*viewport)->PrimitiveLayers.end(); ++layer)
+		TGBaseViewport* vp = (TGBaseViewport*)&*viewport->second;
+
+		for (TGPrimitiveLayersList::iterator layer = vp->PrimitiveLayers.begin(); layer != vp->PrimitiveLayers.end(); ++layer)
 		{
 			(*layer)->BuildPrimitives(this);
 		}
@@ -138,21 +142,22 @@ void TGBasePrimitivePainter::AddViewport(UID uid, PTGBaseViewport viewport)
 	Viewports[uid] = viewport;
 }
 //---------------------------------------------------------------------
-void TGBasePrimitivePainter::SetCurrentViewport(UID uid)
-{
-	TGBaseViewportsMap::iterator vp = Viewports.find(uid);
-	if (vp != Viewports.end())
-		CurrentViewport = *vp;
-}
-//---------------------------------------------------------------------
-void TGBasePrimitivePainter::AddLayerToCurrentViewport(PTGBasePrimitiveLayer layer)
-{
-	if (CurrentViewport)
-	{
-		CurrentViewport->AddLayer(layer);
-	}
-}
-//---------------------------------------------------------------------
+//void TGBasePrimitivePainter::SetCurrentViewport(UID uid)
+//{
+//	TGBaseViewportsMap::iterator vp = Viewports.find(uid);
+//	if (vp != Viewports.end())
+//		CurrentViewport = vp->second;
+//}
+////---------------------------------------------------------------------
+//void TGBasePrimitivePainter::AddLayerToCurrentViewport(PTGBasePrimitiveLayer layer)
+//{
+//	if (CurrentViewport)
+//	{
+//		TGBaseViewport* vp = (TGBaseViewport*)&*CurrentViewport;
+//		vp->AddLayer(layer);
+//	}
+//}
+////---------------------------------------------------------------------
 uint32_t TGBasePrimitivePainter::GetTime()
 {
 	return CurrentAnimationTime;
@@ -162,4 +167,20 @@ uint32_t TGBasePrimitivePainter::GetTime()
 TGObjectsStateList TGBasePrimitivePainter::GetState(UID state_id)
 {
 	return AnimationManager->GetState(state_id);
+}
+//---------------------------------------------------------------------------
+
+void TGBasePrimitivePainter::AddLayer(UID viewport_uid, UID layer_uid, PTGBasePrimitiveLayer layer)
+{
+	TGBaseViewportsMap::iterator vp = Viewports.find(viewport_uid);
+	if (vp != Viewports.end())
+	{
+		TGBaseViewport* view_port = (TGBaseViewport*)&*vp->second;
+		view_port->AddLayer(layer_uid, layer);
+
+		TGBaseTexturedRectangle* p = new TGBaseTexturedRectangle(layer, "{8BC0D4A6-4BBA-431c-83CA-3357D87CF21A}");
+		p->SetColor(QColor("red"));
+		p->SetSize(QSizeF(1, 1));
+		p->SetPos(TGPointF(-1, -0.5, 0.0));
+	}
 }

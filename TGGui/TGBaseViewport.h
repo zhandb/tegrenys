@@ -13,10 +13,10 @@
 class TGBaseViewport : public TGReferenceCounter
 {
 public:
-	TGBaseViewport(TGViewPortRect view_port, TGViewPortColor color);
+	TGBaseViewport(TGDataObject& config);
 	~TGBaseViewport();
 	virtual void ApplyViewPort();
-	void AddLayer(PTGBasePrimitiveLayer layer);
+	void AddLayer(UID layer_uid, PTGBasePrimitiveLayer layer);
 
 	void MouseEvent(QMouseEvent* event);
 protected:
@@ -24,11 +24,12 @@ protected:
 	TGViewPortColor Color;
 public:
 	TGPrimitiveLayersList PrimitiveLayers;
+	TGPrimitiveLayersMap LayersMap;
 };
 
 TG_REFC_PTR(TGBaseViewport)
 
-typedef QMap<UID, PTGBaseViewport> TGBaseViewportsMap;
+typedef std::map<UID, PTGBaseViewport> TGBaseViewportsMap;
 
 
 #endif // TGBaseViewport_h__

@@ -18,6 +18,21 @@ public:
 	~TGDataRecord();
 };
 
+typedef QMap<QString, QVariant>TGDataObjectAttributesMap;
+
+class TGDataObject
+{
+public:
+	TGDataObject();
+	~TGDataObject();
+	void SetAttribute(QString attribute_name, QVariant name);
+	QVariant Attribute(QString attribute_name, QVariant default = QVariant());
+public:
+	QList<TGDataObject> ChildDataObjects;
+private:
+	TGDataObjectAttributesMap Attributes;
+};
+
 //-----------------------------------------------------------------------------
 
 

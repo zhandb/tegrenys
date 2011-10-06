@@ -8,7 +8,7 @@ TGVideoRectangle::TGVideoRectangle(PTGBasePrimitiveLayer owner) : TGBaseRectangl
 {
 	Texture = NULL;
 	IsTextureLocked = false;
-	TGGuiBuilder::RegisterPrimitive("{19345C9B-57FF-4a63-879C-AFDBB92DAD6D}", this);
+	//TGGuiBuilder::RegisterPrimitive("{19345C9B-57FF-4a63-879C-AFDBB92DAD6D}", this);
 }
 //---------------------------------------------------------------------
 TGVideoRectangle::~TGVideoRectangle()

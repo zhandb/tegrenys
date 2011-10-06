@@ -1,8 +1,8 @@
 #include "TGBaseViewport.h"
 //---------------------------------------------------------------------
-TGBaseViewport::TGBaseViewport(TGViewPortRect view_port, TGViewPortColor color) : ViewPort(view_port), Color(color)
+TGBaseViewport::TGBaseViewport(TGDataObject& config) : TGReferenceCounter()
 {
-
+	Color = config.Attribute("Color").value<QColor>();
 }
 //---------------------------------------------------------------------
 TGBaseViewport::~TGBaseViewport()
@@ -15,9 +15,10 @@ void TGBaseViewport::ApplyViewPort()
 
 }
 //---------------------------------------------------------------------
-void TGBaseViewport::AddLayer(PTGBasePrimitiveLayer layer)
+void TGBaseViewport::AddLayer(UID layer_uid, PTGBasePrimitiveLayer layer)
 {
 	PrimitiveLayers.push_back(layer);
+	LayersMap[layer_uid] = layer;
 }
 //---------------------------------------------------------------------
 void TGBaseViewport::MouseEvent(QMouseEvent* event)

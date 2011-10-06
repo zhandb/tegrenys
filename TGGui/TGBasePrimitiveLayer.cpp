@@ -1,9 +1,9 @@
 #include "TGBasePrimitiveLayer.h"
 //---------------------------------------------------------------------
-TGBasePrimitiveLayer::TGBasePrimitiveLayer(UID uid)
+TGBasePrimitiveLayer::TGBasePrimitiveLayer(TGDataObject& config)
 {
 	PrimitivesCount = 0;
-	LayerUID = uid;
+	
 }
 //---------------------------------------------------------------------
 TGBasePrimitiveLayer::~TGBasePrimitiveLayer()
@@ -52,11 +52,7 @@ int TGBasePrimitiveLayer::GetPrimitivesCount()
 	return PrimitivesCount;
 }
 //---------------------------------------------------------------------
-UID TGBasePrimitiveLayer::GetUID()
-{
-	return LayerUID;
-}
-//---------------------------------------------------------------------
+
 void TGBasePrimitiveLayer::MouseEvent(QMouseEvent* event, TG3DRay& pick_vector)
 {
 	for (TGPrimitivesList::iterator primitive = Primitives.begin(); primitive != Primitives.end(); ++primitive)

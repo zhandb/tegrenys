@@ -6,7 +6,7 @@
 class TGDXViewport : public TGBaseViewport
 {
 public:
-	TGDXViewport(TGViewPortRect view_port, TGViewPortColor color);
+	TGDXViewport(TGDataObject& config);
 	~TGDXViewport();
 	void SetDevice(IDirect3DDevice9* device);
 	virtual void ApplyViewPort();

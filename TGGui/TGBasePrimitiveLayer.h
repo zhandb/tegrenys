@@ -33,7 +33,7 @@ struct TGBasePrimitiveLayerParams
 class TGBasePrimitiveLayer : public TGReferenceCounter
 {
 public:
-	TGBasePrimitiveLayer(UID uid);
+	TGBasePrimitiveLayer(TGDataObject& config);
 	~TGBasePrimitiveLayer();
 	void SetupProjection(TGBasePrimitiveLayerParams params);
 	virtual void SetupCamera(TGBasePrimitiveLayerCamera& camera);
@@ -44,20 +44,19 @@ public:
 
 	void BuildPrimitives(TGBasePrimitivePainter* painter);
 	int GetPrimitivesCount();
-	UID GetUID();
-
+	
 	void AddPrimitive(PTGBasePrimitive primitive);
 
 protected:
 	TGPrimitivesList Primitives; //should be protected
 	TGBasePrimitiveLayerParams Params;
 	int PrimitivesCount;
-	UID LayerUID;
 };
 
 TG_REFC_PTR(TGBasePrimitiveLayer)
 
 typedef QList<PTGBasePrimitiveLayer> TGPrimitiveLayersList;
+typedef std::map<UID, PTGBasePrimitiveLayer> TGPrimitiveLayersMap;
 
 
 #endif // TGBasePrimitiveLayer_h__

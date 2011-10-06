@@ -29,6 +29,7 @@ private:
 	PTGNetworkService NS;
 	PTGModule  System;
 	PTGBasePrimitive VideoRect;
+	PTGModule IPServer;
 
 };
 

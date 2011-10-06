@@ -70,7 +70,8 @@ void TGDXPrimitivePainter::Render()
 
 	for (TGBaseViewportsMap::iterator viewport = Viewports.begin(); viewport != Viewports.end(); ++viewport)
 	{
-		(*viewport)->ApplyViewPort();
+		TGDXViewport* vp = (TGDXViewport*)&*viewport->second;
+		vp->ApplyViewPort();
 
 		Device->BeginScene();
 
@@ -79,7 +80,7 @@ void TGDXPrimitivePainter::Render()
 			Device->SetStreamSource(0, VertexBuffer.GetVertexBuffer(), 0, sizeof(TGPrimitiveVertex));
 			Device->SetFVF(TGPrimitiveVertex_FVF);
 			
-			for (TGPrimitiveLayersList::iterator layer = (*viewport)->PrimitiveLayers.begin(); layer != (*viewport)->PrimitiveLayers.end(); ++layer)
+			for (TGPrimitiveLayersList::iterator layer = vp->PrimitiveLayers.begin(); layer != vp->PrimitiveLayers.end(); ++layer)
 			{
 				(*layer)->ApplyLayer();
 
@@ -306,7 +307,7 @@ void TGDXPrimitivePainter::SetDevice(IDirect3DDevice9* device, QSize size)
 
 	for (TGBaseViewportsMap::iterator viewport = Viewports.begin(); viewport != Viewports.end(); ++viewport)
 	{
-		((TGDXViewport*)&**viewport)->SetDevice(device);
+		((TGDXViewport*)&*viewport->second)->SetDevice(device);
 	}
 }
 //---------------------------------------------------------------------

@@ -15,6 +15,8 @@ public:
 	TGIP9100(UID module_uid, PTGModule system);
 	~TGIP9100();
 	virtual void Init();
+	virtual void DeInit();
+
 
 private:
 	PTGModule Socket;

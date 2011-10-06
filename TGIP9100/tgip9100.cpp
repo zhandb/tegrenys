@@ -1,5 +1,6 @@
 #include "tgip9100.h"
 #include "..\TGSystem\tgsystem.h"
+#include "..\TGGui\TGGuiTypes.h"
 
 #pragma comment(lib, "tgsystem.lib")
 #pragma comment(lib, "tgnetwork.lib")
@@ -21,6 +22,9 @@ void TGIP9100::Init()
 	CreateModule(UID("{04AD711B-4536-4b78-B7DC-95D85809A1FA}"));
 	//MJpeg decoder
 	CreateModule(UID("{0DDC8946-E848-4eb9-BF16-82A16805217D}"));
+
+	//Video widget
+	//CreateModule(TGVIDEOWIDGET_TYPE_UID);
 }
 //---------------------------------------------------------------------------
 
@@ -61,8 +65,6 @@ void TGIP9100::ModuleCreated(UID type_id, UID module_id, PTGModule module)
 		connect(module, SIGNAL(LockDestinationBuffer(TGBufferLockStruct)), this, SLOT(OnLockDestinationBuffer(TGBufferLockStruct)));
 		connect(this, SIGNAL(DestinationBufferLocked(TGBufferLockStruct)), module, SLOT(OnDestinationBufferLocked(TGBufferLockStruct)));
 		connect(module, SIGNAL(UnlockDestinationBuffer()), this, SLOT(OnUnlockDestinationBuffer()));
-
-		int r = 0;
 	}
 }
 //-------------------------------------------------------------------
@@ -93,5 +95,12 @@ void TGIP9100::OnLockDestinationBuffer(TGBufferLockStruct ls)
 void TGIP9100::OnUnlockDestinationBuffer()
 {
 
+}
+//---------------------------------------------------------------------------
+
+void TGIP9100::DeInit()
+{
+	HttpParser = NULL;
+	TGModule::DeInit();
 }
 //---------------------------------------------------------------------------

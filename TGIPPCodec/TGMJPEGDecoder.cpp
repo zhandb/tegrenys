@@ -21,13 +21,11 @@ TGMJPEGDecoder::TGMJPEGDecoder(UID module_uid, PTGModule system) : TGModule(modu
 	DecoderBusy = false;
 
 	BufferPool = new TGBufferPool();
-
-	Init();
 }
 //------------------------------------------------------------
 TGMJPEGDecoder::~TGMJPEGDecoder()
 {
-	DeInit();
+	//DeInit();
 }
 //---------------------------------------------------------------------------
 
@@ -43,6 +41,8 @@ void TGMJPEGDecoder::DeInit()
 		delete JpegDecoder;
 
 	JpegDecoder = NULL;
+
+	TGModule::DeInit();
 }
 //---------------------------------------------------------------------------
 
@@ -61,8 +61,6 @@ void TGMJPEGDecoder::Decode(PTGBuffer in_buffer, PTGBuffer out_buffer)
 
 JERRCODE TGMJPEGDecoder::GetFrameInfo(TGDataFragmentList& data, TGFrameInfo* frame_info)
 {
-	//TGDataFragmentsStream in(data);
-
 	JERRCODE jerr = JPEG_OK;
 
 	CurrentInputBuffer = data.GatherData();
@@ -136,7 +134,7 @@ void TGMJPEGDecoder::OnDataReceived(TGDataFragmentList& data)
 		ls.Data = NULL;
 		ls.Pitch = 0;
 
-		//DecoderBusy = true;
+		DecoderBusy = true;
 
 		emit LockDestinationBuffer(ls);
 	}

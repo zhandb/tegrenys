@@ -17,6 +17,7 @@ TGModule::~TGModule()
 
 void TGModule::DeInit()
 {
+	System = NULL;
 	//Parent = NULL;
 
 	for (TGModuleMap::iterator module = ModuleMap.begin(); module != ModuleMap.end(); ++module)
@@ -69,6 +70,7 @@ void TGModule::OnCreateModuleSlot(PTGModule caller, UID type_id, UID module_id)
 	PTGModule module = CreateModuleProc(type_id, module_id);
 	if (module)
 	{
+		module->Init();
 		connect(this, SIGNAL(ModuleCreatedSignal(PTGModule, UID, UID, PTGModule)), caller, SLOT(OnModuleCreatedSlot(PTGModule, UID, UID, PTGModule)));
 		emit ModuleCreatedSignal(caller, type_id, module_id, module);
 		disconnect(this, SIGNAL(ModuleCreatedSignal(PTGModule, UID, UID, PTGModule)), caller, SLOT(OnModuleCreatedSlot(PTGModule, UID, UID, PTGModule)));
@@ -81,6 +83,7 @@ void TGModule::OnModuleCreatedSlot(PTGModule caller, UID type_id, UID module_id,
 {
 	if (caller == this)
 	{
+		ModuleMap[module_id] = result;
 		ModuleCreated(type_id, module_id, result);
 	}
 }

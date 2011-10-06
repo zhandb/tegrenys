@@ -10,8 +10,10 @@
 class TGDXVideoWidget : public TGBaseVideoWidget
 {
 public:
-	TGDXVideoWidget(QWidget* parent);
+	TGDXVideoWidget();
 	~TGDXVideoWidget();
+	virtual void AddViewport(UID uid, TGDataObject& config);
+	virtual void AddLayer(UID viewport_uid, UID layer_uid, TGDataObject& config);
 private:
 	IDirect3D9* D3D;
 	IDirect3DDevice9* D3DDevice;

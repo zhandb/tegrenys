@@ -1,12 +1,29 @@
 #include "TGDXPrimitiveLayer.h"
 #include "TGBaseTexturedRectangle.h"
+#include "TGAnimatedRectangle.h"
 //---------------------------------------------------------------------
-TGDXPrimitiveLayer::TGDXPrimitiveLayer(UID uid) : TGBasePrimitiveLayer(uid)
+TGDXPrimitiveLayer::TGDXPrimitiveLayer(TGDataObject& config) : TGBasePrimitiveLayer(config)
 {
 	D3DDevice = NULL;
 
-	
-	//AddPrimitive(p);
+	TGBasePrimitiveLayerParams params;
+	params.BaseViewPort = QSize(1, 1);
+	params.BaseDistance = 1.0;
+	params.MinDistance = 0.0;
+	params.MaxDistance = 100.0;
+
+	SetupProjection(params);
+
+	TGBasePrimitiveLayerCamera camera;
+	camera.BasePoint.X = 0.0;
+	camera.BasePoint.Y = 0.0;
+	camera.BasePoint.Z = 0.0;
+
+	camera.EyePoint.X = 0.0;
+	camera.EyePoint.Y = 0.0;
+	camera.EyePoint.Z = -3.0;
+
+	SetupCamera(camera);
 }
 //---------------------------------------------------------------------
 TGDXPrimitiveLayer::~TGDXPrimitiveLayer()

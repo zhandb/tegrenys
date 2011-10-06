@@ -18,10 +18,13 @@
 int main(int argc, char *argv[])
 {
 	_CrtSetDbgFlag(_CrtSetDbgFlag(_CRTDBG_REPORT_FLAG) |_CRTDBG_LEAK_CHECK_DF);
-	//_CrtSetBreakAlloc(2409);
+	//_CrtSetBreakAlloc(447);
 	
 	QApplication a(argc, argv);
 	Tegrenys w;
 	//w.show();
+
+	//QWidget ww;
+	//ww.show();
 	return a.exec();
 }

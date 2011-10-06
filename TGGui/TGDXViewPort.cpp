@@ -2,12 +2,10 @@
 #include "TGDXPrimitiveLayer.h"
 #include "TGBaseTexturedRectangle.h"
 //---------------------------------------------------------------------
-TGDXViewport::TGDXViewport(TGViewPortRect view_port, TGViewPortColor color) : TGBaseViewport(view_port, color)
+TGDXViewport::TGDXViewport(TGDataObject& config) : TGBaseViewport(config)
 {
 	Device = NULL;
-
-	
-
+	ViewPort = config.Attribute("Rect").toRect();
 }
 //---------------------------------------------------------------------
 TGDXViewport::~TGDXViewport()

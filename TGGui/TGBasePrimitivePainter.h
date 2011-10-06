@@ -20,9 +20,11 @@ public:
 	~TGBasePrimitivePainter();
 
 	void AddViewport(UID uid, PTGBaseViewport viewport);
-	void SetCurrentViewport(UID uid);
 
-	void AddLayerToCurrentViewport(PTGBasePrimitiveLayer layer);
+	//void SetCurrentViewport(UID uid);
+
+	//void AddLayerToCurrentViewport(PTGBasePrimitiveLayer layer);
+	void AddLayer(UID viewport_uid, UID layer_uid, PTGBasePrimitiveLayer layer);
 
 	void Build();
 	virtual void Render() = 0;
@@ -97,7 +99,7 @@ protected:
 	DWORD PrimitivesCount;
 	DWORD PrimitiveBufferSize;
 	TGBaseViewportsMap Viewports;
-	PTGBaseViewport CurrentViewport;
+	//PTGBaseViewport CurrentViewport;
 
 	//SNPrimitivesList Primitives;
 	TGPrimitiveIndexEntry2* PrimitiveIndex;
