@@ -41,6 +41,7 @@ public slots:
 	virtual void OnCreateModuleSlot(PTGModule caller, UID type_id, UID module_id);
 	virtual void OnModuleCreatedSlot(PTGModule caller, UID type_id, UID module_id, PTGModule result);
 	virtual void SetConfig(const TGDataObject& config){};
+	virtual void OnAddChildModule(UID module_id, PTGModule module);
 protected:
 	PTGModule System;
 	TGModuleMap ModuleMap;

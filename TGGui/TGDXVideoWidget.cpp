@@ -154,11 +154,11 @@ void TGDXVideoWidget::timerEvent(QTimerEvent* event)
 	}
 	else
 	{
-		uchar data[32*32*4];
+		/*uchar data[32*32*4];
 		for (int i = 0; i < 32*32*4; ++i)
 		{
 			data[i] = rand() % 255;
-		}
+		}*/
 
 		//PP->TextureManager->SetTextureImage(video, data, 128);
 
@@ -188,16 +188,16 @@ void TGDXVideoWidget::resizeEvent(QResizeEvent* event)
 }
 //---------------------------------------------------------------------------
 
-void TGDXVideoWidget::AddViewport(UID uid, TGDataObject& config)
-{
-	PTGBaseViewport viewport = new TGDXViewport(config);
-	PP->AddViewport(uid, viewport);
-}
-//---------------------------------------------------------------------------
-
-void TGDXVideoWidget::AddLayer(UID viewport_uid, UID layer_uid, TGDataObject& config)
-{
-	PTGBasePrimitiveLayer layer = new TGDXPrimitiveLayer(config);
-	PP->AddLayer(viewport_uid, layer_uid, layer);
-}
-//---------------------------------------------------------------------
+//void TGDXVideoWidget::AddViewport(UID uid, TGDataObject& config)
+//{
+//	PTGBaseViewport viewport = new TGDXViewport(config);
+//	PP->AddViewport(uid, viewport);
+//}
+////---------------------------------------------------------------------------
+//
+//void TGDXVideoWidget::AddLayer(UID viewport_uid, UID layer_uid, TGDataObject& config)
+//{
+//	PTGBasePrimitiveLayer layer = new TGDXPrimitiveLayer(config);
+//	PP->AddLayer(viewport_uid, layer_uid, layer);
+//}
+////---------------------------------------------------------------------

@@ -1,6 +1,7 @@
 #include "TGBasePrimitivePainter.h"
 #include "TGDataObject.h"
 #include "TGBaseTexturedRectangle.h"
+#include "TGVideoRectangle.h"
 
 //---------------------------------------------------------------------
 TGBasePrimitivePainter::TGBasePrimitivePainter()
@@ -182,5 +183,10 @@ void TGBasePrimitivePainter::AddLayer(UID viewport_uid, UID layer_uid, PTGBasePr
 		p->SetColor(QColor("red"));
 		p->SetSize(QSizeF(1, 1));
 		p->SetPos(TGPointF(-1, -0.5, 0.0));
+
+		TGVideoRectangle* p2 = new TGVideoRectangle(layer);
+		PTGBasePrimitive pp2 = p2;
+		p2->SetSize(QSizeF(3, 2));
+		p2->SetPos(TGPointF(-200, -0.5, -0.1));
 	}
 }

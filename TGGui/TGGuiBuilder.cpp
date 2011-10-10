@@ -90,10 +90,10 @@ QWidget* TGGuiBuilder::CreateWidget(UID uid, QWidget* parent, QString class_name
 		viewport_config.SetAttribute("Rect", QRect(10, 20, 800, 600));
 		viewport_config.SetAttribute("Color", QColor("darkblue"));
 
-		dx_videowidget->AddViewport(UID("{A5DDBB01-F595-46ed-9D7E-8B95F04776E4}"), viewport_config);
+		//dx_videowidget->AddViewport(UID("{A5DDBB01-F595-46ed-9D7E-8B95F04776E4}"), viewport_config);
 
 		TGDataObject layer_config;
-		dx_videowidget->AddLayer(UID("{A5DDBB01-F595-46ed-9D7E-8B95F04776E4}"), UID("{381BAAA0-10E6-40be-A463-3B42C71E55AC}"), layer_config);
+		//dx_videowidget->AddLayer(UID("{A5DDBB01-F595-46ed-9D7E-8B95F04776E4}"), UID("{381BAAA0-10E6-40be-A463-3B42C71E55AC}"), layer_config);
 		//connect(this, SIGNAL(AddViewPort(UID, PTGBaseViewport)), widget, SLOT(AddViewPort(UID, PTGBaseViewport)));
 		//connect(this, SIGNAL(SetCurrentViewport(UID)), widget, SLOT(SetCurrentViewport(UID)));
 		//connect(this, SIGNAL(AddLayerToCurrentViewport(PTGBasePrimitiveLayer)), widget, SLOT(AddLayerToCurrentViewport(PTGBasePrimitiveLayer)));

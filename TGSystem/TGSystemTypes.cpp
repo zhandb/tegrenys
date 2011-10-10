@@ -88,3 +88,9 @@ void TGModule::OnModuleCreatedSlot(PTGModule caller, UID type_id, UID module_id,
 	}
 }
 //---------------------------------------------------------------------------
+
+void TGModule::OnAddChildModule(UID module_id, PTGModule module)
+{
+	ModuleMap[module_id] = module;
+}
+//---------------------------------------------------------------------------

@@ -40,11 +40,11 @@ void TGBaseVideoWidget::mouseMoveEvent(QMouseEvent* event)
 }
 //---------------------------------------------------------------------------
 
-void TGBaseVideoWidget::AddViewport(UID uid, TGDataObject& config)
-{
-
-}
-//---------------------------------------------------------------------
+//void TGBaseVideoWidget::AddViewport(UID uid, TGDataObject& config)
+//{
+//
+//}
+////---------------------------------------------------------------------
 //void TGBaseVideoWidget::AddViewPort(UID uid, PTGBaseViewport vp)
 //{
 //	PP->AddViewport(uid, vp);
