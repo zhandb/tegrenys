@@ -1,9 +1,14 @@
 #include "TGBasePrimitiveLayer.h"
+#include "TGBaseTexturedRectangle.h"
 //---------------------------------------------------------------------
-TGBasePrimitiveLayer::TGBasePrimitiveLayer(TGDataObject& config)
+TGBasePrimitiveLayer::TGBasePrimitiveLayer(UID module_id, PTGModule module) : TGModule(module_id, module)
 {
 	PrimitivesCount = 0;
-	
+
+	TGBaseTexturedRectangle* p = new TGBaseTexturedRectangle(this, "{8BC0D4A6-4BBA-431c-83CA-3357D87CF21A}");
+	p->SetColor(QColor("red"));
+	p->SetSize(QSizeF(1, 1));
+	p->SetPos(TGPointF(-1, -0.5, 0.0));
 }
 //---------------------------------------------------------------------
 TGBasePrimitiveLayer::~TGBasePrimitiveLayer()

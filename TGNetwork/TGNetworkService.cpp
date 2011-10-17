@@ -20,9 +20,10 @@ TGNetworkService::~TGNetworkService()
 
 void TGNetworkService::timerEvent(QTimerEvent* event)
 {
-	for (TGModuleMap::iterator socket = ModuleMap.begin(); socket != ModuleMap.end(); ++socket)
+	for (TGModuleList::iterator socket = ChildModules.begin(); socket != ChildModules.end(); ++socket)
 	{
-		((TGSocket*)&*socket->second)->Poll();
+		TGModule* m = *socket;
+		((TGSocket*)m)->Poll();
 	}
 }
 //---------------------------------------------------------------------------
@@ -34,7 +35,8 @@ PTGModule TGNetworkService::CreateModuleProc(UID type_id, UID module_id)
 		PTGModule socket = new TGSocket(module_id, System);
 		//Сокет регистрируется в списке NetworkService для того, чтобы сервис опрашивал его
 		//TODO: как удалить сокет после использования?
-		ModuleMap[module_id] = socket;
+		//ModuleMap[module_id] = socket;
+		AddChildModule(module_id, socket);
 		return socket;
 	}
 	

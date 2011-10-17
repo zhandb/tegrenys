@@ -1,8 +1,11 @@
 #include "TGSystemTypes.h"
 #include "tgsystem.h"
 //---------------------------------------------------------------------------
+
 TGModule::TGModule(UID module_uid, PTGModule system)
 {
+	qRegisterMetaType<PTGModule>("PTGModule");
+
 	System = system;
 	if (system)
 		system->RegisterModule(module_uid, this);
@@ -11,38 +14,20 @@ TGModule::TGModule(UID module_uid, PTGModule system)
 
 TGModule::~TGModule()
 {
-	//DeInit();
+	DeInit();
 }
 //---------------------------------------------------------------------------
 
 void TGModule::DeInit()
 {
 	System = NULL;
-	//Parent = NULL;
-
-	for (TGModuleMap::iterator module = ModuleMap.begin(); module != ModuleMap.end(); ++module)
+	
+	for (TGModuleList::iterator module = ChildModules.begin(); module != ChildModules.end(); ++module)
 	{
-		module->second->DeInit();
+		(*module)->DeInit();
 	}
 
-	ModuleMap.clear();
-}
-//---------------------------------------------------------------------------
-
-void TGModule::RegisterModule(UID module_uid, PTGModule module)
-{
-	ModuleMap[module_uid] = module;
-}
-//---------------------------------------------------------------------------
-
-PTGModule TGModule::GetModule(UID module_id)
-{
-	PTGModule res;
-	TGModuleMap::iterator module = ModuleMap.find(module_id);
-	if (module != ModuleMap.end())
-		res = module->second;
-
-	return res;
+	ChildModules.clear();
 }
 //---------------------------------------------------------------------------
 
@@ -52,45 +37,16 @@ void TGModule::Init()
 }
 //---------------------------------------------------------------------------
 
-UID TGModule::CreateModule(UID type_id)
+PTGModule TGModule::CreateModule(UID type_id)
 {
 	TGSystem* sys = (TGSystem*)&*System;
-
 	UID module_uid = QUuid::createUuid();
-	sys->ConnectToModuleFactory(this, type_id, module_uid);
-	emit CreateModuleSignal(this, type_id, module_uid);
-
-	return module_uid;
+	return sys->CreateModule(type_id, module_uid);
 }
 //---------------------------------------------------------------------------
 
-void TGModule::OnCreateModuleSlot(PTGModule caller, UID type_id, UID module_id)
+void TGModule::AddChildModule(UID module_id, PTGModule module)
 {
-	disconnect(caller, SIGNAL(CreateModuleSignal(PTGModule, UID, UID)), this, SLOT(OnCreateModuleSlot(PTGModule, UID, UID)));
-	PTGModule module = CreateModuleProc(type_id, module_id);
-	if (module)
-	{
-		module->Init();
-		connect(this, SIGNAL(ModuleCreatedSignal(PTGModule, UID, UID, PTGModule)), caller, SLOT(OnModuleCreatedSlot(PTGModule, UID, UID, PTGModule)));
-		emit ModuleCreatedSignal(caller, type_id, module_id, module);
-		disconnect(this, SIGNAL(ModuleCreatedSignal(PTGModule, UID, UID, PTGModule)), caller, SLOT(OnModuleCreatedSlot(PTGModule, UID, UID, PTGModule)));
-	}
-	
-}
-//---------------------------------------------------------------------------
-
-void TGModule::OnModuleCreatedSlot(PTGModule caller, UID type_id, UID module_id, PTGModule result)
-{
-	if (caller == this)
-	{
-		ModuleMap[module_id] = result;
-		ModuleCreated(type_id, module_id, result);
-	}
-}
-//---------------------------------------------------------------------------
-
-void TGModule::OnAddChildModule(UID module_id, PTGModule module)
-{
-	ModuleMap[module_id] = module;
+	ChildModules.push_back(module);
 }
 //---------------------------------------------------------------------------

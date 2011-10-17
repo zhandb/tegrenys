@@ -82,9 +82,11 @@ void TGDXPrimitivePainter::Render()
 			
 			for (TGPrimitiveLayersList::iterator layer = vp->PrimitiveLayers.begin(); layer != vp->PrimitiveLayers.end(); ++layer)
 			{
-				(*layer)->ApplyLayer();
+				TGBasePrimitiveLayer* pl = (TGBasePrimitiveLayer*)&**layer;
 
-				for (int q = 0; q < (*layer)->GetPrimitivesCount(); ++q)
+				pl->ApplyLayer();
+
+				for (int q = 0; q < pl->GetPrimitivesCount(); ++q)
 				{
 					if (PrimitiveIndex[primitive_index].AlphaBlendEnabled != AlphaEnabled)
 					{

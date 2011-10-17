@@ -19,7 +19,7 @@ public:
 	TGBasePrimitivePainter();
 	~TGBasePrimitivePainter();
 
-	void AddViewport(UID uid, PTGBaseViewport viewport);
+	void AddViewport(UID uid, PTGModule viewport);
 
 	//void SetCurrentViewport(UID uid);
 

@@ -43,10 +43,14 @@ public:
 	void Build(TGSqlite* database);
 	void CreateWidgets(TGSqlite* database, QWidget* parent, UID parent_id);
 	QWidget* CreateWidget(UID uid, QWidget* parent, QString class_name);
+
 	//static void RegisterPrimitive(UID primitive_uid, PTGBasePrimitive primitive);
 
 	//PTGBasePrimitive GetPrimitive(UID primitive_uid);
 	
+protected:
+	virtual PTGModule CreateModuleProc(UID type_id, UID module_id);
+
 public:
 	//TGVideoRectangle* video_rect;
 private:

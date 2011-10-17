@@ -19,13 +19,20 @@ TGGuiBuilder::TGGuiBuilder(UID module_uid, PTGModule system, QObject *parent) : 
 {
 	//StaticGuiBuilder = this;
 
+	
 	sqlite3* db = NULL;
 	sqlite3_open_v2("", &db, SQLITE_OPEN_READWRITE /*| SQLITE_OPEN_CREATE*/, NULL);
 	sqlite3_close(db);
 
 	TGSystem* sys = (TGSystem*)&*system;
+
+	PTGModule s = TGSystem::GetSystem();
+
 	sys->RegisterFactoryModuleType(TGVIDEOWIDGET_TYPE_UID, this);
-	
+	sys->RegisterFactoryModuleType(TGDXVIEWPORT_TYPE_UID, this);
+	sys->RegisterFactoryModuleType(TGDXPRIMITIVELAYER_TYPE_UID, this);
+	sys->RegisterFactoryModuleType(TGBASE_TEXTURED_RECTANGLE_TYPE_UID, this);
+
 	TGSqlite::main_database = ((TGSystem*)&*system)->GetDataBase();
 
 	Build(((TGSystem*)&*system)->GetDataBase());
@@ -83,22 +90,24 @@ QWidget* TGGuiBuilder::CreateWidget(UID uid, QWidget* parent, QString class_name
 
 	if (class_name == "TGBaseVideoWidget")
 	{
-		TGDXVideoWidget* dx_videowidget = new TGDXVideoWidget;
-		widget = dx_videowidget;
+		TGSystem* sys = (TGSystem*)&*System;
 
+		sys->AddChildModule(UID("{8A747671-5239-4aa6-99CB-D222947E0EE7}"), UID("{D887D9A2-C050-4a77-881C-6065DD98B025}"), TGVIDEOWIDGET_TYPE_UID);
+		sys->AddChildModule(UID("{D887D9A2-C050-4a77-881C-6065DD98B025}"), UID("{B9E2204C-8265-4482-949F-F6B8D98F13C3}"), TGDXVIEWPORT_TYPE_UID);
+		sys->AddChildModule(UID("{B9E2204C-8265-4482-949F-F6B8D98F13C3}"), UID("{005E9139-659E-469d-8D7F-89AF60A78C39}"), TGDXPRIMITIVELAYER_TYPE_UID);
+		
 		TGDataObject viewport_config;
 		viewport_config.SetAttribute("Rect", QRect(10, 20, 800, 600));
 		viewport_config.SetAttribute("Color", QColor("darkblue"));
 
-		//dx_videowidget->AddViewport(UID("{A5DDBB01-F595-46ed-9D7E-8B95F04776E4}"), viewport_config);
-
+		
 		TGDataObject layer_config;
 		//dx_videowidget->AddLayer(UID("{A5DDBB01-F595-46ed-9D7E-8B95F04776E4}"), UID("{381BAAA0-10E6-40be-A463-3B42C71E55AC}"), layer_config);
 		//connect(this, SIGNAL(AddViewPort(UID, PTGBaseViewport)), widget, SLOT(AddViewPort(UID, PTGBaseViewport)));
 		//connect(this, SIGNAL(SetCurrentViewport(UID)), widget, SLOT(SetCurrentViewport(UID)));
 		//connect(this, SIGNAL(AddLayerToCurrentViewport(PTGBasePrimitiveLayer)), widget, SLOT(AddLayerToCurrentViewport(PTGBasePrimitiveLayer)));
 
-		widget->show();
+		//widget->show();
 
 		/*PTGBaseViewport vp = new TGDXViewport(QRect(0, 0, 1280, 1024), QColor("darkblue"));
 		emit AddViewPort("{3192C1FA-6FA6-44f0-8DB4-DCE1B67F6E25}", vp);*/
@@ -184,6 +193,27 @@ QWidget* TGGuiBuilder::CreateWidget(UID uid, QWidget* parent, QString class_name
 
 	WidgetList[uid] = widget;
 	return widget;
+}
+//---------------------------------------------------------------------------
+
+PTGModule TGGuiBuilder::CreateModuleProc(UID type_id, UID module_id)
+{
+	if (type_id == TGVIDEOWIDGET_TYPE_UID)
+	{
+		return new TGVideoWidgetHandler(module_id, System);
+	}
+
+	if (type_id == TGDXVIEWPORT_TYPE_UID)
+	{
+		return new TGDXViewport(module_id, System);
+	}
+
+	if (type_id == TGDXPRIMITIVELAYER_TYPE_UID)
+	{
+		return new TGDXPrimitiveLayer(module_id, System);
+	}
+
+	return NULL;
 }
 //---------------------------------------------------------------------------
 //

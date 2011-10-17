@@ -41,7 +41,8 @@ void TGBasePrimitivePainter::BuildPrimitives()
 
 		for (TGPrimitiveLayersList::iterator layer = vp->PrimitiveLayers.begin(); layer != vp->PrimitiveLayers.end(); ++layer)
 		{
-			(*layer)->BuildPrimitives(this);
+			TGBasePrimitiveLayer* pl = (TGBasePrimitiveLayer*)&**layer;
+			pl->BuildPrimitives(this);
 		}
 	}
 }
@@ -138,7 +139,7 @@ PTGBaseTexture TGBasePrimitivePainter::AddTexture(PTGBaseTextureDescriptor descr
 	return TextureManager->AddTexture(descr);
 }
 //---------------------------------------------------------------------
-void TGBasePrimitivePainter::AddViewport(UID uid, PTGBaseViewport viewport)
+void TGBasePrimitivePainter::AddViewport(UID uid, PTGModule viewport)
 {
 	Viewports[uid] = viewport;
 }
@@ -173,7 +174,7 @@ TGObjectsStateList TGBasePrimitivePainter::GetState(UID state_id)
 
 void TGBasePrimitivePainter::AddLayer(UID viewport_uid, UID layer_uid, PTGBasePrimitiveLayer layer)
 {
-	TGBaseViewportsMap::iterator vp = Viewports.find(viewport_uid);
+	/*TGBaseViewportsMap::iterator vp = Viewports.find(viewport_uid);
 	if (vp != Viewports.end())
 	{
 		TGBaseViewport* view_port = (TGBaseViewport*)&*vp->second;
@@ -188,5 +189,5 @@ void TGBasePrimitivePainter::AddLayer(UID viewport_uid, UID layer_uid, PTGBasePr
 		PTGBasePrimitive pp2 = p2;
 		p2->SetSize(QSizeF(3, 2));
 		p2->SetPos(TGPointF(-200, -0.5, -0.1));
-	}
+	}*/
 }

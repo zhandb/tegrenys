@@ -19,11 +19,9 @@ public:
 
 
 private:
-	PTGModule Socket;
+	//PTGModule Socket;
 	PTGHttpParser HttpParser;
 	PTGBuffer DestinationBuffer;
-protected:
-	virtual void ModuleCreated(UID type_id, UID module_id, PTGModule module);
 signals:
 	void CreateSocket();
 	void SocketConnect(TGString host, uint32_t remote_port, uint32_t localport);

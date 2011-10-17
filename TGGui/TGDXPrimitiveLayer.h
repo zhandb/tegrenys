@@ -8,7 +8,7 @@
 class TGDXPrimitiveLayer : public TGBasePrimitiveLayer
 {
 public:
-	TGDXPrimitiveLayer(TGDataObject& config);
+	TGDXPrimitiveLayer(UID module_id, PTGModule module);
 	~TGDXPrimitiveLayer();
 	virtual void SetupViewPort(QSize viewport, bool keep_base_view);
 	virtual void SetupCamera(TGBasePrimitiveLayerCamera& camera);

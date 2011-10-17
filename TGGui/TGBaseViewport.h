@@ -10,15 +10,18 @@
 #define TGViewPortColor QColor
 //---------------------------------------------------------------------
 
-class TGBaseViewport : public TGReferenceCounter
+class TGBaseViewport : public TGModule
 {
+	Q_OBJECT
 public:
-	TGBaseViewport(TGDataObject& config);
+	TGBaseViewport(UID module_uid, PTGModule system);
 	~TGBaseViewport();
 	virtual void ApplyViewPort();
-	void AddLayer(UID layer_uid, PTGBasePrimitiveLayer layer);
+	void AddLayer(UID layer_uid, PTGModule layer);
 
 	void MouseEvent(QMouseEvent* event);
+protected:
+	Q_INVOKABLE virtual void AddChildModule(UID module_uid, PTGModule module);
 protected:
 	TGViewPortRect ViewPort;
 	TGViewPortColor Color;
@@ -26,10 +29,10 @@ public:
 	TGPrimitiveLayersList PrimitiveLayers;
 	TGPrimitiveLayersMap LayersMap;
 };
-
+//---------------------------------------------------------------------
 TG_REFC_PTR(TGBaseViewport)
-
-typedef std::map<UID, PTGBaseViewport> TGBaseViewportsMap;
-
+//---------------------------------------------------------------------
+typedef std::map<UID, PTGModule> TGBaseViewportsMap;
+//---------------------------------------------------------------------
 
 #endif // TGBaseViewport_h__

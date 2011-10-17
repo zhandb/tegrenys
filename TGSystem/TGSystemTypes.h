@@ -7,8 +7,10 @@
 #include <Quuid>
 #include "TGRefCounter.h"
 #include "TGDataObject.h"
+#include "tgsystem_global.h"
 //-----------------------------------------------------------
-#define TGMap std::map 
+#define TGMap std::map
+#define TGList std::list
 //-----------------------------------------------------------
 typedef QUuid UID;
 typedef QString TGString;
@@ -16,7 +18,7 @@ typedef QTimer TGTimer;
 //-----------------------------------------------------------
 TG_REFC_PTR(TGModule)
 //-----------------------------------------------------------
-typedef TGMap<UID, PTGModule> TGModuleMap;
+typedef TGList<PTGModule> TGModuleList;
 //-----------------------------------------------------------
 
 class TGModule : public QObject, public TGReferenceCounter
@@ -27,24 +29,18 @@ public:
 	~TGModule();
 	virtual void Init();
 	virtual void DeInit();
-	void RegisterModule(UID module_uid, PTGModule module);
-	PTGModule GetModule(UID module_id);
-	UID CreateModule(UID type_id);
+	virtual void RegisterModule(UID module_uid, PTGModule module){};
+	//PTGModule GetModule(UID module_id);
+	PTGModule CreateModule(UID type_id);
+	virtual PTGModule CreateModuleProc(UID type_id, UID module_id){return NULL;};
+
+	Q_INVOKABLE virtual void AddChildModule(UID module_id, PTGModule module);
+public slots:
+	virtual void SetConfig(const TGDataObject& config){};
 	
 protected:
-	virtual PTGModule CreateModuleProc(UID type_id, UID module_id){return NULL;};
-	virtual void ModuleCreated(UID type_id, UID module_id, PTGModule module){};
-signals: 
-	void CreateModuleSignal(PTGModule caller, UID type_id, UID module_id);
-	void ModuleCreatedSignal(PTGModule caller, UID type_id, UID module_id, PTGModule result);
-public slots:
-	virtual void OnCreateModuleSlot(PTGModule caller, UID type_id, UID module_id);
-	virtual void OnModuleCreatedSlot(PTGModule caller, UID type_id, UID module_id, PTGModule result);
-	virtual void SetConfig(const TGDataObject& config){};
-	virtual void OnAddChildModule(UID module_id, PTGModule module);
-protected:
 	PTGModule System;
-	TGModuleMap ModuleMap;
+	TGModuleList ChildModules;
 };
 //---------------------------------------------------------------------------
 #endif // TGSystemTypes_h__

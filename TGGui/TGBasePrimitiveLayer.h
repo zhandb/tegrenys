@@ -30,10 +30,11 @@ struct TGBasePrimitiveLayerParams
 	float MaxDistance;
 };
 
-class TGBasePrimitiveLayer : public TGReferenceCounter
+class TGBasePrimitiveLayer : public TGModule
 {
+	Q_OBJECT
 public:
-	TGBasePrimitiveLayer(TGDataObject& config);
+	TGBasePrimitiveLayer(UID module_id, PTGModule module);
 	~TGBasePrimitiveLayer();
 	void SetupProjection(TGBasePrimitiveLayerParams params);
 	virtual void SetupCamera(TGBasePrimitiveLayerCamera& camera);
@@ -55,8 +56,8 @@ protected:
 
 TG_REFC_PTR(TGBasePrimitiveLayer)
 
-typedef QList<PTGBasePrimitiveLayer> TGPrimitiveLayersList;
-typedef std::map<UID, PTGBasePrimitiveLayer> TGPrimitiveLayersMap;
+typedef std::list<PTGModule> TGPrimitiveLayersList;
+typedef std::map<UID, PTGModule> TGPrimitiveLayersMap;
 
 
 #endif // TGBasePrimitiveLayer_h__
