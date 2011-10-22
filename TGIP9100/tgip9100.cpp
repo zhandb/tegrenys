@@ -71,18 +71,20 @@ void TGIP9100::OnContentReceived(TGString content_type, TGDataFragmentList& data
 
 void TGIP9100::OnLockDestinationBuffer(TGBufferLockStruct ls)
 {
-	DestinationBuffer = new TGBuffer();
+	/*DestinationBuffer = new TGBuffer();
 	DestinationBuffer->Allocate(ls.Width * ls.Height * 4);
 
 	ls.Data = (UCHAR*)DestinationBuffer->GetConstData();
 	ls.Pitch = ls.Width * 4;
-	emit DestinationBufferLocked(ls);
+	emit DestinationBufferLocked(ls);*/
+
+	emit LockDestinationBuffer(ls);
 }
 //---------------------------------------------------------------------------
 
 void TGIP9100::OnUnlockDestinationBuffer()
 {
-
+	emit UnlockDestinationBuffer();
 }
 //---------------------------------------------------------------------------
 
@@ -91,5 +93,11 @@ void TGIP9100::DeInit()
 	HttpParser = NULL;
 	//Socket = NULL;
 	TGModule::DeInit();
+}
+//---------------------------------------------------------------------------
+
+void TGIP9100::OnDestinationBufferLocked(TGBufferLockStruct ls)
+{
+	emit DestinationBufferLocked(ls);
 }
 //---------------------------------------------------------------------------

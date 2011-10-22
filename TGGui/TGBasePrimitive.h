@@ -7,6 +7,7 @@
 #include <QColor>
 
 #include "TGBaseTexture.h"
+#include "TGSystemTypes.h"
 
 enum TGPrimitiveTypes{TGPrimitiveType_LineStrip, TGPrimitiveType_TriangleList, TGPrimitiveType_TriangleStrip};
 
@@ -136,8 +137,9 @@ struct TGPrimitiveIndexEntry2
 	bool AlphaBlendEnabled;
 };
 
-class TGBasePrimitive : public TGReferenceCounter
+class TGBasePrimitive : public TGModule
 {
+	Q_OBJECT
 public:
 	friend class TGBasePrimitivePainter;
 
@@ -159,7 +161,7 @@ public:
 	enum TGBasePrimitiveAlignment{Align_None = 0, HAlign_Left = 1, HAlign_Right = 2, HAlign_HCenter = 4, VAlign_Top = 8, VAlign_Bottom = 16, VAlign_VCenter = 32};
 
 public:
-	TGBasePrimitive(PTGBasePrimitiveLayer owner);
+	TGBasePrimitive(UID module_id, PTGModule system);
 	virtual void SetPos(TGPointF pos);
 
 	void SetVisible(bool visible, bool apply_to_children = true);

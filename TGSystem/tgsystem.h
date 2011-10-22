@@ -26,6 +26,9 @@ public:
 	virtual void RegisterModule(UID module_uid, PTGModule module);
 	virtual void DeInit();
 	static PTGModule GetSystem();
+
+	bool ConnectToEvent(UID event_source, const char* event_name, PTGModule event_receiver, const char* slot_name);
+	bool ConnectToSlot(PTGModule event_source, const char* event_name, UID event_receiver, const char* slot_name);
 private:
 	QMutex Mutex;
 	TGString SystemPath;

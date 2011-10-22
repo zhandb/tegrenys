@@ -28,14 +28,15 @@ signals:
 	void Write(PTGBuffer data);
 	void SendJpegToDecoder(TGDataFragmentList& data);
 	void DestinationBufferLocked(TGBufferLockStruct ls);
-
+	void LockDestinationBuffer(TGBufferLockStruct ls);
+	void UnlockDestinationBuffer();
 public slots:
 	void OnSocketConnected();
 	void OnDataReceived(PTGBuffer data);
 	void OnContentReceived(TGString content_type, TGDataFragmentList& data);
 	void OnLockDestinationBuffer(TGBufferLockStruct ls);
 	void OnUnlockDestinationBuffer();
-
+	void OnDestinationBufferLocked(TGBufferLockStruct ls);
 };
 
 #endif // TGIP9100_H

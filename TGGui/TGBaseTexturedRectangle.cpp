@@ -2,10 +2,12 @@
 #include "TGBaseTexturedRectangle.h"
 #include "TGBasePrimitivePainter.h"
 //---------------------------------------------------------------------
-TGBaseTexturedRectangle::TGBaseTexturedRectangle(PTGBasePrimitiveLayer owner, UID texture_id) : TGBaseRectangle(owner, true)
+TGBaseTexturedRectangle::TGBaseTexturedRectangle(UID module_id, PTGModule system, UID texture_id) : TGBaseRectangle(module_id, system, true)
 {
 	Texture = NULL;
 	TextureID = texture_id;
+	SetSize(QSizeF(1, 1));
+	SetPos(TGPointF(-1, -0.5, 0.0));
 }
 //---------------------------------------------------------------------
 TGBaseTexturedRectangle::~TGBaseTexturedRectangle()

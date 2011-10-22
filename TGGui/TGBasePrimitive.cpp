@@ -2,10 +2,10 @@
 #include "TGBasePrimitivePainter.h"
 #include <d3dx9math.h>
 //---------------------------------------------------------------------
-TGBasePrimitive::TGBasePrimitive(PTGBasePrimitiveLayer owner)
+TGBasePrimitive::TGBasePrimitive(UID module_id, PTGModule system) : TGModule(module_id, system)
 {
-	if (owner)
-		owner->AddPrimitive(this);
+	/*if (owner)
+		owner->AddPrimitive(this);*/
 
 	Parent = NULL;
 	Flags = None;

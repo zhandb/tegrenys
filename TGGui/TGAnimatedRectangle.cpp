@@ -2,7 +2,7 @@
 #include "TGBasePrimitivePainter.h"
 
 //---------------------------------------------------------------------
-TGAnimatedRectangle::TGAnimatedRectangle(PTGBasePrimitiveLayer owner) : TGBaseRectangle(owner, true)
+TGAnimatedRectangle::TGAnimatedRectangle(UID module_id, PTGModule system) : TGBaseRectangle(module_id, system, true)
 {
 	StateChanged = true;
 	StateID = "{A637AE79-AB9C-4fa9-878D-CC56BB3B469C}";

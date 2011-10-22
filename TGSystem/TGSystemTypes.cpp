@@ -47,6 +47,7 @@ PTGModule TGModule::CreateModule(UID type_id)
 
 void TGModule::AddChildModule(UID module_id, PTGModule module)
 {
+	//TODO: Сделать проверку допустимых типов дочерних модулей
 	ChildModules.push_back(module);
 }
 //---------------------------------------------------------------------------

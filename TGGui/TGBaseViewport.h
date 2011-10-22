@@ -17,17 +17,16 @@ public:
 	TGBaseViewport(UID module_uid, PTGModule system);
 	~TGBaseViewport();
 	virtual void ApplyViewPort();
-	void AddLayer(UID layer_uid, PTGModule layer);
+	//void AddLayer(UID layer_uid, PTGModule layer);
 
 	void MouseEvent(QMouseEvent* event);
-protected:
-	Q_INVOKABLE virtual void AddChildModule(UID module_uid, PTGModule module);
+
 protected:
 	TGViewPortRect ViewPort;
 	TGViewPortColor Color;
 public:
-	TGPrimitiveLayersList PrimitiveLayers;
-	TGPrimitiveLayersMap LayersMap;
+	//TGPrimitiveLayersList PrimitiveLayers;
+	//TGPrimitiveLayersMap LayersMap;
 };
 //---------------------------------------------------------------------
 TG_REFC_PTR(TGBaseViewport)

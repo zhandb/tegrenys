@@ -15,15 +15,15 @@ void TGBaseViewport::ApplyViewPort()
 
 }
 //---------------------------------------------------------------------
-void TGBaseViewport::AddLayer(UID layer_uid, PTGModule layer)
-{
-	PrimitiveLayers.push_back(layer);
-	LayersMap[layer_uid] = layer;
-}
-//---------------------------------------------------------------------
+//void TGBaseViewport::AddLayer(UID layer_uid, PTGModule layer)
+//{
+//	PrimitiveLayers.push_back(layer);
+//	LayersMap[layer_uid] = layer;
+//}
+////---------------------------------------------------------------------
 void TGBaseViewport::MouseEvent(QMouseEvent* event)
 {
-	for (TGPrimitiveLayersList::iterator layer = PrimitiveLayers.begin(); layer != PrimitiveLayers.end(); ++layer)
+	for (TGModuleList::iterator layer = ChildModules.begin(); layer != ChildModules.end(); ++layer)
 	{
 		TG3DRay pick_vector;
 		QSize viewport = QSize(ViewPort.width(), ViewPort.height());
@@ -33,9 +33,3 @@ void TGBaseViewport::MouseEvent(QMouseEvent* event)
 	}
 }
 //---------------------------------------------------------------------------
-
-void TGBaseViewport::AddChildModule(UID module_uid, PTGModule module)
-{
-	AddLayer(module_uid, module);
-}
-//---------------------------------------------------------------------

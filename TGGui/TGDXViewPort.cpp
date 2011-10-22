@@ -7,7 +7,7 @@ TGDXViewport::TGDXViewport(UID module_uid, PTGModule system) : TGBaseViewport(mo
 	Device = NULL;
 	//ViewPort = config.Attribute("Rect").toRect();
 	ViewPort = QRect(10, 20 , 600, 800);
-	Color = QColor("red");
+	Color = QColor(0, 0, 32);
 }
 //---------------------------------------------------------------------
 TGDXViewport::~TGDXViewport()
@@ -19,7 +19,7 @@ void TGDXViewport::SetDevice(IDirect3DDevice9* device)
 {
 	Device = device;
 	
-	for (TGPrimitiveLayersList::iterator layer = PrimitiveLayers.begin(); layer != PrimitiveLayers.end(); ++layer)
+	for (TGModuleList::iterator layer = ChildModules.begin(); layer != ChildModules.end(); ++layer)
 	{
 		((TGDXPrimitiveLayer*)&**layer)->SetDevice(device, QSize(ViewPort.width(), ViewPort.height()), true);
 	}

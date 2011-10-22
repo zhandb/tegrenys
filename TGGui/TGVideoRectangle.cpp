@@ -4,11 +4,20 @@
 #include "TGDXTexture.h"
 #include "TGGuiBuilder.h"
 //---------------------------------------------------------------------
-TGVideoRectangle::TGVideoRectangle(PTGBasePrimitiveLayer owner) : TGBaseRectangle(owner, true)
+TGVideoRectangle::TGVideoRectangle(UID module_id, PTGModule system) : TGBaseRectangle(module_id, system, true)
 {
 	Texture = NULL;
 	IsTextureLocked = false;
 	//TGGuiBuilder::RegisterPrimitive("{19345C9B-57FF-4a63-879C-AFDBB92DAD6D}", this);
+
+	SetSize(QSizeF(1, 1));
+	SetPos(TGPointF(-1, -0.5, 0.0));
+
+	TGSystem* sys = (TGSystem*)&*System;
+
+	sys->ConnectToEvent("{0F6BECA6-08CE-41c7-A81D-4DBA0BDC00C5}", SIGNAL(LockDestinationBuffer(TGBufferLockStruct)), this, SLOT(OnLockTexture(TGBufferLockStruct)));
+	sys->ConnectToEvent("{0F6BECA6-08CE-41c7-A81D-4DBA0BDC00C5}", SIGNAL(UnlockDestinationBuffer()), this, SLOT(OnUnlockTexture()));
+	sys->ConnectToSlot(this, SIGNAL(TextureLocked(TGBufferLockStruct)), "{0F6BECA6-08CE-41c7-A81D-4DBA0BDC00C5}", SLOT(OnDestinationBufferLocked(TGBufferLockStruct)));
 }
 //---------------------------------------------------------------------
 TGVideoRectangle::~TGVideoRectangle()

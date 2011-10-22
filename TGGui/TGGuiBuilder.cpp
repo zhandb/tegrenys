@@ -32,6 +32,7 @@ TGGuiBuilder::TGGuiBuilder(UID module_uid, PTGModule system, QObject *parent) : 
 	sys->RegisterFactoryModuleType(TGDXVIEWPORT_TYPE_UID, this);
 	sys->RegisterFactoryModuleType(TGDXPRIMITIVELAYER_TYPE_UID, this);
 	sys->RegisterFactoryModuleType(TGBASE_TEXTURED_RECTANGLE_TYPE_UID, this);
+	sys->RegisterFactoryModuleType(TGBASE_VIDEO_RECTANGLE_TYPE_UID, this);
 
 	TGSqlite::main_database = ((TGSystem*)&*system)->GetDataBase();
 
@@ -95,7 +96,9 @@ QWidget* TGGuiBuilder::CreateWidget(UID uid, QWidget* parent, QString class_name
 		sys->AddChildModule(UID("{8A747671-5239-4aa6-99CB-D222947E0EE7}"), UID("{D887D9A2-C050-4a77-881C-6065DD98B025}"), TGVIDEOWIDGET_TYPE_UID);
 		sys->AddChildModule(UID("{D887D9A2-C050-4a77-881C-6065DD98B025}"), UID("{B9E2204C-8265-4482-949F-F6B8D98F13C3}"), TGDXVIEWPORT_TYPE_UID);
 		sys->AddChildModule(UID("{B9E2204C-8265-4482-949F-F6B8D98F13C3}"), UID("{005E9139-659E-469d-8D7F-89AF60A78C39}"), TGDXPRIMITIVELAYER_TYPE_UID);
-		
+		//sys->AddChildModule(UID("{005E9139-659E-469d-8D7F-89AF60A78C39}"), UID("{EF56795C-23E3-4715-A1E8-EC33390E3661}"), TGBASE_TEXTURED_RECTANGLE_TYPE_UID);
+		sys->AddChildModule(UID("{005E9139-659E-469d-8D7F-89AF60A78C39}"), UID("{8A179B79-5A2B-4a89-A359-ACD963E8D9EE}"), TGBASE_VIDEO_RECTANGLE_TYPE_UID);
+
 		TGDataObject viewport_config;
 		viewport_config.SetAttribute("Rect", QRect(10, 20, 800, 600));
 		viewport_config.SetAttribute("Color", QColor("darkblue"));
@@ -211,6 +214,16 @@ PTGModule TGGuiBuilder::CreateModuleProc(UID type_id, UID module_id)
 	if (type_id == TGDXPRIMITIVELAYER_TYPE_UID)
 	{
 		return new TGDXPrimitiveLayer(module_id, System);
+	}
+
+	if (type_id == TGBASE_TEXTURED_RECTANGLE_TYPE_UID)
+	{
+		return new TGBaseTexturedRectangle(module_id, System, "{8BC0D4A6-4BBA-431c-83CA-3357D87CF21A}");
+	}
+
+	if (type_id == TGBASE_VIDEO_RECTANGLE_TYPE_UID)
+	{
+		return new TGVideoRectangle(module_id, System);
 	}
 
 	return NULL;

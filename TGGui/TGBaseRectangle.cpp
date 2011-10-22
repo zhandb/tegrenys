@@ -1,7 +1,7 @@
 //---------------------------------------------------------------------
 #include "TGBaseRectangle.h"
 //---------------------------------------------------------------------
-TGBaseRectangle::TGBaseRectangle(PTGBasePrimitiveLayer owner, bool is_solid) : TGBasePolygon(owner, TGPolygonF(), is_solid)
+TGBaseRectangle::TGBaseRectangle(UID module_id, PTGModule system, bool is_solid) : TGBasePolygon(module_id, system, TGPolygonF(), is_solid)
 {
 }
 //---------------------------------------------------------------------

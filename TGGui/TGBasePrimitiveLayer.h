@@ -49,15 +49,15 @@ public:
 	void AddPrimitive(PTGBasePrimitive primitive);
 
 protected:
-	TGPrimitivesList Primitives; //should be protected
+	//TGPrimitivesList Primitives; //should be protected
 	TGBasePrimitiveLayerParams Params;
 	int PrimitivesCount;
 };
 
 TG_REFC_PTR(TGBasePrimitiveLayer)
 
-typedef std::list<PTGModule> TGPrimitiveLayersList;
-typedef std::map<UID, PTGModule> TGPrimitiveLayersMap;
+//typedef std::list<PTGModule> TGPrimitiveLayersList;
+//typedef std::map<UID, PTGModule> TGPrimitiveLayersMap;
 
 
 #endif // TGBasePrimitiveLayer_h__

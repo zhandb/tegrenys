@@ -39,7 +39,7 @@ void TGBasePrimitivePainter::BuildPrimitives()
 	{
 		TGBaseViewport* vp = (TGBaseViewport*)&*viewport->second;
 
-		for (TGPrimitiveLayersList::iterator layer = vp->PrimitiveLayers.begin(); layer != vp->PrimitiveLayers.end(); ++layer)
+		for (TGModuleList::iterator layer = vp->ChildModules.begin(); layer != vp->ChildModules.end(); ++layer)
 		{
 			TGBasePrimitiveLayer* pl = (TGBasePrimitiveLayer*)&**layer;
 			pl->BuildPrimitives(this);

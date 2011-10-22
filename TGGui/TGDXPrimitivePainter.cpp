@@ -80,7 +80,7 @@ void TGDXPrimitivePainter::Render()
 			Device->SetStreamSource(0, VertexBuffer.GetVertexBuffer(), 0, sizeof(TGPrimitiveVertex));
 			Device->SetFVF(TGPrimitiveVertex_FVF);
 			
-			for (TGPrimitiveLayersList::iterator layer = vp->PrimitiveLayers.begin(); layer != vp->PrimitiveLayers.end(); ++layer)
+			for (TGModuleList::iterator layer = vp->ChildModules.begin(); layer != vp->ChildModules.end(); ++layer)
 			{
 				TGBasePrimitiveLayer* pl = (TGBasePrimitiveLayer*)&**layer;
 

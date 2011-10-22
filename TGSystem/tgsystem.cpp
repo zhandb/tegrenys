@@ -107,3 +107,32 @@ PTGModule TGSystem::GetSystem()
 }
 //---------------------------------------------------------------------------
 
+bool TGSystem::ConnectToEvent(UID event_source, const char* event_name, PTGModule event_receiver, const char* slot_name)
+{
+	bool res = false;
+	//TODO: разобраться с дедлоком
+	//QMutexLocker locker(&Mutex);
+	TGModuleMap::iterator i = Modules.find(event_source);
+	if (i != Modules.end())
+	{
+		res = QObject::connect(i->second, event_name, event_receiver, slot_name);
+	}
+
+	return res;
+}
+//---------------------------------------------------------------------------
+
+bool TGSystem::ConnectToSlot(PTGModule event_source, const char* event_name, UID event_receiver, const char* slot_name)
+{
+	bool res = false;
+	//QMutexLocker locker(&Mutex);
+	TGModuleMap::iterator i = Modules.find(event_receiver);
+	if (i != Modules.end())
+	{
+		res = QObject::connect(event_source, event_name, i->second, slot_name);
+	}
+
+	return res;
+}
+//---------------------------------------------------------------------------
+

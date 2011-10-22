@@ -35,12 +35,16 @@ public:
 	virtual PTGModule CreateModuleProc(UID type_id, UID module_id){return NULL;};
 
 	Q_INVOKABLE virtual void AddChildModule(UID module_id, PTGModule module);
+
+	//TODO: Should be protected
+	TGModuleList ChildModules;
+
 public slots:
 	virtual void SetConfig(const TGDataObject& config){};
 	
 protected:
 	PTGModule System;
-	TGModuleList ChildModules;
+	
 };
 //---------------------------------------------------------------------------
 #endif // TGSystemTypes_h__
