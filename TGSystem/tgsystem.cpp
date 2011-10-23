@@ -1,5 +1,7 @@
 #include "tgsystem.h"
 #include <QCoreApplication>
+#include "..\TGSqlite\TGSqliteQuery.h"
+#include <QPluginLoader>
 //---------------------------------------------------------------------------
 
 TGSystem::TGSystem()
@@ -123,6 +125,44 @@ bool TGSystem::ConnectToSlot(PTGModule event_source, const char* event_name, UID
 	}
 
 	return res;
+}
+//---------------------------------------------------------------------------
+
+void TGSystem::LoadModules()
+{
+	TGSqliteQuery root_control_query;
+	TGDataRecord schema;
+	root_control_query.Exec(
+		GetDataBase(), 
+		QString("SELECT  ID, ModuleType FROM Modules"),
+		&schema);
+
+	TGDataRecord data;
+	while (root_control_query.Read(&data))
+	{
+		//QString uid = data[0].toString();
+		/*QString class_name = data[1].toString();
+		QWidget* widget = CreateWidget(data[0].toString(), parent, class_name);
+		if (widget)
+			CreateWidgets(database, widget, data[0].toString());*/
+	}
+}
+//---------------------------------------------------------------------------
+
+bool TGSystem::LoadPlugin(TGString plugin_name)
+{
+	QPluginLoader pl(SystemPath + "/" + plugin_name);
+	QObject* obj = pl.instance();
+	TGModuleFactory* module_factory = qobject_cast<TGModuleFactory*>(obj);
+	if (module_factory)
+		module_factory->RegisterModuleTypes(this);
+	return true;
+}
+//---------------------------------------------------------------------------
+
+void TGSystem::LoadPlugins()
+{
+	LoadPlugin("TGIP9100.dll");
 }
 //---------------------------------------------------------------------------
 

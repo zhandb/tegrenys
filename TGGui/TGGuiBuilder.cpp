@@ -15,7 +15,7 @@
 
 //-----------------------------------------------------------------------------
 
-TGGuiBuilder::TGGuiBuilder(UID module_uid, PTGSystem system, QObject *parent) : TGModule(module_uid, system)
+TGGuiManager::TGGuiManager(UID module_uid, PTGSystem system, QObject *parent) : TGModule(module_uid, system)
 {
 	//StaticGuiBuilder = this;
 
@@ -38,7 +38,7 @@ TGGuiBuilder::TGGuiBuilder(UID module_uid, PTGSystem system, QObject *parent) : 
 }
 //-----------------------------------------------------------------------------
 
-TGGuiBuilder::~TGGuiBuilder()
+TGGuiManager::~TGGuiManager()
 {
 	for (TGWidgetMap::iterator iter = WidgetList.begin(); iter != WidgetList.end(); ++iter)
 	{
@@ -47,7 +47,7 @@ TGGuiBuilder::~TGGuiBuilder()
 }
 //-----------------------------------------------------------------------------
 
-void TGGuiBuilder::Build(TGSqlite* database)
+void TGGuiManager::Build(TGSqlite* database)
 {
 	/*SELECT  Controls.ID, Controls.ControlClass FROM Root
 		JOIN Controls ON Root.RootControl = Controls.ID AND Controls.ParentControl = 0*/
@@ -56,7 +56,7 @@ void TGGuiBuilder::Build(TGSqlite* database)
 }
 //-----------------------------------------------------------------------------
 
-void TGGuiBuilder::CreateWidgets(TGSqlite* database, QWidget* parent, UID parent_id)
+void TGGuiManager::CreateWidgets(TGSqlite* database, QWidget* parent, UID parent_id)
 {
 	TGSqliteQuery root_control_query;
 	TGDataRecord schema;
@@ -77,7 +77,7 @@ void TGGuiBuilder::CreateWidgets(TGSqlite* database, QWidget* parent, UID parent
 }
 //-----------------------------------------------------------------------------
 
-QWidget* TGGuiBuilder::CreateWidget(UID uid, QWidget* parent, QString class_name)
+QWidget* TGGuiManager::CreateWidget(UID uid, QWidget* parent, QString class_name)
 {
 	QWidget* widget = NULL;
 
@@ -197,7 +197,7 @@ QWidget* TGGuiBuilder::CreateWidget(UID uid, QWidget* parent, QString class_name
 }
 //---------------------------------------------------------------------------
 
-PTGModule TGGuiBuilder::CreateModuleProc(UID type_id, UID module_id)
+PTGModule TGGuiManager::CreateModuleProc(UID type_id, UID module_id)
 {
 	if (type_id == TGVIDEOWIDGET_TYPE_UID)
 	{

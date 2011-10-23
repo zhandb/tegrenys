@@ -6,7 +6,10 @@
 #include "..\TGSystem\TGBuffer.h"
 #include "..\TGNetwork\TGHttpParser.h"
 #include "..\TGSystem\TGVideoStructs.h"
+#include <QtPlugin>
+#include "..\TGSystem\tgsystem.h"
 
+#define TG_IP9100_TYPE_UID "{42DC5E02-1D9D-48c3-A38E-8CE965E5CEC2}"
 
 class TGIP9100_EXPORT TGIP9100 : public TGModule
 {
@@ -39,4 +42,16 @@ public slots:
 	void OnDestinationBufferLocked(TGBufferLockStruct ls);
 };
 
+class TGIP9100_EXPORT TGIP9100Factory : public TGModule, public TGModuleFactory
+{
+	Q_OBJECT
+	Q_INTERFACES(TGModuleFactory)
+public:
+	TGIP9100Factory();
+	~TGIP9100Factory();
+	virtual void RegisterModuleTypes(PTGSystem system);
+	virtual PTGModule CreateModuleProc(UID type_id, UID module_id);
+};
+
+ 
 #endif // TGIP9100_H

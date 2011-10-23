@@ -25,7 +25,7 @@ private:
 
 	//Ui::TegrenysClass ui;
 
-	PTGGuiBuilder GB;
+	PTGGuiManager GB;
 	PTGNetworkService NS;
 	PTGSystem  System;
 	//PTGBasePrimitive VideoRect;

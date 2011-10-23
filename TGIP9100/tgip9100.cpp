@@ -5,6 +5,8 @@
 #pragma comment(lib, "tgsystem.lib")
 #pragma comment(lib, "tgnetwork.lib")
 
+Q_EXPORT_PLUGIN2(TGIP9100, TGIP9100Factory)
+
 TGIP9100::TGIP9100(UID module_uid, PTGSystem system) : TGModule(module_uid, system)
 {
 	HttpParser = new TGHttpParser(this);
@@ -101,3 +103,32 @@ void TGIP9100::OnDestinationBufferLocked(TGBufferLockStruct ls)
 	emit DestinationBufferLocked(ls);
 }
 //---------------------------------------------------------------------------
+
+TGIP9100Factory::TGIP9100Factory() : TGModule(UID(), NULL)
+{
+
+}
+//---------------------------------------------------------------------------
+
+TGIP9100Factory::~TGIP9100Factory()
+{
+
+}
+//---------------------------------------------------------------------------
+
+void TGIP9100Factory::RegisterModuleTypes(PTGSystem system)
+{
+	System = system;
+	system->RegisterFactoryModuleType(TG_IP9100_TYPE_UID, this);
+}
+//---------------------------------------------------------------------------
+
+PTGModule TGIP9100Factory::CreateModuleProc(UID type_id, UID module_id)
+{
+	if (type_id == TG_IP9100_TYPE_UID)
+		return new TGIP9100(module_id, System);
+
+	return NULL;
+}
+//---------------------------------------------------------------------------
+

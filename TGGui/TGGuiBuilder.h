@@ -29,16 +29,16 @@ typedef TGMap<UID, PTGBasePrimitive> TGPrimitivesMap;
 //};
 //
 //TG_REFC_PTR(TGWidgetHandler)
-TG_REFC_PTR(TGGuiBuilder);
+TG_REFC_PTR(TGGuiManager);
 
 typedef QMap<UID, QWidget*> TGWidgetMap;
 
-class TGGUI_EXPORT TGGuiBuilder : public TGModule
+class TGGUI_EXPORT TGGuiManager : public TGModule
 {
 	Q_OBJECT
 public:
-	TGGuiBuilder(UID module_uid, PTGSystem system, QObject *parent = 0);
-	~TGGuiBuilder();
+	TGGuiManager(UID module_uid, PTGSystem system, QObject *parent = 0);
+	~TGGuiManager();
 
 	void Build(TGSqlite* database);
 	void CreateWidgets(TGSqlite* database, QWidget* parent, UID parent_id);
