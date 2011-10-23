@@ -20,16 +20,19 @@ TG_REFC_PTR(TGModule)
 //-----------------------------------------------------------
 typedef TGList<PTGModule> TGModuleList;
 //-----------------------------------------------------------
+class TGSystem;
+TG_REFC_PTR(TGSystem);
+//-----------------------------------------------------------
 
 class TGModule : public QObject, public TGReferenceCounter
 {
 	Q_OBJECT
 public:
-	TGModule(UID module_uid, PTGModule system);
+	TGModule(UID module_uid, PTGSystem system);
 	~TGModule();
 	virtual void Init();
 	virtual void DeInit();
-	virtual void RegisterModule(UID module_uid, PTGModule module){};
+	virtual void RegisterModule(UID module_uid, PTGSystem module){};
 	//PTGModule GetModule(UID module_id);
 	PTGModule CreateModule(UID type_id);
 	virtual PTGModule CreateModuleProc(UID type_id, UID module_id){return NULL;};
@@ -43,7 +46,7 @@ public slots:
 	virtual void SetConfig(const TGDataObject& config){};
 	
 protected:
-	PTGModule System;
+	PTGSystem System;
 	
 };
 //---------------------------------------------------------------------------

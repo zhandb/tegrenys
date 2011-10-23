@@ -6,7 +6,7 @@
 class TGBasePolygon : public TGBasePrimitive
 {
 public:
-	TGBasePolygon(UID module_id, PTGModule system, TGPolygonF polygon, bool is_solid = false);
+	TGBasePolygon(UID module_id, PTGSystem system, TGPolygonF polygon, bool is_solid = false);
 	virtual int Add(TGBasePrimitivePainter* painter);
 	virtual bool Contains(TGPointF point);
 	void SetPolygon(TGPolygonF polygon);

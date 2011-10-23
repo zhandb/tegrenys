@@ -9,12 +9,9 @@
 typedef TGMap<UID, PTGModule> TGFactoryModuleMap;
 typedef TGMap<UID, PTGModule> TGModuleMap;
 //-----------------------------------------------------------
-TG_REFC_PTR(TGSystem);
-//-----------------------------------------------------------
 
-class TGSystem : public TGModule
+class TGSystem : public TGReferenceCounter
 {
-	Q_OBJECT
 public:
 	TGSystem();
 	~TGSystem();
@@ -25,8 +22,7 @@ public:
 	void AddChildModule(UID parent, UID module_uid, UID module_type_id);
 	virtual void RegisterModule(UID module_uid, PTGModule module);
 	virtual void DeInit();
-	static PTGModule GetSystem();
-
+	
 	bool ConnectToEvent(UID event_source, const char* event_name, PTGModule event_receiver, const char* slot_name);
 	bool ConnectToSlot(PTGModule event_source, const char* event_name, UID event_receiver, const char* slot_name);
 private:
@@ -35,7 +31,8 @@ private:
 	TGSqlite* SystemDataBase;
 	TGFactoryModuleMap FactoryModules;
 	TGModuleMap Modules;
-	static PTGModule StaticSystem;
+
 };
+
 //-----------------------------------------------------------
 #endif // TGSYSTEM_H

@@ -2,7 +2,7 @@
 #include "TGBaseTexturedRectangle.h"
 #include "TGBasePrimitivePainter.h"
 //---------------------------------------------------------------------
-TGBaseTexturedRectangle::TGBaseTexturedRectangle(UID module_id, PTGModule system, UID texture_id) : TGBaseRectangle(module_id, system, true)
+TGBaseTexturedRectangle::TGBaseTexturedRectangle(UID module_id, PTGSystem system, UID texture_id) : TGBaseRectangle(module_id, system, true)
 {
 	Texture = NULL;
 	TextureID = texture_id;

@@ -31,7 +31,7 @@ class TGIPPCODEC_EXPORT TGMJPEGDecoder : public TGModule
 {
 	Q_OBJECT
 public:
-	TGMJPEGDecoder(UID module_uid, PTGModule system);
+	TGMJPEGDecoder(UID module_uid, PTGSystem system);
 	~TGMJPEGDecoder();
 	void Decode(PTGBuffer in_buffer, PTGBuffer out_buffer);
 private:

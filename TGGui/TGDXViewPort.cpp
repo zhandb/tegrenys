@@ -2,7 +2,7 @@
 #include "TGDXPrimitiveLayer.h"
 #include "TGBaseTexturedRectangle.h"
 //---------------------------------------------------------------------
-TGDXViewport::TGDXViewport(UID module_uid, PTGModule system) : TGBaseViewport(module_uid, system)
+TGDXViewport::TGDXViewport(UID module_uid, PTGSystem system) : TGBaseViewport(module_uid, system)
 {
 	Device = NULL;
 	//ViewPort = config.Attribute("Rect").toRect();

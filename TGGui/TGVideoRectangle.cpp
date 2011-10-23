@@ -4,7 +4,7 @@
 #include "TGDXTexture.h"
 #include "TGGuiBuilder.h"
 //---------------------------------------------------------------------
-TGVideoRectangle::TGVideoRectangle(UID module_id, PTGModule system) : TGBaseRectangle(module_id, system, true)
+TGVideoRectangle::TGVideoRectangle(UID module_id, PTGSystem system) : TGBaseRectangle(module_id, system, true)
 {
 	Texture = NULL;
 	IsTextureLocked = false;

@@ -14,7 +14,7 @@ class TGBaseViewport : public TGModule
 {
 	Q_OBJECT
 public:
-	TGBaseViewport(UID module_uid, PTGModule system);
+	TGBaseViewport(UID module_uid, PTGSystem system);
 	~TGBaseViewport();
 	virtual void ApplyViewPort();
 	//void AddLayer(UID layer_uid, PTGModule layer);

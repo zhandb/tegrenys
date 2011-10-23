@@ -2,7 +2,7 @@
 #include "tgsystem.h"
 //---------------------------------------------------------------------------
 
-TGModule::TGModule(UID module_uid, PTGModule system)
+TGModule::TGModule(UID module_uid, PTGSystem system)
 {
 	qRegisterMetaType<PTGModule>("PTGModule");
 

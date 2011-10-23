@@ -7,7 +7,7 @@
 class TGAnimatedRectangle : public TGBaseRectangle
 {
 public:
-	TGAnimatedRectangle(UID module_id, PTGModule system);
+	TGAnimatedRectangle(UID module_id, PTGSystem system);
 	~TGAnimatedRectangle();
 	virtual int Add(TGBasePrimitivePainter* painter);
 protected:

@@ -12,7 +12,7 @@ class TGIP9100_EXPORT TGIP9100 : public TGModule
 {
 	Q_OBJECT
 public:
-	TGIP9100(UID module_uid, PTGModule system);
+	TGIP9100(UID module_uid, PTGSystem system);
 	~TGIP9100();
 	virtual void Init();
 	virtual void DeInit();

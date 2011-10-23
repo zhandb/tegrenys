@@ -15,7 +15,7 @@
 
 //-----------------------------------------------------------------------------
 
-TGGuiBuilder::TGGuiBuilder(UID module_uid, PTGModule system, QObject *parent) : TGModule(module_uid, system)
+TGGuiBuilder::TGGuiBuilder(UID module_uid, PTGSystem system, QObject *parent) : TGModule(module_uid, system)
 {
 	//StaticGuiBuilder = this;
 
@@ -25,8 +25,6 @@ TGGuiBuilder::TGGuiBuilder(UID module_uid, PTGModule system, QObject *parent) : 
 	sqlite3_close(db);
 
 	TGSystem* sys = (TGSystem*)&*system;
-
-	PTGModule s = TGSystem::GetSystem();
 
 	sys->RegisterFactoryModuleType(TGVIDEOWIDGET_TYPE_UID, this);
 	sys->RegisterFactoryModuleType(TGDXVIEWPORT_TYPE_UID, this);

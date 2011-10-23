@@ -27,8 +27,8 @@ private:
 
 	PTGGuiBuilder GB;
 	PTGNetworkService NS;
-	PTGModule  System;
-	PTGBasePrimitive VideoRect;
+	PTGSystem  System;
+	//PTGBasePrimitive VideoRect;
 	PTGModule IPServer;
 
 };

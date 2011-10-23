@@ -7,7 +7,7 @@
 class TGBaseTexturedRectangle : public TGBaseRectangle
 {
 public:
-	TGBaseTexturedRectangle(UID module_id, PTGModule system, UID texture_id);
+	TGBaseTexturedRectangle(UID module_id, PTGSystem system, UID texture_id);
 	~TGBaseTexturedRectangle();
 	virtual int Add(TGBasePrimitivePainter* painter);
 private:

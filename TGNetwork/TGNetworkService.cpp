@@ -2,7 +2,7 @@
 #include "TGHttpParser.h"
 #include "..\TGIPPCodec\TGMJPEGDecoder.h"
 //---------------------------------------------------------------------
-TGNetworkService::TGNetworkService(UID module_uid, PTGModule system) : TGModule(module_uid, system)
+TGNetworkService::TGNetworkService(UID module_uid, PTGSystem system) : TGModule(module_uid, system)
 {
 	WSADATA wsa_data;
 	WSAStartup(MAKEWORD(2,2), &wsa_data);

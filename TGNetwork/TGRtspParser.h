@@ -7,7 +7,7 @@ class TGRtspParser : public TGModule
 {
 	Q_OBJECT
 public:
-	TGRtspParser(UID module_uid, PTGModule system);
+	TGRtspParser(UID module_uid, PTGSystem system);
 	~TGRtspParser();
 };
 #endif // TGRtspParser_h__

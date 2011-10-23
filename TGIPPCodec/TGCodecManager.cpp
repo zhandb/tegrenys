@@ -3,7 +3,7 @@
 #include "..\TGSystem\tgsystem.h"
 //---------------------------------------------------------------------------
 
-TGCodecManager::TGCodecManager(UID module_uid, PTGModule system) : TGModule(module_uid, system)
+TGCodecManager::TGCodecManager(UID module_uid, PTGSystem system) : TGModule(module_uid, system)
 {
 	TGSystem* sys = (TGSystem*)&*system;
 	sys->RegisterFactoryModuleType(TGMJPEG_DECODER_TYPE_UID, this);

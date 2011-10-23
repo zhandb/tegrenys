@@ -37,7 +37,7 @@ class TGGUI_EXPORT TGGuiBuilder : public TGModule
 {
 	Q_OBJECT
 public:
-	TGGuiBuilder(UID module_uid, PTGModule system, QObject *parent = 0);
+	TGGuiBuilder(UID module_uid, PTGSystem system, QObject *parent = 0);
 	~TGGuiBuilder();
 
 	void Build(TGSqlite* database);

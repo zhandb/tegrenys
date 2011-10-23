@@ -5,7 +5,7 @@
 #pragma comment(lib, "tgsystem.lib")
 #pragma comment(lib, "tgnetwork.lib")
 
-TGIP9100::TGIP9100(UID module_uid, PTGModule system) : TGModule(module_uid, system)
+TGIP9100::TGIP9100(UID module_uid, PTGSystem system) : TGModule(module_uid, system)
 {
 	HttpParser = new TGHttpParser(this);
 }

@@ -6,7 +6,7 @@
 class TGBaseRectangle : public TGBasePolygon
 {
 public:
-	TGBaseRectangle(UID module_id, PTGModule system, bool is_solid);
+	TGBaseRectangle(UID module_id, PTGSystem system, bool is_solid);
 	~TGBaseRectangle();
 	void SetSize(QSizeF size);
 	virtual bool Intersects(TGPointF* intersect_point);

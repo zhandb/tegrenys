@@ -2,7 +2,7 @@
 #include "TGBaseTexturedRectangle.h"
 #include "TGVideoRectangle.h"
 //---------------------------------------------------------------------
-TGBasePrimitiveLayer::TGBasePrimitiveLayer(UID module_id, PTGModule module) : TGModule(module_id, module)
+TGBasePrimitiveLayer::TGBasePrimitiveLayer(UID module_id, PTGSystem system) : TGModule(module_id, system)
 {
 	PrimitivesCount = 0;
 

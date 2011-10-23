@@ -9,7 +9,7 @@
 #include "TGDataFragmentsStream.h"
 
 //------------------------------------------------------------
-TGMJPEGDecoder::TGMJPEGDecoder(UID module_uid, PTGModule system) : TGModule(module_uid, system)
+TGMJPEGDecoder::TGMJPEGDecoder(UID module_uid, PTGSystem system) : TGModule(module_uid, system)
 {
 	/*Decoder = NULL;
 	Params = NULL;

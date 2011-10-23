@@ -11,7 +11,7 @@ class TGIPPCODEC_EXPORT TGCodecManager : public TGModule
 {
 	Q_OBJECT
 public:
-	TGCodecManager(UID module_uid, PTGModule system);
+	TGCodecManager(UID module_uid, PTGSystem system);
 	~TGCodecManager();
 protected:
 	virtual PTGModule CreateModuleProc(UID type_id, UID module_id);

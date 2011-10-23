@@ -1,7 +1,7 @@
 #include "TGBasePolygon.h"
 #include "TGBasePrimitivePainter.h"
 //---------------------------------------------------------------------
-TGBasePolygon::TGBasePolygon(UID module_id, PTGModule system, TGPolygonF polygon, bool is_solid /*= false*/) : TGBasePrimitive(module_id, system)
+TGBasePolygon::TGBasePolygon(UID module_id, PTGSystem system, TGPolygonF polygon, bool is_solid /*= false*/) : TGBasePrimitive(module_id, system)
 {
 	Polygon = polygon;
 	IsSolid = is_solid;

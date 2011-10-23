@@ -1,6 +1,6 @@
 #include "TGBaseViewport.h"
 //---------------------------------------------------------------------
-TGBaseViewport::TGBaseViewport(UID module_uid, PTGModule system) : TGModule(module_uid, system)
+TGBaseViewport::TGBaseViewport(UID module_uid, PTGSystem system) : TGModule(module_uid, system)
 {
 	//Color = config.Attribute("Color").value<QColor>();
 }

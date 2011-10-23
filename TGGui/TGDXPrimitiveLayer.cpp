@@ -2,7 +2,7 @@
 #include "TGBaseTexturedRectangle.h"
 #include "TGAnimatedRectangle.h"
 //---------------------------------------------------------------------
-TGDXPrimitiveLayer::TGDXPrimitiveLayer(UID module_id, PTGModule module) : TGBasePrimitiveLayer(module_id, module)
+TGDXPrimitiveLayer::TGDXPrimitiveLayer(UID module_id, PTGSystem system) : TGBasePrimitiveLayer(module_id, system)
 {
 	D3DDevice = NULL;
 

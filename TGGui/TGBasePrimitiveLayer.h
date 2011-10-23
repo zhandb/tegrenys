@@ -34,7 +34,7 @@ class TGBasePrimitiveLayer : public TGModule
 {
 	Q_OBJECT
 public:
-	TGBasePrimitiveLayer(UID module_id, PTGModule module);
+	TGBasePrimitiveLayer(UID module_id, PTGSystem system);
 	~TGBasePrimitiveLayer();
 	void SetupProjection(TGBasePrimitiveLayerParams params);
 	virtual void SetupCamera(TGBasePrimitiveLayerCamera& camera);

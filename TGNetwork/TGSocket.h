@@ -20,7 +20,7 @@ class TGNETWORK_EXPORT TGSocket : public TGModule
 {
 	Q_OBJECT
 public:
-	TGSocket(UID module_uid, PTGModule system);
+	TGSocket(UID module_uid, PTGSystem system);
 	~TGSocket();
 	void Poll();
 private:

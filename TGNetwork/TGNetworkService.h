@@ -22,7 +22,7 @@ class TGNETWORK_EXPORT TGNetworkService :  public TGModule
 {
 	Q_OBJECT
 public:
-	TGNetworkService(UID module_uid, PTGModule system);
+	TGNetworkService(UID module_uid, PTGSystem system);
 	~TGNetworkService();
 
 protected:

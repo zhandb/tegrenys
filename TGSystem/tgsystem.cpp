@@ -1,18 +1,14 @@
 #include "tgsystem.h"
 #include <QCoreApplication>
 //---------------------------------------------------------------------------
-PTGModule TGSystem::StaticSystem;
-//---------------------------------------------------------------------------
 
-TGSystem::TGSystem() : TGModule(0, NULL)
+TGSystem::TGSystem()
 {
 	SystemPath = QCoreApplication::applicationDirPath();
 
 	SystemDataBase = new TGSqlite();
 
 	SystemDataBase->OpenDatabase(SystemPath + "/test.db");
-
-	StaticSystem = this;
 }
 //---------------------------------------------------------------------------
 
@@ -97,13 +93,7 @@ void TGSystem::DeInit()
 
 	Modules.clear();
 	FactoryModules.clear();
-	TGModule::DeInit();
-}
-//---------------------------------------------------------------------------
-
-PTGModule TGSystem::GetSystem()
-{
-	return StaticSystem;
+//	TGModule::DeInit();
 }
 //---------------------------------------------------------------------------
 
