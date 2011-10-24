@@ -1,12 +1,15 @@
 #include "TGCodecManager.h"
 #include "TGMJPEGDecoder.h"
 #include "..\TGSystem\tgsystem.h"
+#include "tgippcodec.h"
+#include <QtPlugin>
+//---------------------------------------------------------------------------
+Q_EXPORT_PLUGIN2(TGIPPCodec, TGCodecManager);
 //---------------------------------------------------------------------------
 
 TGCodecManager::TGCodecManager(UID module_uid, PTGSystem system) : TGModule(module_uid, system)
 {
-	TGSystem* sys = (TGSystem*)&*system;
-	sys->RegisterFactoryModuleType(TGMJPEG_DECODER_TYPE_UID, this);
+	
 }
 //---------------------------------------------------------------------------
 
@@ -22,5 +25,12 @@ PTGModule TGCodecManager::CreateModuleProc(UID type_id, UID module_id)
 		return new TGMJPEGDecoder(module_id, System);
 
 	return NULL;
+}
+//---------------------------------------------------------------------------
+
+void TGCodecManager::RegisterModuleTypes(PTGSystem system)
+{
+	System = system;
+	system->RegisterFactoryModuleType(TGMJPEG_DECODER_TYPE_UID, this);
 }
 //---------------------------------------------------------------------------

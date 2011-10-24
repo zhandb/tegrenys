@@ -28,6 +28,7 @@ class TGModule : public QObject, public TGReferenceCounter
 {
 	Q_OBJECT
 public:
+	TGModule(){};
 	TGModule(UID module_uid, PTGSystem system);
 	~TGModule();
 	virtual void Init();

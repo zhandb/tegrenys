@@ -76,10 +76,10 @@ PTGModule TGSystem::CreateModule(UID type_id, UID module_id)
 	if (factory_module != FactoryModules.end())
 	{
 		module = factory_module->second->CreateModuleProc(type_id, module_id);
-		if (module)
+		/*if (module)
 		{
 			module->Init();
-		}
+		}*/
 	}
 
 	return module;
@@ -163,6 +163,9 @@ bool TGSystem::LoadPlugin(TGString plugin_name)
 void TGSystem::LoadPlugins()
 {
 	LoadPlugin("TGIP9100.dll");
+	LoadPlugin("TGNetwork.dll");
+	LoadPlugin("TGIPPCodec.dll");
+	LoadPlugin("TGGui.dll");
 }
 //---------------------------------------------------------------------------
 

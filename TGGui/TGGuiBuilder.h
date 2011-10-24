@@ -9,6 +9,8 @@
 #include "TGVideoRectangle.h"
 #include "tgsystem.h"
 #include "TGBaseVideoWidget.h"
+#include "tggui.h"
+#include <QtPlugin>
 
 typedef TGMap<UID, PTGBasePrimitive> TGPrimitivesMap;
 
@@ -33,12 +35,16 @@ TG_REFC_PTR(TGGuiManager);
 
 typedef QMap<UID, QWidget*> TGWidgetMap;
 
-class TGGUI_EXPORT TGGuiManager : public TGModule
+class TGGUI_EXPORT TGGuiManager : public TGModule, public TGModuleFactory
 {
 	Q_OBJECT
+	Q_INTERFACES(TGModuleFactory)
 public:
+	TGGuiManager();
 	TGGuiManager(UID module_uid, PTGSystem system, QObject *parent = 0);
 	~TGGuiManager();
+	virtual void Init();
+	virtual void RegisterModuleTypes(PTGSystem system);
 
 	void Build(TGSqlite* database);
 	void CreateWidgets(TGSqlite* database, QWidget* parent, UID parent_id);

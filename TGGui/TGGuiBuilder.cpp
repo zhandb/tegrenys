@@ -14,27 +14,18 @@
 #include "TGVideoWidgetHandler.h"
 
 //-----------------------------------------------------------------------------
+Q_EXPORT_PLUGIN2(TGGui, TGGuiManager);
+//---------------------------------------------------------------------------
 
 TGGuiManager::TGGuiManager(UID module_uid, PTGSystem system, QObject *parent) : TGModule(module_uid, system)
 {
 	//StaticGuiBuilder = this;
+}
+//---------------------------------------------------------------------------
 
+TGGuiManager::TGGuiManager()
+{
 	
-	sqlite3* db = NULL;
-	sqlite3_open_v2("", &db, SQLITE_OPEN_READWRITE /*| SQLITE_OPEN_CREATE*/, NULL);
-	sqlite3_close(db);
-
-	TGSystem* sys = (TGSystem*)&*system;
-
-	sys->RegisterFactoryModuleType(TGVIDEOWIDGET_TYPE_UID, this);
-	sys->RegisterFactoryModuleType(TGDXVIEWPORT_TYPE_UID, this);
-	sys->RegisterFactoryModuleType(TGDXPRIMITIVELAYER_TYPE_UID, this);
-	sys->RegisterFactoryModuleType(TGBASE_TEXTURED_RECTANGLE_TYPE_UID, this);
-	sys->RegisterFactoryModuleType(TGBASE_VIDEO_RECTANGLE_TYPE_UID, this);
-
-	TGSqlite::main_database = ((TGSystem*)&*system)->GetDataBase();
-
-	Build(((TGSystem*)&*system)->GetDataBase());
 }
 //-----------------------------------------------------------------------------
 
@@ -91,12 +82,7 @@ QWidget* TGGuiManager::CreateWidget(UID uid, QWidget* parent, QString class_name
 	{
 		TGSystem* sys = (TGSystem*)&*System;
 
-		sys->AddChildModule(UID("{8A747671-5239-4aa6-99CB-D222947E0EE7}"), UID("{D887D9A2-C050-4a77-881C-6065DD98B025}"), TGVIDEOWIDGET_TYPE_UID);
-		sys->AddChildModule(UID("{D887D9A2-C050-4a77-881C-6065DD98B025}"), UID("{B9E2204C-8265-4482-949F-F6B8D98F13C3}"), TGDXVIEWPORT_TYPE_UID);
-		sys->AddChildModule(UID("{B9E2204C-8265-4482-949F-F6B8D98F13C3}"), UID("{005E9139-659E-469d-8D7F-89AF60A78C39}"), TGDXPRIMITIVELAYER_TYPE_UID);
-		//sys->AddChildModule(UID("{005E9139-659E-469d-8D7F-89AF60A78C39}"), UID("{EF56795C-23E3-4715-A1E8-EC33390E3661}"), TGBASE_TEXTURED_RECTANGLE_TYPE_UID);
-		sys->AddChildModule(UID("{005E9139-659E-469d-8D7F-89AF60A78C39}"), UID("{8A179B79-5A2B-4a89-A359-ACD963E8D9EE}"), TGBASE_VIDEO_RECTANGLE_TYPE_UID);
-
+		
 		TGDataObject viewport_config;
 		viewport_config.SetAttribute("Rect", QRect(10, 20, 800, 600));
 		viewport_config.SetAttribute("Color", QColor("darkblue"));
@@ -225,6 +211,31 @@ PTGModule TGGuiManager::CreateModuleProc(UID type_id, UID module_id)
 	}
 
 	return NULL;
+}
+//---------------------------------------------------------------------------
+
+void TGGuiManager::RegisterModuleTypes(PTGSystem system)
+{
+	System = system;
+	System->RegisterModule(UID("{8A747671-5239-4aa6-99CB-D222947E0EE7}"), this);
+	system->RegisterFactoryModuleType(TGVIDEOWIDGET_TYPE_UID, this);
+	system->RegisterFactoryModuleType(TGDXVIEWPORT_TYPE_UID, this);
+	system->RegisterFactoryModuleType(TGDXPRIMITIVELAYER_TYPE_UID, this);
+	system->RegisterFactoryModuleType(TGBASE_TEXTURED_RECTANGLE_TYPE_UID, this);
+	system->RegisterFactoryModuleType(TGBASE_VIDEO_RECTANGLE_TYPE_UID, this);
+	Init();
+}
+//---------------------------------------------------------------------------
+
+void TGGuiManager::Init()
+{
+	sqlite3* db = NULL;
+	sqlite3_open_v2("", &db, SQLITE_OPEN_READWRITE /*| SQLITE_OPEN_CREATE*/, NULL);
+	sqlite3_close(db);
+
+	TGSqlite::main_database = System->GetDataBase();
+
+	Build(System->GetDataBase());
 }
 //---------------------------------------------------------------------------
 //

@@ -1,16 +1,27 @@
 #include "TGNetworkService.h"
 #include "TGHttpParser.h"
 #include "..\TGIPPCodec\TGMJPEGDecoder.h"
+#include "tgnetwork.h"
+#include <QtPlugin>
 //---------------------------------------------------------------------
+Q_EXPORT_PLUGIN2(TGNetwork, TGNetworkService);
+//---------------------------------------------------------------------
+
 TGNetworkService::TGNetworkService(UID module_uid, PTGSystem system) : TGModule(module_uid, system)
 {
 	WSADATA wsa_data;
 	WSAStartup(MAKEWORD(2,2), &wsa_data);
 
 	startTimer(1);
+}
+//---------------------------------------------------------------------------
 
-	TGSystem* sys = (TGSystem*)&*system;
-	sys->RegisterFactoryModuleType(TGSOCKET_TYPE_UID, this);
+TGNetworkService::TGNetworkService()
+{
+	WSADATA wsa_data;
+	WSAStartup(MAKEWORD(2,2), &wsa_data);
+
+	startTimer(1);
 }
 //---------------------------------------------------------------------
 TGNetworkService::~TGNetworkService()
@@ -41,5 +52,11 @@ PTGModule TGNetworkService::CreateModuleProc(UID type_id, UID module_id)
 	}
 	
 	return NULL;
+}
+//---------------------------------------------------------------------------
+
+void TGNetworkService::RegisterModuleTypes(PTGSystem system)
+{
+	system->RegisterFactoryModuleType(TGSOCKET_TYPE_UID, this);
 }
 //---------------------------------------------------------------------

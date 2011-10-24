@@ -18,13 +18,15 @@ class TGMJPEGDecoder;
 #define TGHTTP_PARSER_TYPE_UID UID("{9E46B2FF-F5B6-4f0d-BCEC-DF1FBCEAD8F9}")
 //---------------------------------------------------------------------
 
-class TGNETWORK_EXPORT TGNetworkService :  public TGModule
+class TGNETWORK_EXPORT TGNetworkService :  public TGModule, TGModuleFactory
 {
 	Q_OBJECT
+	Q_INTERFACES(TGModuleFactory)
 public:
+	TGNetworkService();
 	TGNetworkService(UID module_uid, PTGSystem system);
 	~TGNetworkService();
-
+	virtual void RegisterModuleTypes(PTGSystem system);
 protected:
 	virtual PTGModule CreateModuleProc(UID type_id, UID module_id);
 public slots:
