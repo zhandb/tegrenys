@@ -76,10 +76,11 @@ PTGModule TGSystem::CreateModule(UID type_id, UID module_id)
 	if (factory_module != FactoryModules.end())
 	{
 		module = factory_module->second->CreateModuleProc(type_id, module_id);
-		/*if (module)
+		if (module)
 		{
 			module->Init();
-		}*/
+			ApplyPendingConnections(module_id, module);
+		}
 	}
 
 	return module;
@@ -95,36 +96,8 @@ void TGSystem::DeInit()
 
 	Modules.clear();
 	FactoryModules.clear();
+	PendingConnections.clear();
 //	TGModule::DeInit();
-}
-//---------------------------------------------------------------------------
-
-bool TGSystem::ConnectToEvent(UID event_source, const char* event_name, PTGModule event_receiver, const char* slot_name)
-{
-	bool res = false;
-	//TODO: разобраться с дедлоком
-	//QMutexLocker locker(&Mutex);
-	TGModuleMap::iterator i = Modules.find(event_source);
-	if (i != Modules.end())
-	{
-		res = QObject::connect(i->second, event_name, event_receiver, slot_name);
-	}
-
-	return res;
-}
-//---------------------------------------------------------------------------
-
-bool TGSystem::ConnectToSlot(PTGModule event_source, const char* event_name, UID event_receiver, const char* slot_name)
-{
-	bool res = false;
-	//QMutexLocker locker(&Mutex);
-	TGModuleMap::iterator i = Modules.find(event_receiver);
-	if (i != Modules.end())
-	{
-		res = QObject::connect(event_source, event_name, i->second, slot_name);
-	}
-
-	return res;
 }
 //---------------------------------------------------------------------------
 
@@ -166,6 +139,63 @@ void TGSystem::LoadPlugins()
 	LoadPlugin("TGNetwork.dll");
 	LoadPlugin("TGIPPCodec.dll");
 	LoadPlugin("TGGui.dll");
+}
+//---------------------------------------------------------------------------
+
+bool TGSystem::ConnectTo(UID remote_module_id, const char* remote_method_name, PTGModule local_module, const char* local_method_name, TGSignals::SignalType signal_type)
+{
+	bool res = false;
+	//QMutexLocker locker(&Mutex);
+	TGModuleMap::iterator remote_module = Modules.find(remote_module_id);
+	if (remote_module != Modules.end())
+	{
+		ConnectTo(remote_module->second, remote_method_name, local_module, local_method_name, signal_type);
+	}
+	else
+	{
+		AddPendingConnection(remote_module_id, remote_method_name, local_module, local_method_name, signal_type);
+	}
+
+	return res;
+}
+//---------------------------------------------------------------------------
+
+bool TGSystem::ConnectTo(PTGModule remote_module, const char* remote_method_name, PTGModule local_module, const char* local_method_name, TGSignals::SignalType signal_type)
+{
+	bool res = false;
+	if (signal_type == TGSignals::Incoming)
+		res = QObject::connect(remote_module, remote_method_name, local_module, local_method_name);
+	else
+		res = QObject::connect(local_module, local_method_name, remote_module, remote_method_name);
+
+	return res;
+}
+//---------------------------------------------------------------------------
+
+void TGSystem::AddPendingConnection(UID remote_module_id, const char* remote_method_name, PTGModule local_module, const char* local_method_name, TGSignals::SignalType signal_type)
+{
+	//TODO: нужно уметь удалять еще не подключенные соединения
+	TGSignals::Connection connection;
+	connection.LocalMethodName = local_method_name;
+	connection.RemoteMethodName = remote_method_name;
+	connection.LocalModule = local_module;
+	connection.SignalType = signal_type;
+
+	PendingConnections[remote_module_id].push_back(connection);
+}
+//---------------------------------------------------------------------------
+
+void TGSystem::ApplyPendingConnections(UID module_id, PTGModule module)
+{
+	TGSignals::ConnectionsMap::iterator i = PendingConnections.find(module_id);
+	if (i != PendingConnections.end())
+	{
+		for (TGSignals::ConnectionsList::iterator j = i->second.begin(); j != i->second.end(); ++j)
+		{
+			ConnectTo(module, j->RemoteMethodName.toLocal8Bit(), j->LocalModule, j->LocalMethodName.toLocal8Bit(), j->SignalType);
+		}
+		PendingConnections.erase(i);
+	}
 }
 //---------------------------------------------------------------------------
 

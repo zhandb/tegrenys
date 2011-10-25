@@ -13,11 +13,9 @@ TGVideoRectangle::TGVideoRectangle(UID module_id, PTGSystem system) : TGBaseRect
 	SetSize(QSizeF(1, 1));
 	SetPos(TGPointF(-1, -0.5, 0.0));
 
-	TGSystem* sys = (TGSystem*)&*System;
-
-	sys->ConnectToEvent("{0F6BECA6-08CE-41c7-A81D-4DBA0BDC00C5}", SIGNAL(LockDestinationBuffer(TGBufferLockStruct)), this, SLOT(OnLockTexture(TGBufferLockStruct)));
-	sys->ConnectToEvent("{0F6BECA6-08CE-41c7-A81D-4DBA0BDC00C5}", SIGNAL(UnlockDestinationBuffer()), this, SLOT(OnUnlockTexture()));
-	sys->ConnectToSlot(this, SIGNAL(TextureLocked(TGBufferLockStruct)), "{0F6BECA6-08CE-41c7-A81D-4DBA0BDC00C5}", SLOT(OnDestinationBufferLocked(TGBufferLockStruct)));
+	system->ConnectTo("{0F6BECA6-08CE-41c7-A81D-4DBA0BDC00C5}", SIGNAL(LockDestinationBuffer(TGBufferLockStruct)), this, SLOT(OnLockTexture(TGBufferLockStruct)), TGSignals::Incoming);
+	system->ConnectTo("{0F6BECA6-08CE-41c7-A81D-4DBA0BDC00C5}", SIGNAL(UnlockDestinationBuffer()), this, SLOT(OnUnlockTexture()), TGSignals::Incoming);
+	system->ConnectTo("{0F6BECA6-08CE-41c7-A81D-4DBA0BDC00C5}", SLOT(OnDestinationBufferLocked(TGBufferLockStruct)), this, SIGNAL(TextureLocked(TGBufferLockStruct)), TGSignals::Outgoing);
 }
 //---------------------------------------------------------------------
 TGVideoRectangle::~TGVideoRectangle()
