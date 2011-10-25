@@ -2,13 +2,18 @@
 #define TEGRENYS_H
 
 #include <QtGui/QMainWindow>
+
 #include "ui_tegrenys.h"
+
 #include "TGSystem\TGDataObject.h"
 #include <QTreeView>
+
+
 #include <QStandardItemModel>
 #include "TGSqlite/TGSqlite.h"
 #include "TGGui/TGGuiBuilder.h"
 #include "TGNetwork/TGNetworkService.h"
+
 
 //static TGSqlite* main_database;
 

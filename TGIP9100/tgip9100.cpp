@@ -32,8 +32,7 @@ void TGIP9100::Init()
 
 	//MJpeg decoder
 	PTGModule decoder = CreateModule(UID("{0DDC8946-E848-4eb9-BF16-82A16805217D}"));
-	decoder->Init();
-
+	
 	connect(this, SIGNAL(SendJpegToDecoder(TGDataFragmentList&)), decoder, SLOT(OnDataReceived(TGDataFragmentList&)));
 	connect(decoder, SIGNAL(LockDestinationBuffer(TGBufferLockStruct)), this, SLOT(OnLockDestinationBuffer(TGBufferLockStruct)));
 	connect(this, SIGNAL(DestinationBufferLocked(TGBufferLockStruct)), decoder, SLOT(OnDestinationBufferLocked(TGBufferLockStruct)));
