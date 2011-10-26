@@ -6,7 +6,6 @@
 TGVideoWidgetHandler::TGVideoWidgetHandler(UID module_uid, PTGSystem system) : TGModule(module_uid, system)
 {
 	VideoWidget = NULL;
-	Init();
 }
 //---------------------------------------------------------------------------
 

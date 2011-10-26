@@ -31,21 +31,19 @@ public:
 	TGModule(){};
 	TGModule(UID module_uid, PTGSystem system);
 	~TGModule();
-	virtual void Init();
 	virtual void DeInit();
 	virtual void RegisterModule(UID module_uid, PTGSystem module){};
-	//PTGModule GetModule(UID module_id);
 	PTGModule CreateModule(UID type_id);
 	virtual PTGModule CreateModuleProc(UID type_id, UID module_id){return NULL;};
-
-	Q_INVOKABLE virtual void AddChildModule(UID module_id, PTGModule module);
-
+	
 	//TODO: Should be protected
 	TGModuleList ChildModules;
 
 public slots:
 	virtual void SetConfig(const TGDataObject& config){};
-	
+	virtual void Init();
+	virtual void AddChildModule(UID module_id, PTGModule module);
+
 protected:
 	PTGSystem System;
 	

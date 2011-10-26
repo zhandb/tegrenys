@@ -11,8 +11,10 @@ class TGVideoWidgetHandler : public TGModule
 public:
 	TGVideoWidgetHandler(UID module_uid, PTGSystem system);
 	~TGVideoWidgetHandler();
+	
+public slots:
 	virtual void Init();
-	Q_INVOKABLE virtual void AddChildModule(UID module_uid, PTGModule module);
+	virtual void AddChildModule(UID module_uid, PTGModule module);
 
 private:
 	PTGBaseVideoWidget VideoWidget;

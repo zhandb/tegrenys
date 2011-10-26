@@ -43,7 +43,6 @@ public:
 	TGGuiManager();
 	TGGuiManager(UID module_uid, PTGSystem system, QObject *parent = 0);
 	~TGGuiManager();
-	virtual void Init();
 	virtual void RegisterModuleTypes(PTGSystem system);
 
 	void Build(TGSqlite* database);
@@ -67,6 +66,8 @@ signals:
 	void AddViewPort(UID uid, PTGBaseViewport vp);
 	void SetCurrentViewport(UID uid);
 	void AddLayerToCurrentViewport(PTGBasePrimitiveLayer layer);
+public slots:
+	virtual void Init();
 };
 
 

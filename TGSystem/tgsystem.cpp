@@ -78,8 +78,8 @@ PTGModule TGSystem::CreateModule(UID type_id, UID module_id)
 		module = factory_module->second->CreateModuleProc(type_id, module_id);
 		if (module)
 		{
-			module->Init();
 			ApplyPendingConnections(module_id, module);
+			QMetaObject::invokeMethod(module, "Init");
 		}
 	}
 
@@ -135,10 +135,20 @@ bool TGSystem::LoadPlugin(TGString plugin_name)
 
 void TGSystem::LoadPlugins()
 {
-	LoadPlugin("TGIP9100.dll");
-	LoadPlugin("TGNetwork.dll");
-	LoadPlugin("TGIPPCodec.dll");
-	LoadPlugin("TGGui.dll");
+	TGSqliteQuery root_control_query;
+	TGDataRecord schema;
+	root_control_query.Exec(
+		GetDataBase(), 
+		QString("SELECT  ID, Path FROM Plugins"),
+		&schema);
+
+	TGDataRecord data;
+	while (root_control_query.Read(&data))
+	{
+		QString uid = data[0].toString();
+		QString path = data[1].toString();
+		LoadPlugin(path + ".dll");
+	}
 }
 //---------------------------------------------------------------------------
 

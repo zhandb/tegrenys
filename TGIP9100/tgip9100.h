@@ -17,9 +17,7 @@ class TGIP9100_EXPORT TGIP9100 : public TGModule
 public:
 	TGIP9100(UID module_uid, PTGSystem system);
 	~TGIP9100();
-	virtual void Init();
 	virtual void DeInit();
-
 
 private:
 	//PTGModule Socket;
@@ -40,6 +38,8 @@ public slots:
 	void OnLockDestinationBuffer(TGBufferLockStruct ls);
 	void OnUnlockDestinationBuffer();
 	void OnDestinationBufferLocked(TGBufferLockStruct ls);
+	virtual void Init();
+
 };
 
 class TGIP9100_EXPORT TGIP9100Factory : public TGModule, public TGModuleFactory

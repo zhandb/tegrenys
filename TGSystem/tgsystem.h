@@ -15,6 +15,7 @@ class TGModuleFactory
 public:
 	virtual ~TGModuleFactory() {};
 	virtual void RegisterModuleTypes(PTGSystem system) = 0;
+
 };
 //-----------------------------------------------------------
 Q_DECLARE_INTERFACE(TGModuleFactory, "Tegrenys.TGModuleFactory")
@@ -29,7 +30,7 @@ namespace TGSignals
 		PTGModule LocalModule;
 		SignalType SignalType; 
 	};
-
+//-----------------------------------------------------------
 typedef TGList<Connection> ConnectionsList;
 typedef TGMap<UID, ConnectionsList> ConnectionsMap;
 };

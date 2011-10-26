@@ -9,7 +9,7 @@ Q_EXPORT_PLUGIN2(TGIP9100, TGIP9100Factory)
 
 TGIP9100::TGIP9100(UID module_uid, PTGSystem system) : TGModule(module_uid, system)
 {
-	HttpParser = new TGHttpParser(this);
+	
 }
 
 TGIP9100::~TGIP9100()
@@ -20,6 +20,8 @@ TGIP9100::~TGIP9100()
 
 void TGIP9100::Init()
 {
+	HttpParser = new TGHttpParser(this);
+
 	//Socket
 	PTGModule socket = CreateModule(UID("{04AD711B-4536-4b78-B7DC-95D85809A1FA}"));
 
