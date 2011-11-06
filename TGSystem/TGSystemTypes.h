@@ -40,12 +40,13 @@ public:
 	TGModuleList ChildModules;
 
 public slots:
-	virtual void SetConfig(const TGDataObject& config){};
+	virtual void SetConfig(TGDataObject config){Config = config;};
 	virtual void Init();
 	virtual void AddChildModule(UID module_id, PTGModule module);
 
 protected:
 	PTGSystem System;
+	TGDataObject Config;
 	
 };
 //---------------------------------------------------------------------------

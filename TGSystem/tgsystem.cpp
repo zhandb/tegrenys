@@ -41,24 +41,16 @@ void TGSystem::UnregisterFactoryModuleType(UID type_id)
 }
 //---------------------------------------------------------------------------
 
-void TGSystem::AddChildModule(UID parent, UID module_uid, UID module_type_id)
+void TGSystem::AddChildModule(UID parent, UID module_uid)
 {
 	QMutexLocker locker(&Mutex);
 
-	PTGModule module = CreateModule(module_type_id, module_uid);
-	if (module)
-	{
-		TGModuleMap::iterator i = Modules.find(parent);
-		if (i != Modules.end())
-		{
-			//i->second->AddChildModule(module_uid, module);
-			QMetaObject::invokeMethod(i->second, "AddChildModule", Q_ARG(UID, module_uid), Q_ARG(PTGModule, module));
-		}
-		else
-		{
-			OutputDebugString(L"Can't find parent object!");
-		}
-	}
+	TGModuleMap::iterator parent_iter = Modules.find(parent);
+	TGModuleMap::iterator module_iter = Modules.find(module_uid);
+
+	Q_ASSERT(parent_iter != Modules.end() && module_iter != Modules.end());
+	QMetaObject::invokeMethod(parent_iter->second, "AddChildModule", Q_ARG(UID, module_uid), Q_ARG(PTGModule, module_iter->second));
+	
 }
 //---------------------------------------------------------------------------
 
@@ -206,6 +198,15 @@ void TGSystem::ApplyPendingConnections(UID module_id, PTGModule module)
 		}
 		PendingConnections.erase(i);
 	}
+}
+//---------------------------------------------------------------------------
+
+void TGSystem::SetConfig(UID module_id, TGDataObject& config)
+{
+	TGModuleMap::iterator module = Modules.find(module_id);
+	Q_ASSERT(module != Modules.end());
+
+	QMetaObject::invokeMethod(module->second, "SetConfig", Q_ARG(TGDataObject, config));
 }
 //---------------------------------------------------------------------------
 

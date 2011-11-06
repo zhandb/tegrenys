@@ -39,6 +39,7 @@ public slots:
 	void OnUnlockDestinationBuffer();
 	void OnDestinationBufferLocked(TGBufferLockStruct ls);
 	virtual void Init();
+	virtual void SetConfig(TGDataObject config);
 
 };
 

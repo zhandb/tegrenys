@@ -30,8 +30,6 @@ void TGIP9100::Init()
 	connect(this, SIGNAL(Write(PTGBuffer)), socket, SLOT(Write(PTGBuffer)));
 	connect(socket, SIGNAL(DataReceived(PTGBuffer)), this, SLOT(OnDataReceived(PTGBuffer)));
 
-	emit SocketConnect("192.168.0.33", 80, 0);
-
 	//MJpeg decoder
 	PTGModule decoder = CreateModule(UID("{0DDC8946-E848-4eb9-BF16-82A16805217D}"));
 	
@@ -106,9 +104,16 @@ void TGIP9100::OnDestinationBufferLocked(TGBufferLockStruct ls)
 }
 //---------------------------------------------------------------------------
 
+void TGIP9100::SetConfig(TGDataObject config)
+{
+	TGModule::SetConfig(config);
+	emit SocketConnect(config.Attribute("Host").toString(), config.Attribute("Port").toInt(), 0);
+}
+//---------------------------------------------------------------------------
+
 TGIP9100Factory::TGIP9100Factory() : TGModule(UID(), NULL)
 {
-
+	
 }
 //---------------------------------------------------------------------------
 

@@ -48,12 +48,12 @@ public:
 	void RegisterFactoryModuleType(UID type_id, PTGModule factory_module);
 	void UnregisterFactoryModuleType(UID type_id);
 	PTGModule CreateModule(UID type_id, UID module_id);
-	void AddChildModule(UID parent, UID module_uid, UID module_type_id);
+	void AddChildModule(UID parent, UID module_uid);
 	virtual void RegisterModule(UID module_uid, PTGModule module);
 	virtual void DeInit();
 	
 	bool ConnectTo(UID remote_module_id, const char* remote_method_name, PTGModule local_module, const char* local_method_name, TGSignals::SignalType signal_type);
-
+	void SetConfig(UID module_id, TGDataObject& config);
 
 private:
 	bool LoadPlugin(TGString plugin_name);
