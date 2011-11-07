@@ -22,9 +22,13 @@ TGVideoRectangle::~TGVideoRectangle()
 
 void TGVideoRectangle::Init()
 {
-	System->ConnectTo("{0F6BECA6-08CE-41c7-A81D-4DBA0BDC00C5}", SIGNAL(LockDestinationBuffer(TGBufferLockStruct)), this, SLOT(OnLockTexture(TGBufferLockStruct)), TGSignals::Incoming);
-	System->ConnectTo("{0F6BECA6-08CE-41c7-A81D-4DBA0BDC00C5}", SIGNAL(UnlockDestinationBuffer()), this, SLOT(OnUnlockTexture()), TGSignals::Incoming);
-	System->ConnectTo("{0F6BECA6-08CE-41c7-A81D-4DBA0BDC00C5}", SLOT(OnDestinationBufferLocked(TGBufferLockStruct)), this, SIGNAL(TextureLocked(TGBufferLockStruct)), TGSignals::Outgoing);
+	TGDataObject config = System->LoadConfig(ModuleUID, "VideoRectangle");
+
+	UID source_uid = config.Attribute("Source").toString();
+
+	System->ConnectTo(source_uid, SIGNAL(LockDestinationBuffer(TGBufferLockStruct)), this, SLOT(OnLockTexture(TGBufferLockStruct)), TGSignals::Incoming);
+	System->ConnectTo(source_uid, SIGNAL(UnlockDestinationBuffer()), this, SLOT(OnUnlockTexture()), TGSignals::Incoming);
+	System->ConnectTo(source_uid, SLOT(OnDestinationBufferLocked(TGBufferLockStruct)), this, SIGNAL(TextureLocked(TGBufferLockStruct)), TGSignals::Outgoing);
 }
 //---------------------------------------------------------------------
 

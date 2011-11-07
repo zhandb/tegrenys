@@ -8,7 +8,7 @@
 class TGDXTextureManager : public TGBaseTextureManager
 {
 public:
-	TGDXTextureManager();
+	TGDXTextureManager(PTGSystem system);
 	~TGDXTextureManager();
 	void SetDevice(IDirect3DDevice9* device);
 protected:

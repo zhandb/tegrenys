@@ -4,13 +4,13 @@
 #include "TGDXPrimitiveLayer.h"
 #include "TGDXViewPort.h"
 //---------------------------------------------------------------------
-TGDXPrimitivePainter::TGDXPrimitivePainter() : TGBasePrimitivePainter()
+TGDXPrimitivePainter::TGDXPrimitivePainter(PTGSystem system) : TGBasePrimitivePainter(system)
 {
 	Device = NULL;
 	DeviceChanged = true;
 	AlphaEnabled = false;
 
-	TextureManager = new TGDXTextureManager();
+	TextureManager = new TGDXTextureManager(system);
 	TextureManager->Init();
 	AnimationManager->LoadAnimations(TextureManager);
 

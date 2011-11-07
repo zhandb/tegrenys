@@ -7,7 +7,7 @@
 class TGDXPrimitivePainter : public TGBasePrimitivePainter
 {
 public:
-	TGDXPrimitivePainter();
+	TGDXPrimitivePainter(PTGSystem system);
 	~TGDXPrimitivePainter();
 
 	void SetDevice(IDirect3DDevice9* device, QSize size);

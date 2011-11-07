@@ -13,7 +13,7 @@ typedef QMap<UID, PTGBaseTexture> TGBaseTextureMap;
 class TGBaseTextureManager : public TGReferenceCounter
 {
 public:
-	TGBaseTextureManager();
+	TGBaseTextureManager(PTGSystem system);
 	~TGBaseTextureManager();
 	void Init();
 	TGBaseTexture* GetBaseTexture(UID texture_id);
@@ -22,6 +22,7 @@ private:
 	TGBaseTextureMap TexturesMap;
 	TGBaseTextureMap SubTexturesMap;
 	TGBaseTextureMap VideoTexturesMap;
+	PTGSystem System;
 private:
 	virtual TGBaseTexture* CreateTexture(PTGBaseTextureDescriptor& descr) = 0;
 	virtual void SetTextureImage(TGBaseTexture* texture, QImage* image) = 0;

@@ -5,7 +5,7 @@
 #include "TGDXViewPort.h"
 #include "TGDXPrimitiveLayer.h"
 
-TGDXVideoWidget::TGDXVideoWidget() : TGBaseVideoWidget()
+TGDXVideoWidget::TGDXVideoWidget(PTGSystem system) : TGBaseVideoWidget(system)
 {
 	D3D = Direct3DCreate9(D3D_SDK_VERSION);
 	D3DDevice = NULL;
@@ -13,7 +13,7 @@ TGDXVideoWidget::TGDXVideoWidget() : TGBaseVideoWidget()
 	ReInitRequired = true;
 	ReInitTimer.start();
 
-	PP = new TGDXPrimitivePainter();
+	PP = new TGDXPrimitivePainter(system);
 	
 	/*TGBaseTexturedRectangle* p = new TGBaseTexturedRectangle(2);
 	p->SetColor(QColor("red"));

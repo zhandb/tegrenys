@@ -11,8 +11,6 @@ public:
 	~TGSqlite();
 	void OpenDatabase(QString filename);
 	void CloseDatabase();
-	static TGSqlite* GetMainDatabase();
-	static TGSqlite* main_database;
 private:
 	sqlite3 *db; 
 	

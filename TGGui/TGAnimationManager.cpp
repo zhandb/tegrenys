@@ -1,10 +1,11 @@
 #include "TGAnimationManager.h"
 #include "TGSqliteQuery.h"
-//#include <stdint.h>
-//---------------------------------------------------------------------
-TGAnimationManager::TGAnimationManager()
-{
+#include "TGSystem.h"
 
+//---------------------------------------------------------------------
+TGAnimationManager::TGAnimationManager(PTGSystem system)
+{
+	System = system;
 }
 //---------------------------------------------------------------------
 TGAnimationManager::~TGAnimationManager()
@@ -17,7 +18,7 @@ void TGAnimationManager::LoadAnimations(PTGBaseTextureManager texture_manager)
 	TGSqliteQuery animations_query;
 	TGDataRecord schema;
 	animations_query.Exec(
-		TGSqlite::GetMainDatabase(), 
+		System->GetDataBase(), 
 		QString("select * from Animations order by \"Order\""), 
 		&schema);
 
@@ -42,7 +43,7 @@ void TGAnimationManager::LoadStates()
 	TGSqliteQuery state_query;
 	TGDataRecord schema;
 	state_query.Exec(
-		TGSqlite::GetMainDatabase(), 
+		System->GetDataBase(), 
 		QString("select * from States"), 
 		&schema);
 
@@ -57,7 +58,6 @@ void TGAnimationManager::LoadStates()
 		state.Animation = Animations[animation_id];
 		States[id].push_back(state);
 	}	
-
 }
 //---------------------------------------------------------------------
 TGObjectsStateList TGAnimationManager::GetState(UID state_id)

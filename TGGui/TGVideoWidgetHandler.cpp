@@ -17,7 +17,7 @@ TGVideoWidgetHandler::~TGVideoWidgetHandler()
 
 void TGVideoWidgetHandler::Init()
 {
-	VideoWidget = new TGDXVideoWidget();
+	VideoWidget = new TGDXVideoWidget(System);
 	VideoWidget->show();
 }
 //---------------------------------------------------------------------------

@@ -4,13 +4,13 @@
 #include "TGVideoRectangle.h"
 
 //---------------------------------------------------------------------
-TGBasePrimitivePainter::TGBasePrimitivePainter()
+TGBasePrimitivePainter::TGBasePrimitivePainter(PTGSystem system)
 {
 	PrimitivesCount = 0;
 	PrimitiveBufferSize = 0;
 	PrimitiveIndex = NULL;
 	FocusedPrimitive = NULL;
-	AnimationManager = new TGAnimationManager();
+	AnimationManager = new TGAnimationManager(system);
 	AnimationTimer.start();
 	CurrentAnimationTime = 0;
 }

@@ -234,7 +234,7 @@ void TGGuiManager::Init()
 	sqlite3_open_v2("", &db, SQLITE_OPEN_READWRITE /*| SQLITE_OPEN_CREATE*/, NULL);
 	sqlite3_close(db);
 
-	TGSqlite::main_database = System->GetDataBase();
+	//TGSqlite::main_database = System->GetDataBase();
 
 	Build(System->GetDataBase());
 }

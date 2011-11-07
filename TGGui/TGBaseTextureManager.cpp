@@ -1,11 +1,12 @@
 #include "TGBaseTextureManager.h"
 #include "TGSqliteQuery.h"
 //#include "tegrenys.h"
-#include <afxcom_.h>
+//#include <afxcom_.h>
+#include "TGSystem.h"
 //---------------------------------------------------------------------
-TGBaseTextureManager::TGBaseTextureManager()
+TGBaseTextureManager::TGBaseTextureManager(PTGSystem system)
 {
-	
+	System = system;
 }
 //---------------------------------------------------------------------
 TGBaseTextureManager::~TGBaseTextureManager()
@@ -39,8 +40,13 @@ void TGBaseTextureManager::LoadTextures()
 {
 	TGSqliteQuery textures_query;
 	TGDataRecord schema;
-	textures_query.Exec(
+	/*textures_query.Exec(
 		TGSqlite::GetMainDatabase(), 
+		QString("SELECT * FROM Textures"), 
+		&schema);*/
+
+	textures_query.Exec(
+		System->GetDataBase(), 
 		QString("SELECT * FROM Textures"), 
 		&schema);
 
@@ -56,7 +62,7 @@ void TGBaseTextureManager::LoadTextures()
 		descr->texture_size.setHeight(data[3].toInt());
 		//descr.sub_texture_rect = QRect(QPoint(0, 0), descr.texture_size);
 
-		ASSERT(!TexturesMap.contains(ID));
+		Q_ASSERT(!TexturesMap.contains(ID));
 		
 		PTGBaseTextureDescriptor d = descr;
 
@@ -66,7 +72,7 @@ void TGBaseTextureManager::LoadTextures()
 	TGSqliteQuery sub_textures_query;
 	TGDataRecord sub_schema;
 	sub_textures_query.Exec(
-		TGSqlite::GetMainDatabase(), 
+		System->GetDataBase(), 
 		QString("SELECT * FROM SubTextures"), 
 		&schema);
 
@@ -77,7 +83,7 @@ void TGBaseTextureManager::LoadTextures()
 
 		TGBaseTextureMap::iterator parent_tex = TexturesMap.find(parent_id);
 		
-		ASSERT(parent_tex != TexturesMap.end());
+		Q_ASSERT(parent_tex != TexturesMap.end());
 
 		TGSubTextureDescriptor* descr = new TGSubTextureDescriptor();
 
@@ -90,7 +96,7 @@ void TGBaseTextureManager::LoadTextures()
 		descr->sub_texture_rect.setWidth(data[4].toInt());
 		descr->sub_texture_rect.setHeight(data[5].toInt());
 
-		ASSERT(!SubTexturesMap.contains(ID));
+		Q_ASSERT(!SubTexturesMap.contains(ID));
 		
 		PTGBaseTextureDescriptor d = descr;
 		SubTexturesMap[ID] = CreateTexture(d);
@@ -121,7 +127,7 @@ PTGBaseTexture TGBaseTextureManager::AddTexture(PTGBaseTextureDescriptor texture
 
 	//texture_desc.sub_texture_rect = QRect(QPoint(0, 0), texture_desc.texture_size);
 	
-	ASSERT(!TexturesMap.contains(id));
+	Q_ASSERT(!TexturesMap.contains(id));
 	PTGBaseTexture new_texture = CreateTexture(texture_desc);
 	TexturesMap[id] = new_texture;
 	InvalidateTexture(new_texture);

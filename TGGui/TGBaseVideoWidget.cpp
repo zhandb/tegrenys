@@ -2,7 +2,7 @@
 #include <QPainter>
 //-----------------------------------------------------------------------------
 
-TGBaseVideoWidget::TGBaseVideoWidget()
+TGBaseVideoWidget::TGBaseVideoWidget(PTGSystem system)
 {
 	setMouseTracking(true);
 	//setAutoFillBackground(false);

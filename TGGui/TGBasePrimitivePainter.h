@@ -16,7 +16,7 @@
 class TGBasePrimitivePainter : public TGReferenceCounter
 {
 public:
-	TGBasePrimitivePainter();
+	TGBasePrimitivePainter(PTGSystem system);
 	~TGBasePrimitivePainter();
 
 	void AddViewport(UID uid, PTGModule viewport);

@@ -1,7 +1,7 @@
 #include "TGDXTextureManager.h"
 #include "TGDXTexture.h"
 //---------------------------------------------------------------------
-TGDXTextureManager::TGDXTextureManager()
+TGDXTextureManager::TGDXTextureManager(PTGSystem system) : TGBaseTextureManager(system)
 {
 	Device = NULL;
 }

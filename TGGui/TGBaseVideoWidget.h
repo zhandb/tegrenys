@@ -10,7 +10,7 @@ class TGBaseVideoWidget : public QWidget, public TGReferenceCounter
 {
 	Q_OBJECT
 public:
-	TGBaseVideoWidget();
+	TGBaseVideoWidget(PTGSystem system);
 	~TGBaseVideoWidget();
 	virtual void paintEvent(QPaintEvent* event); 
 	virtual void mousePressEvent(QMouseEvent* event);

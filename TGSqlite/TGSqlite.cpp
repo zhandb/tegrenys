@@ -1,9 +1,6 @@
 #include "stdafx.h"
 #include "TGSqlite.h"
 //-----------------------------------------------------------------------------
-//TODO: убрать main_database
-TGSqlite* TGSqlite::main_database;
-
 TGSqlite::TGSqlite()
 {
 	db = NULL;
@@ -32,7 +29,3 @@ void TGSqlite::CloseDatabase()
 	}
 }
 //---------------------------------------------------------------------
-TGSqlite* TGSqlite::GetMainDatabase()
-{
-	return main_database;
-}
