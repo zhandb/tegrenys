@@ -11,6 +11,8 @@ TGSystem::TGSystem()
 	SystemDataBase = new TGSqlite();
 
 	SystemDataBase->OpenDatabase(SystemPath + "/test.db");
+
+	//TGSqlite::main_database = SystemDataBase;
 }
 //---------------------------------------------------------------------------
 
@@ -60,7 +62,7 @@ void TGSystem::RegisterModule(UID module_uid, PTGModule module)
 }
 //---------------------------------------------------------------------------
 
-PTGModule TGSystem::CreateModule(UID type_id, UID module_id)
+PTGModule TGSystem::CreateModule(UID type_id, UID module_id, UID thread_id)
 {
 	PTGModule module = NULL;
 
@@ -70,8 +72,7 @@ PTGModule TGSystem::CreateModule(UID type_id, UID module_id)
 		module = factory_module->second->CreateModuleProc(type_id, module_id);
 		if (module)
 		{
-			ApplyPendingConnections(module_id, module);
-			QMetaObject::invokeMethod(module, "Init");
+			//ApplyPendingConnections(module_id, module);
 		}
 	}
 
@@ -88,7 +89,7 @@ void TGSystem::DeInit()
 
 	Modules.clear();
 	FactoryModules.clear();
-	PendingConnections.clear();
+	//PendingConnections.clear();
 //	TGModule::DeInit();
 }
 //---------------------------------------------------------------------------
@@ -155,7 +156,7 @@ bool TGSystem::ConnectTo(UID remote_module_id, const char* remote_method_name, P
 	}
 	else
 	{
-		AddPendingConnection(remote_module_id, remote_method_name, local_module, local_method_name, signal_type);
+		//AddPendingConnection(remote_module_id, remote_method_name, local_module, local_method_name, signal_type);
 	}
 
 	return res;
@@ -174,32 +175,32 @@ bool TGSystem::ConnectTo(PTGModule remote_module, const char* remote_method_name
 }
 //---------------------------------------------------------------------------
 
-void TGSystem::AddPendingConnection(UID remote_module_id, const char* remote_method_name, PTGModule local_module, const char* local_method_name, TGSignals::SignalType signal_type)
-{
-	//TODO: нужно уметь удалять еще не подключенные соединения
-	TGSignals::Connection connection;
-	connection.LocalMethodName = local_method_name;
-	connection.RemoteMethodName = remote_method_name;
-	connection.LocalModule = local_module;
-	connection.SignalType = signal_type;
+//void TGSystem::AddPendingConnection(UID remote_module_id, const char* remote_method_name, PTGModule local_module, const char* local_method_name, TGSignals::SignalType signal_type)
+//{
+//	//TODO: нужно уметь удалять еще не подключенные соединения
+//	TGSignals::Connection connection;
+//	connection.LocalMethodName = local_method_name;
+//	connection.RemoteMethodName = remote_method_name;
+//	connection.LocalModule = local_module;
+//	connection.SignalType = signal_type;
+//
+//	PendingConnections[remote_module_id].push_back(connection);
+//}
+////---------------------------------------------------------------------------
 
-	PendingConnections[remote_module_id].push_back(connection);
-}
-//---------------------------------------------------------------------------
-
-void TGSystem::ApplyPendingConnections(UID module_id, PTGModule module)
-{
-	TGSignals::ConnectionsMap::iterator i = PendingConnections.find(module_id);
-	if (i != PendingConnections.end())
-	{
-		for (TGSignals::ConnectionsList::iterator j = i->second.begin(); j != i->second.end(); ++j)
-		{
-			ConnectTo(module, j->RemoteMethodName.toLocal8Bit(), j->LocalModule, j->LocalMethodName.toLocal8Bit(), j->SignalType);
-		}
-		PendingConnections.erase(i);
-	}
-}
-//---------------------------------------------------------------------------
+//void TGSystem::ApplyPendingConnections(UID module_id, PTGModule module)
+//{
+//	TGSignals::ConnectionsMap::iterator i = PendingConnections.find(module_id);
+//	if (i != PendingConnections.end())
+//	{
+//		for (TGSignals::ConnectionsList::iterator j = i->second.begin(); j != i->second.end(); ++j)
+//		{
+//			ConnectTo(module, j->RemoteMethodName.toLocal8Bit(), j->LocalModule, j->LocalMethodName.toLocal8Bit(), j->SignalType);
+//		}
+//		PendingConnections.erase(i);
+//	}
+//}
+////---------------------------------------------------------------------------
 
 void TGSystem::SetConfig(UID module_id, TGDataObject& config)
 {
@@ -207,6 +208,55 @@ void TGSystem::SetConfig(UID module_id, TGDataObject& config)
 	Q_ASSERT(module != Modules.end());
 
 	QMetaObject::invokeMethod(module->second, "SetConfig", Q_ARG(TGDataObject, config));
+}
+//---------------------------------------------------------------------------
+
+void TGSystem::InitModules()
+{
+	for (TGModuleMap::iterator i = Modules.begin(); i != Modules.end();++i)
+	{
+		QMetaObject::invokeMethod(i->second, "Init");
+	}
+}
+//---------------------------------------------------------------------------
+
+const TGDataObject TGSystem::LoadConfig(UID module_id, TGString table_name)
+{
+	TGDataObject module_config;
+
+	TGConfigMap::iterator config = ConfigMap.find(module_id);
+	if (config == ConfigMap.end())
+	{
+		TGSqliteQuery config_query;
+		TGDataRecord schema;
+		config_query.Exec(
+			SystemDataBase, 
+			TGString("select * from %1").arg(table_name), 
+			&schema);
+
+		TGDataRecord data;
+		while (config_query.Read(&data))
+		{
+			TGDataObject new_config;
+			for (int i = 0; i < schema.size(); ++i)
+			{
+				new_config.SetAttribute(schema[i].toString(), data[i]);
+			}
+
+			UID uid = new_config.Attribute("ID").toString();
+			
+			ConfigMap[uid] = new_config;
+
+			if (uid == module_id)
+				module_config = new_config;
+		}	
+	}
+	else
+	{
+		module_config = config->second;
+	}
+
+	return module_config;
 }
 //---------------------------------------------------------------------------
 

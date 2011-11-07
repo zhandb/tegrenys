@@ -63,19 +63,23 @@ JERRCODE TGMJPEGDecoder::GetFrameInfo(TGDataFragmentList& data, TGFrameInfo* fra
 {
 	JERRCODE jerr = JPEG_OK;
 
-	CurrentInputBuffer = data.GatherData();
-	
-	UMC::ColorFormat color_format;
-	
-	InputStream.Open((Ipp8u*)CurrentInputBuffer->GetConstData(), CurrentInputBuffer->GetDataSize());
-
-	jerr = JpegDecoder->SetSource(&InputStream);
-
-	if (jerr == JPEG_OK)
+	//TODO Возможен приход кадра до инициализции декодера
+	if (JpegDecoder)
 	{
-		jerr = JpegDecoder->ReadHeader(&frame_info->FrameWidth, &frame_info->FrameHeight, &frame_info->NChannels, &frame_info->Color, &frame_info->Sampling, &frame_info->Precision);
-	}
+		CurrentInputBuffer = data.GatherData();
 
+		UMC::ColorFormat color_format;
+
+		InputStream.Open((Ipp8u*)CurrentInputBuffer->GetConstData(), CurrentInputBuffer->GetDataSize());
+
+		jerr = JpegDecoder->SetSource(&InputStream);
+
+		if (jerr == JPEG_OK)
+		{
+			jerr = JpegDecoder->ReadHeader(&frame_info->FrameWidth, &frame_info->FrameHeight, &frame_info->NChannels, &frame_info->Color, &frame_info->Sampling, &frame_info->Precision);
+		}
+	}
+	
 	return jerr;
 }
 //---------------------------------------------------------------------------
@@ -147,6 +151,11 @@ void TGMJPEGDecoder::OnDestinationBufferLocked(TGBufferLockStruct ls)
 	Ipp32s   dstPlaneStep[4];
 	Ipp8u*   pDst;
 	Ipp8u*   pDstPlane[4];
+
+	//TODO Возможен приход кадров до инициализцаии декодера
+	if (!JpegDecoder)
+		return;
+
 
 	//DecodeField(&size, &frame_info);
 

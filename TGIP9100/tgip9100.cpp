@@ -38,10 +38,25 @@ void TGIP9100::Init()
 	connect(this, SIGNAL(DestinationBufferLocked(TGBufferLockStruct)), decoder, SLOT(OnDestinationBufferLocked(TGBufferLockStruct)));
 	connect(decoder, SIGNAL(UnlockDestinationBuffer()), this, SLOT(OnUnlockDestinationBuffer()));
 
+	sqlite3* db = NULL;
+	sqlite3_open_v2("", &db, SQLITE_OPEN_READWRITE /*| SQLITE_OPEN_CREATE*/, NULL);
+	sqlite3_close(db);
+
+	TGDataObject config = System->LoadConfig(ModuleUID, "IP9100");
+
+	SetConfig(config);
 	//Video widget
 	//CreateModule(TGVIDEOWIDGET_TYPE_UID);
 }
 //---------------------------------------------------------------------------
+
+void TGIP9100::SetConfig(TGDataObject config)
+{
+	TGModule::SetConfig(config);
+	emit SocketConnect(config.Attribute("Host").toString(), config.Attribute("Port").toInt(), 0);
+}
+//---------------------------------------------------------------------------
+
 
 void TGIP9100::OnSocketConnected()
 {
@@ -104,12 +119,6 @@ void TGIP9100::OnDestinationBufferLocked(TGBufferLockStruct ls)
 }
 //---------------------------------------------------------------------------
 
-void TGIP9100::SetConfig(TGDataObject config)
-{
-	TGModule::SetConfig(config);
-	emit SocketConnect(config.Attribute("Host").toString(), config.Attribute("Port").toInt(), 0);
-}
-//---------------------------------------------------------------------------
 
 TGIP9100Factory::TGIP9100Factory() : TGModule(UID(), NULL)
 {

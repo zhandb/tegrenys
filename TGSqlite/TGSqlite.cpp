@@ -1,20 +1,18 @@
 #include "stdafx.h"
 #include "TGSqlite.h"
 //-----------------------------------------------------------------------------
+//TODO: убрать main_database
 TGSqlite* TGSqlite::main_database;
 
 TGSqlite::TGSqlite()
 {
 	db = NULL;
-//	sqlite3_initialize();
-	//main_database = this;
 }
 //-----------------------------------------------------------------------------
 
 TGSqlite::~TGSqlite()
 {
 	CloseDatabase();
-	//sqlite3_free(db);
 }
 //-----------------------------------------------------------------------------
 

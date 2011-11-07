@@ -229,6 +229,7 @@ void TGGuiManager::RegisterModuleTypes(PTGSystem system)
 
 void TGGuiManager::Init()
 {
+	//TODO Разобраться, почему нужна инициализация в каждом модуле
 	sqlite3* db = NULL;
 	sqlite3_open_v2("", &db, SQLITE_OPEN_READWRITE /*| SQLITE_OPEN_CREATE*/, NULL);
 	sqlite3_close(db);

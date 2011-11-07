@@ -14,6 +14,7 @@ public:
 	~TGVideoRectangle();
 	virtual int Add(TGBasePrimitivePainter* painter);
 	virtual void DelRef();
+	virtual void Init();
 private:
 	PTGBaseTexture Texture;
 	bool IsTextureLocked;

@@ -47,6 +47,7 @@ public slots:
 protected:
 	PTGSystem System;
 	TGDataObject Config;
+	UID ModuleUID;
 	
 };
 //---------------------------------------------------------------------------
