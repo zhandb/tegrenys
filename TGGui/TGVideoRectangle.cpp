@@ -11,7 +11,7 @@ TGVideoRectangle::TGVideoRectangle(UID module_id, PTGSystem system) : TGBaseRect
 	//TGGuiBuilder::RegisterPrimitive("{19345C9B-57FF-4a63-879C-AFDBB92DAD6D}", this);
 
 	SetSize(QSizeF(1, 1));
-	SetPos(TGPointF(-1, -0.5, 0.0));
+	//SetPos(TGPointF(-3, -0.5, 0.0));
 }
 //---------------------------------------------------------------------
 TGVideoRectangle::~TGVideoRectangle()

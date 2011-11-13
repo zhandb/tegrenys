@@ -309,6 +309,7 @@ void TGDXPrimitivePainter::SetDevice(IDirect3DDevice9* device, QSize size)
 
 	for (TGBaseViewportsMap::iterator viewport = Viewports.begin(); viewport != Viewports.end(); ++viewport)
 	{
+		((TGDXViewport*)&*viewport->second)->ParentSizeChanged(size);
 		((TGDXViewport*)&*viewport->second)->SetDevice(device);
 	}
 }

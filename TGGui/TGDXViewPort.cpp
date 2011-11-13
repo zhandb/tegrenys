@@ -6,8 +6,8 @@ TGDXViewport::TGDXViewport(UID module_uid, PTGSystem system) : TGBaseViewport(mo
 {
 	Device = NULL;
 	//ViewPort = config.Attribute("Rect").toRect();
-	ViewPort = QRect(10, 20 , 600, 800);
-	Color = QColor(0, 0, 32);
+	//ViewPort = QRect(10, 20 , 600, 800);
+	//Color = QColor(0, 0, 32);
 }
 //---------------------------------------------------------------------
 TGDXViewport::~TGDXViewport()

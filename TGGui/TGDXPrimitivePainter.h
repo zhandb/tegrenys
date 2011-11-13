@@ -38,6 +38,7 @@ private:
 	//SNDXTextItemIndexEntriesList DXTextItemIndexEntries;
 	bool DeviceChanged;
 	bool AlphaEnabled;	
+	
 private:
 	void AddVertex(TGPointF pos, QColor color);
 	

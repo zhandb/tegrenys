@@ -202,6 +202,10 @@ bool TGBasePrimitive::MouseEvent(QMouseEvent* event, TG3DRay& pick_ray)
 	{
 		TGPointF intersection_point;
 		CalcIntersectionPoint(&pick_ray, &intersection_point);
+
+		char c[100];
+		sprintf_s(c, 100, "%2.2f %2.2f %2.2f\r\n", intersection_point.x(), intersection_point.y(), intersection_point.z());
+		OutputDebugStringA(c);
 		
 		if (Intersects(&intersection_point))
 		{
