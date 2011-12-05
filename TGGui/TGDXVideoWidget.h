@@ -3,7 +3,7 @@
 
 #include "TGBaseVideoWidget.h"
 #include "d3d9.h"
-#include <QTime>
+#include <QtCore\QTime>
 #include "TGDXPrimitivePainter.h"
 #include "TGDXTextureManager.h"
 

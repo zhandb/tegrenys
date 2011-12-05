@@ -1,5 +1,5 @@
 #include "TGContentTypeParser.h"
-#include <QFile>
+#include <QtCore\QFile>
 //---------------------------------------------------------------------
 TGContentTypeParser::TGContentTypeParser(PTGModule receiver) : TGEndSignatureParser(receiver, "\r\n\r\n")
 {

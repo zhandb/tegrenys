@@ -1,12 +1,12 @@
 #ifndef TGNetworkService_h__
 #define TGNetworkService_h__
 //---------------------------------------------------------------------
-#include <QThread>
+#include <QtCore\QThread>
 #include <winsock2.h>
 #include <windows.h>
 #include "tgnetwork_global.h"
 #include "TGSocket.h"
-#include <QFile>
+#include <QtCore\QFile>
 #include "TGEndSignatureParser.h"
 #include "..\TGIPPCodec\TGMJPEGDecoder.h"
 #include "..\TGSystem\TGSystemTypes.h"

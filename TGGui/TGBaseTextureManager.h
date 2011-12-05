@@ -5,7 +5,7 @@
 #include "TGBaseTexture.h"
 #include "TGSystemTypes.h"
 
-#include <QMap>
+#include <QtCore\QMap>
 //#include "TGSqlite.h"
 
 typedef QMap<UID, PTGBaseTexture> TGBaseTextureMap;

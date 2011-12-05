@@ -113,7 +113,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories=".\GeneratedFiles;&quot;$(QTDIR)\include&quot;;&quot;.\GeneratedFiles\$(ConfigurationName)&quot;;&quot;$(QTDIR)\include\qtmain&quot;;&quot;$(QTDIR)\include\QtCore&quot;;.\;ippsrc\vm\include;&quot;$(IPPROOT)\include&quot;;ippsrc\vm_plus\include;ippsrc\umc\include;ippsrc\umc_io\include;ippsrc\jpeg\include;ippsrc\color_space_converter\include"
+				AdditionalIncludeDirectories=".\GeneratedFiles;&quot;$(QTDIR)\include\&quot;;&quot;.\GeneratedFiles\$(ConfigurationName)&quot;;.\;ippsrc\vm\include;&quot;$(IPPROOT)\include&quot;;ippsrc\vm_plus\include;ippsrc\umc\include;ippsrc\umc_io\include;ippsrc\jpeg\include;ippsrc\color_space_converter\include"
 				PreprocessorDefinitions="UNICODE;WIN32;QT_LARGEFILE_SUPPORT;QT_THREAD_SUPPORT;QT_CORE_LIB;TGIPPCODEC_LIB;_WIN32_WINNT=0x0501"
 				RuntimeLibrary="3"
 				TreatWChar_tAsBuiltInType="false"
@@ -205,7 +205,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;   -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_THREAD_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DTGIPPCODEC_LIB -D_WIN32_WINNT=0x0501 -D_WINDLL -D_UNICODE -DUNICODE  -I&quot;.\GeneratedFiles\.&quot; -I&quot;$(QTDIR)\include\.&quot; -I&quot;.\GeneratedFiles\$(ConfigurationName)\.&quot; -I&quot;$(QTDIR)\include\qtmain\.&quot; -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;.\.&quot; -I&quot;.\ippsrc\vm\include\.&quot; -I&quot;$(IPPROOT)\include\.&quot; -I&quot;.\ippsrc\vm_plus\include\.&quot; -I&quot;.\ippsrc\umc\include\.&quot; -I&quot;.\ippsrc\umc_io\include\.&quot; -I&quot;.\ippsrc\jpeg\include\.&quot; -I&quot;.\ippsrc\color_space_converter\include\.&quot; &quot;.\TGCodecManager.h&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;   -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_THREAD_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DTGIPPCODEC_LIB -D_WIN32_WINNT=0x0501 -D_WINDLL -D_UNICODE  &quot;-I.\GeneratedFiles&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\qtmain&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I.&quot; &quot;-I.\ippsrc\vm\include&quot; &quot;-I$(IPPROOT)\include&quot; &quot;-I.\ippsrc\vm_plus\include&quot; &quot;-I.\ippsrc\umc\include&quot; &quot;-I.\ippsrc\umc_io\include&quot; &quot;-I.\ippsrc\jpeg\include&quot; &quot;-I.\ippsrc\color_space_converter\include&quot; &quot;.\TGCodecManager.h&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
 						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
 					/>
@@ -216,7 +216,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;   -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_THREAD_SUPPORT -DQT_CORE_LIB -DTGIPPCODEC_LIB -D_WIN32_WINNT=0x0501 -D_WINDLL -D_UNICODE -DUNICODE  -I&quot;.\GeneratedFiles\.&quot; -I&quot;$(QTDIR)\include\.&quot; -I&quot;.\GeneratedFiles\$(ConfigurationName)\.&quot; -I&quot;$(QTDIR)\include\qtmain\.&quot; -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;.\.&quot; -I&quot;.\ippsrc\vm\include\.&quot; -I&quot;$(IPPROOT)\include\.&quot; -I&quot;.\ippsrc\vm_plus\include\.&quot; -I&quot;.\ippsrc\umc\include\.&quot; -I&quot;.\ippsrc\umc_io\include\.&quot; -I&quot;.\ippsrc\jpeg\include\.&quot; -I&quot;.\ippsrc\color_space_converter\include\.&quot; &quot;.\TGCodecManager.h&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;   -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_THREAD_SUPPORT -DQT_CORE_LIB -DTGIPPCODEC_LIB -D_WIN32_WINNT=0x0501 -D_WINDLL -D_UNICODE  &quot;-I.\GeneratedFiles&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I.&quot; &quot;-I.\ippsrc\vm\include&quot; &quot;-I$(IPPROOT)\include&quot; &quot;-I.\ippsrc\vm_plus\include&quot; &quot;-I.\ippsrc\umc\include&quot; &quot;-I.\ippsrc\umc_io\include&quot; &quot;-I.\ippsrc\jpeg\include&quot; &quot;-I.\ippsrc\color_space_converter\include&quot; &quot;.\TGCodecManager.h&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
 						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
 					/>
@@ -239,7 +239,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;   -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_THREAD_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DTGIPPCODEC_LIB -D_WIN32_WINNT=0x0501 -D_WINDLL -D_UNICODE -DUNICODE  -I&quot;.\GeneratedFiles\.&quot; -I&quot;$(QTDIR)\include\.&quot; -I&quot;.\GeneratedFiles\$(ConfigurationName)\.&quot; -I&quot;$(QTDIR)\include\qtmain\.&quot; -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;.\.&quot; -I&quot;.\ippsrc\vm\include\.&quot; -I&quot;$(IPPROOT)\include\.&quot; -I&quot;.\ippsrc\vm_plus\include\.&quot; -I&quot;.\ippsrc\umc\include\.&quot; -I&quot;.\ippsrc\umc_io\include\.&quot; -I&quot;.\ippsrc\jpeg\include\.&quot; -I&quot;.\ippsrc\color_space_converter\include\.&quot; &quot;.\TGMJPEGDecoder.h&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;   -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_THREAD_SUPPORT -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DTGIPPCODEC_LIB -D_WIN32_WINNT=0x0501 -D_WINDLL -D_UNICODE  &quot;-I.\GeneratedFiles&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\qtmain&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I.&quot; &quot;-I.\ippsrc\vm\include&quot; &quot;-I$(IPPROOT)\include&quot; &quot;-I.\ippsrc\vm_plus\include&quot; &quot;-I.\ippsrc\umc\include&quot; &quot;-I.\ippsrc\umc_io\include&quot; &quot;-I.\ippsrc\jpeg\include&quot; &quot;-I.\ippsrc\color_space_converter\include&quot; &quot;.\TGMJPEGDecoder.h&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
 						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
 					/>
@@ -250,7 +250,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing $(InputFileName)..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;   -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_THREAD_SUPPORT -DQT_CORE_LIB -DTGIPPCODEC_LIB -D_WIN32_WINNT=0x0501 -D_WINDLL -D_UNICODE -DUNICODE  -I&quot;.\GeneratedFiles\.&quot; -I&quot;$(QTDIR)\include\.&quot; -I&quot;.\GeneratedFiles\$(ConfigurationName)\.&quot; -I&quot;$(QTDIR)\include\qtmain\.&quot; -I&quot;$(QTDIR)\include\QtCore\.&quot; -I&quot;.\.&quot; -I&quot;.\ippsrc\vm\include\.&quot; -I&quot;$(IPPROOT)\include\.&quot; -I&quot;.\ippsrc\vm_plus\include\.&quot; -I&quot;.\ippsrc\umc\include\.&quot; -I&quot;.\ippsrc\umc_io\include\.&quot; -I&quot;.\ippsrc\jpeg\include\.&quot; -I&quot;.\ippsrc\color_space_converter\include\.&quot; &quot;.\TGMJPEGDecoder.h&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;   -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_THREAD_SUPPORT -DQT_CORE_LIB -DTGIPPCODEC_LIB -D_WIN32_WINNT=0x0501 -D_WINDLL -D_UNICODE  &quot;-I.\GeneratedFiles&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I.&quot; &quot;-I.\ippsrc\vm\include&quot; &quot;-I$(IPPROOT)\include&quot; &quot;-I.\ippsrc\vm_plus\include&quot; &quot;-I.\ippsrc\umc\include&quot; &quot;-I.\ippsrc\umc_io\include&quot; &quot;-I.\ippsrc\jpeg\include&quot; &quot;-I.\ippsrc\color_space_converter\include&quot; &quot;.\TGMJPEGDecoder.h&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
 						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
 					/>

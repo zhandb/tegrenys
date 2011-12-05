@@ -1,8 +1,8 @@
 #ifndef TGBasePrimitiveLayer_h__
 #define TGBasePrimitiveLayer_h__
 
-#include <QRect>
-#include <QList>
+#include <QtCore\QRect>
+#include <QtCore\QList>
 
 #include "TGRefCounter.h"
 #include "TGBasePrimitive.h"

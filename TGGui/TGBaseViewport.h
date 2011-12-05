@@ -1,8 +1,8 @@
 #ifndef TGBaseViewport_h__
 #define TGBaseViewport_h__
 //---------------------------------------------------------------------
-#include <QRect>
-#include <QColor>
+#include <QtCore/QRect>
+#include <QtGui/QColor>
 #include "TGBasePrimitiveLayer.h"
 #include "TGDataObject.h"
 //---------------------------------------------------------------------

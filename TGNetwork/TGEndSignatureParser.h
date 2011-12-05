@@ -1,7 +1,7 @@
 #ifndef TGTextLineParser_h__
 #define TGTextLineParser_h__
 
-#include <QObject>
+#include <QtCore\QObject>
 #include "..\TGSystem\TGRefCounter.h"
 #include "..\TGSystem\TGBuffer.h"
 #include "TGBaseDataParser.h"

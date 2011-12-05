@@ -6,7 +6,7 @@
 #include "..\TGSystem\TGBuffer.h"
 #include "..\TGNetwork\TGHttpParser.h"
 #include "..\TGSystem\TGVideoStructs.h"
-#include <QtPlugin>
+#include <QtCore\QtPlugin>
 #include "..\TGSystem\tgsystem.h"
 
 #define TG_IP9100_TYPE_UID "{42DC5E02-1D9D-48c3-A38E-8CE965E5CEC2}"

@@ -1,8 +1,8 @@
 #include "stdafx.h"
 #include "tegrenys.h"
-#include <QHBoxLayout>
-#include <QTreeView>
-#include <QStandardItemModel>
+#include <QtGui\QHBoxLayout>
+#include <QtGui\QTreeView>
+#include <QtGui\QStandardItemModel>
 #include "TGDataObject.h"
 //#include "TGTreeModel.h"
 #include "TGSqlite\TGSqlite.h"
@@ -14,7 +14,7 @@
 #include "tgsystem.h"
 #include "TGIP9100\tgip9100.h"
 #include "TGIPPCodec\TGCodecManager.h"
-#include <QPluginLoader>
+#include <QtCore\QPluginLoader>
 #include "TGGuiTypes.h"
 
 Tegrenys::Tegrenys(QWidget *parent, Qt::WFlags flags)

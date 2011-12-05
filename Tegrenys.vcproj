@@ -110,7 +110,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories=".\GeneratedFiles;&quot;$(QTDIR)\include&quot;;&quot;.\GeneratedFiles\$(ConfigurationName)&quot;;&quot;$(QTDIR)\include\qtmain&quot;;&quot;$(QTDIR)\include\QtCore&quot;;&quot;$(QTDIR)\include\QtGui&quot;;.\;&quot;$(QTDIR)\include\QtXMl&quot;;ffmpeg_include\include\;TGSystem\;TGGui\;tgippcodec\ippsrc\jpeg\include;tgippcodec\ippsrc\vm\include;tgippcodec\ippsrc\umc\include;&quot;$(IPPROOT)\include&quot;"
+				AdditionalIncludeDirectories=".\GeneratedFiles;&quot;.\GeneratedFiles\$(ConfigurationName)&quot;;&quot;$(QTDIR)\include\&quot;;.\;ffmpeg_include\include\;TGSystem\;TGGui\;tgippcodec\ippsrc\jpeg\include;tgippcodec\ippsrc\vm\include;tgippcodec\ippsrc\umc\include;&quot;$(IPPROOT)\include&quot;"
 				PreprocessorDefinitions="UNICODE,WIN32,QT_LARGEFILE_SUPPORT,QT_THREAD_SUPPORT,QT_CORE_LIB,QT_GUI_LIB"
 				RuntimeLibrary="3"
 				TreatWChar_tAsBuiltInType="false"

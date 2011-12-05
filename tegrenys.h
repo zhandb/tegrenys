@@ -6,10 +6,9 @@
 #include "ui_tegrenys.h"
 
 #include "TGSystem\TGDataObject.h"
-#include <QTreeView>
+#include <QtGui\QTreeView>
 
-
-#include <QStandardItemModel>
+//#include <QStandardItemModel>
 #include "TGSqlite/TGSqlite.h"
 #include "TGGui/TGGuiBuilder.h"
 #include "TGNetwork/TGNetworkService.h"

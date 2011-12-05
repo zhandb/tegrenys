@@ -1,10 +1,10 @@
 #ifndef TGDataObject_h__
 #define TGDataObject_h__
 
-#include <QVector>
-#include <QList>
-#include <QVariant>
-#include <QAbstractItemModel>
+#include <QtCore\QVector>
+#include <QtCore\QList>
+#include <QtCore\QVariant>
+#include <QtCore\QAbstractItemModel>
 
 struct TGDataRecord;
 

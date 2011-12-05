@@ -1,10 +1,10 @@
 #ifndef TGSystemTypes_h__
 #define TGSystemTypes_h__
 #include <map>
-#include <QString>
-#include <QObject>
-#include <QTimer>
-#include <Quuid>
+#include <QtCore\QString>
+#include <QtCore\QObject>
+#include <QtCore\QTimer>
+#include <QtCore\Quuid>
 #include "TGRefCounter.h"
 #include "TGDataObject.h"
 #include "tgsystem_global.h"

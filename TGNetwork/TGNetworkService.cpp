@@ -2,7 +2,7 @@
 #include "TGHttpParser.h"
 #include "..\TGIPPCodec\TGMJPEGDecoder.h"
 #include "tgnetwork.h"
-#include <QtPlugin>
+#include <QtCore\QtPlugin>
 //---------------------------------------------------------------------
 Q_EXPORT_PLUGIN2(TGNetwork, TGNetworkService);
 //---------------------------------------------------------------------

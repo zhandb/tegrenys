@@ -1,10 +1,10 @@
 #ifndef TGBasePrimitivePainter_h__
 #define TGBasePrimitivePainter_h__
-#include <QPointF>
-#include <QPolygonF>
-#include <QColor>
-#include <QMouseEvent>
-#include <QTime>
+#include <QtCore/QPointF>
+#include <QtGui/QPolygonF>
+#include <QtGui/QColor>
+#include <QtGui/QMouseEvent>
+#include <QtCore/QTime>
 
 #include "TGBaseTexture.h"
 #include "TGBasePrimitive.h"

@@ -2,7 +2,7 @@
 #include "TGMJPEGDecoder.h"
 #include "..\TGSystem\tgsystem.h"
 #include "tgippcodec.h"
-#include <QtPlugin>
+#include <QtCore\QtPlugin>
 //---------------------------------------------------------------------------
 Q_EXPORT_PLUGIN2(TGIPPCodec, TGCodecManager);
 //---------------------------------------------------------------------------

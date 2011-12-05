@@ -3,7 +3,7 @@
 //-----------------------------------------------------------
 #include "TGSystemTypes.h"
 #include "..\TGSqlite\TGSqlite.h"
-#include <QMutex>
+#include <QtCore\QMutex>
 #include "tgsystem_global.h"
 #include "TGDataObject.h"
 //-----------------------------------------------------------

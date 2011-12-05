@@ -1,10 +1,10 @@
 #ifndef TGBasePrimitive_h__
 #define TGBasePrimitive_h__
 
-#include <QList>
+#include <QtCore\QList>
 #include <windows.h>
-#include <QMouseEvent>
-#include <QColor>
+#include <QtGui/QMouseEvent>
+#include <QtGui/QColor>
 
 #include "TGBaseTexture.h"
 #include "TGSystemTypes.h"

@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "TGGuiBuilder.h"
 #include "TGSqliteQuery.h"
-#include <QMainWindow>
+#include <QtGui\QMainWindow>
 #include "TGBaseVideoWidget.h"
 #include "TGDXVideoWidget.h"
 #include "TGDXViewPort.h"

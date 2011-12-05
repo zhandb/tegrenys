@@ -1,7 +1,7 @@
 #ifndef TGBaseVideoWidget_h__
 #define TGBaseVideoWidget_h__
 //-----------------------------------------------------------------------------
-#include <QWidget>
+#include <QtGui/QWidget>
 #include "TGBasePrimitivePainter.h"
 #include "TGBasePrimitiveLayer.h"
 //-----------------------------------------------------------------------------

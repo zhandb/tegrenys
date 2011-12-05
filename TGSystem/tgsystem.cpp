@@ -1,7 +1,7 @@
 #include "tgsystem.h"
-#include <QCoreApplication>
+#include <QtCore\QCoreApplication>
 #include "..\TGSqlite\TGSqliteQuery.h"
-#include <QPluginLoader>
+#include <QtCore\QPluginLoader>
 //---------------------------------------------------------------------------
 
 TGSystem::TGSystem()

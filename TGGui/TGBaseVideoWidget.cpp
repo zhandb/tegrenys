@@ -1,5 +1,5 @@
 #include "TGBaseVideoWidget.h"
-#include <QPainter>
+#include <QtGui\QPainter>
 //-----------------------------------------------------------------------------
 
 TGBaseVideoWidget::TGBaseVideoWidget(PTGSystem system)

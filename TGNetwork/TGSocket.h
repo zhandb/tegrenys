@@ -1,13 +1,13 @@
 #ifndef TGSocket_h__
 #define TGSocket_h__
 //------------------------------------------------------
-#include <QObject>
+#include <QtCore\QObject>
 #include "tgnetwork_global.h"
 #include <winsock2.h>
 
 #include "windows.h"
 //#include <stdint.h>
-#include "qdatetime.h"
+#include <QtCore\QDateTime>
 #include "..\TGSystem\TGBuffer.h"
 #include "..\TGSystem\TGBufferPool.h"
 #include "..\TGSystem\TGSystemTypes.h"

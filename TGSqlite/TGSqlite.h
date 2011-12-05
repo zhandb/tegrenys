@@ -2,7 +2,7 @@
 #define TGSqlite_h__
 
 #include "sqlite3.h"
-#include <QString>
+#include <QtCore\QString>
 
 class TGSqlite
 {

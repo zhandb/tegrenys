@@ -2,7 +2,7 @@
 #define TGGuiBuider_h__
 
 #include "..\TGSqlite\TGSqlite.h"
-#include <QWidget>
+#include <QtGui/QWidget>
 #include "TGRefCounter.h"
 #include "TGBaseViewport.h"
 #include "tggui_global.h"
@@ -10,7 +10,7 @@
 #include "tgsystem.h"
 #include "TGBaseVideoWidget.h"
 #include "tggui.h"
-#include <QtPlugin>
+#include <QtCore\QtPlugin>
 
 typedef TGMap<UID, PTGBasePrimitive> TGPrimitivesMap;
 

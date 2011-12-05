@@ -1,7 +1,7 @@
 #ifndef TGBaseTexture_h__
 #define TGBaseTexture_h__
 
-#include <QImage>
+#include <QtGui/QImage>
 #include "TGRefCounter.h"
 
 class TGBaseTexture;

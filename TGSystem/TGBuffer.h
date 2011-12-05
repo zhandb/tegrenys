@@ -3,8 +3,8 @@
 //---------------------------------------------------------------------
 #include "TGRefCounter.h"
 //#include <stdint.h>
-#include <QByteArray>
-#include <QMetaType>
+#include <QtCore\QByteArray>
+#include <QtCore\QMetaType>
 //---------------------------------------------------------------------
 class TGBufferPool;
 TG_REFC_PTR(TGBufferPool);
