@@ -15,13 +15,9 @@ TGDXPrimitiveLayer::TGDXPrimitiveLayer(UID module_id, PTGSystem system) : TGBase
 	SetupProjection(params);
 
 	TGBasePrimitiveLayerCamera camera;
-	camera.BasePoint.X = 0.0;
-	camera.BasePoint.Y = 0.0;
-	camera.BasePoint.Z = 0.0;
-
-	camera.EyePoint.X = 0.0;
-	camera.EyePoint.Y = 0.0;
-	camera.EyePoint.Z = -3.0;
+	
+	camera.SetBasePoint(TG3DPoint(0.0f, 0.0f, 0.0f));
+	camera.SetEyePoint(TG3DPoint(1.0f, 1.0f, -1.0f));
 
 	SetupCamera(camera);
 }
@@ -70,8 +66,8 @@ void TGDXPrimitiveLayer::ApplyLayer()
 //---------------------------------------------------------------------
 void TGDXPrimitiveLayer::SetupCamera(TGBasePrimitiveLayerCamera& camera)
 {
-	D3DXVECTOR3 base_point = D3DXVECTOR3(camera.BasePoint.X, camera.BasePoint.Y, camera.BasePoint.Z);
-	D3DXVECTOR3 eye_point = D3DXVECTOR3(camera.EyePoint.X, camera.EyePoint.Y, camera.EyePoint.Z);
+	D3DXVECTOR3 base_point = D3DXVECTOR3(camera.GetPoint(TGBasePrimitiveLayerCamera::BaseX), camera.GetPoint(TGBasePrimitiveLayerCamera::BaseY), camera.GetPoint(TGBasePrimitiveLayerCamera::BaseZ));
+	D3DXVECTOR3 eye_point = D3DXVECTOR3(camera.GetPoint(TGBasePrimitiveLayerCamera::EyeX), camera.GetPoint(TGBasePrimitiveLayerCamera::EyeY), camera.GetPoint(TGBasePrimitiveLayerCamera::EyeZ));
 	D3DXVECTOR3 up = D3DXVECTOR3(0, 1, 0);
 
 	D3DXMatrixLookAtLH(&ViewMatrix, &eye_point, &base_point, &up);

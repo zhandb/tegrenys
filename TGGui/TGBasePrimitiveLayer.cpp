@@ -81,3 +81,15 @@ void TGBasePrimitiveLayer::AddPrimitive(PTGBasePrimitive primitive)
 {
 	//Primitives.push_back(primitive);
 }
+//---------------------------------------------------------------------------
+
+void TGBasePrimitiveLayerCamera::SetBasePoint(const TG3DPoint& base_point)
+{
+	BasePoint = base_point;
+}
+//---------------------------------------------------------------------------
+
+void TGBasePrimitiveLayerCamera::SetEyePoint(const TG3DPoint& eye_point)
+{
+	EyePoint = eye_point;
+}

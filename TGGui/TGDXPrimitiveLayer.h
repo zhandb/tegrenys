@@ -4,7 +4,6 @@
 #include "TGBasePrimitiveLayer.h"
 #include <d3dx9math.h>
 
-
 class TGDXPrimitiveLayer : public TGBasePrimitiveLayer
 {
 public:

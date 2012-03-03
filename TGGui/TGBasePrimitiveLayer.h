@@ -14,10 +14,50 @@ struct TG3DPoint
 	float X;
 	float Y;
 	float Z;
+
+	TG3DPoint(){};
+	TG3DPoint(float x, float y, float z)
+	{
+		X = x;
+		Y = y;
+		Z = z;
+	}
 };
 
-struct TGBasePrimitiveLayerCamera
+class TGBasePrimitiveLayerCameraAnimation
+{
+public:
+	enum Type{None, Linear};
+	float FinishValue;
+	ULONG TimeLength;
+public:
+	float GetValue(float time_value)
+	{
+
+	}
+};
+
+class TGBasePrimitiveLayerCamera
 {	
+public:
+	enum CoordsIndex{BaseX, BaseY, BaseZ, EyeX, EyeY, EyeZ};
+	float GetPoint(CoordsIndex index)
+	{
+		switch (index)
+		{
+		case BaseX : return BasePoint.X;
+		case BaseY: return BasePoint.Y;
+		case BaseZ: return BasePoint.Z;
+		case EyeX:   return EyePoint.X;
+		case EyeY:  return EyePoint.Y;
+		case EyeZ:  return EyePoint.Z;
+		}
+	};
+
+	void SetBasePoint(const TG3DPoint& base_point);
+	void SetEyePoint(const TG3DPoint& eye_point);
+private:
+	TGBasePrimitiveLayerCameraAnimation Animations[6];
 	TG3DPoint EyePoint;
 	TG3DPoint BasePoint;
 };
