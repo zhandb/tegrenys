@@ -24,7 +24,7 @@ void TGBuffer::Allocate(uint32_t size)
 //---------------------------------------------------------------------
 const char* TGBuffer::GetConstData()
 {
-	return Buffer.data();
+	return Buffer.data();  
 }
 //---------------------------------------------------------------------
 void TGBuffer::DelRef()
